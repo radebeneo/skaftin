@@ -1,0 +1,44 @@
+"use client"
+
+import { useState } from "react"
+import { ArrowLeft } from "lucide-react"
+import Link from "next/link"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { MySkaftinHero } from "@/components/myskaftin/hero"
+import { MySkaftinExperience } from "@/components/myskaftin/experience"
+
+export default function SkaftinPage() {
+  const [stars, setStars] = useState(0)
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <SiteHeader stars={stars} />
+      <main className="flex-1">
+        {/* Breadcrumb & navigation back to shop */}
+        <div className="border-b border-border bg-muted/30 px-4 py-2">
+          <div className="mx-auto max-w-6xl flex items-center justify-between text-xs font-semibold text-muted-foreground">
+            <Link href="/" className="inline-flex items-center gap-1.5 hover:text-brand-red transition-colors">
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Eskort Shop Online</span>
+            </Link>
+          </div>
+        </div>
+
+        <MySkaftinHero />
+
+        <section className="mx-auto max-w-3xl px-4 pt-8 text-center">
+          <h2 className="font-display text-3xl uppercase leading-none sm:text-4xl">
+            Build the perfect week in 3 taps
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm font-semibold text-muted-foreground">
+            Tell us what they love, pick a themed menu, and check out with one tidy bundle. We handle the rest.
+          </p>
+        </section>
+
+        <MySkaftinExperience />
+      </main>
+      <SiteFooter />
+    </div>
+  )
+}
