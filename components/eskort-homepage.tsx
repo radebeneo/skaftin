@@ -180,7 +180,7 @@ export function EskortHomepage() {
             </div>
 
             {/* Split row: Copy & Gourmet Sandwich Visual */}
-            <div className="grid grid-cols-1 md:grid-cols-12  w-full items-center">
+            <div className="grid grid-cols-1 md:grid-cols-12 w-full items-center">
               <div className="md:col-span-5 flex flex-col items-start gap-6">
                 <p className="text-base sm:text-lg text-ink font-semibold leading-relaxed pr-4">
                   Experience the gold standard of farm-fresh South African pork and premium cuts. Order online for instant store collection or direct door-to-door delivery.
