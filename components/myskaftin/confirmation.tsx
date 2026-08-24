@@ -2,10 +2,12 @@
 
 import Image from 'next/image'
 import { CheckCircle2, Gift, Star, Clock, Bell, CalendarHeart, RotateCcw, MapPin, MessageCircle, Copy, Check } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { PRICE_TIERS, RECIPE_CARDS, WEEKLY_MENUS } from './data'
 import type { Selection } from './experience'
 import type { OrderDetails } from './step-order'
+import { useRewardsStore } from '@/lib/rewards-store'
+import { useNotificationsStore } from '@/lib/notifications-store'
 
 export function Confirmation({
   value,
@@ -19,10 +21,27 @@ export function Confirmation({
   onRestart: () => void
 }) {
   const [copied, setCopied] = useState(false)
+  const { addStars } = useRewardsStore()
+  const { addNotification } = useNotificationsStore()
 
   const tier = PRICE_TIERS.find((t) => t.id === value.tierId) ?? PRICE_TIERS[0]
   const menu = WEEKLY_MENUS.find((m) => m.id === value.menuId) ?? null
   const earned = tier.points
+
+  // Award stars and fire notification once on mount
+  useEffect(() => {
+    addStars(earned, `Skaftin plan — ${tier.name}`)
+    addNotification('stars', `+${earned} Skaftin Stars earned! ⭐`, `Your ${tier.name} plan has been confirmed. Stars added to your balance.`)
+    addNotification('order', 'Skaftin Plan Confirmed! 🎒', `Order ${orderDetails.orderRef} is confirmed. Delivery: ${orderDetails.deliverySlot === 'tomorrow-am' ? 'Tomorrow morning' : orderDetails.deliverySlot === 'tomorrow-pm' ? 'Tomorrow afternoon' : 'End of week'}.`)
+    // Save plan to history
+    try {
+      const raw = localStorage.getItem('eskort-plans')
+      const plans = raw ? JSON.parse(raw) : []
+      plans.unshift({ id: orderDetails.orderRef, name: menu?.name ?? tier.name, tier: tier.name, stars: earned, date: Date.now() })
+      localStorage.setItem('eskort-plans', JSON.stringify(plans.slice(0, 20)))
+    } catch {}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const cards =
     value.prep === 'airfryer'
       ? RECIPE_CARDS

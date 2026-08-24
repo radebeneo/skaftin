@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
@@ -9,11 +8,9 @@ import { MySkaftinHero } from "@/components/myskaftin/hero"
 import { MySkaftinExperience } from "@/components/myskaftin/experience"
 
 export default function SkaftinPage() {
-  const [stars, setStars] = useState(0)
-
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <SiteHeader stars={stars} />
+      <SiteHeader />
       <main className="flex-1">
         {/* Breadcrumb & navigation back to shop */}
         <div className="border-b border-border bg-muted/30 px-4 py-2">

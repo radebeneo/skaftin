@@ -2,6 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useCartStore } from "@/lib/cart-store"
+import { useNotificationsStore } from "@/lib/notifications-store"
+import { RewardsPanel } from "@/components/rewards-panel"
 
 interface Product {
   id: string
@@ -93,21 +96,19 @@ const QUIZ_OPTIONS = [
 ]
 
 export function EskortHomepage() {
+  const { addItem } = useCartStore()
+  const { addNotification } = useNotificationsStore()
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [selectedCooking, setSelectedCooking] = useState<string>("Weekend Braai")
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
 
-  function triggerToast(message: string) {
-    setToastMessage(message)
-    setTimeout(() => {
-      setToastMessage(null)
-    }, 3500)
+  function handleAddProduct(productName: string, price: string, productId: string, image?: string, category?: string, weight?: string) {
+    addItem({ id: productId, name: productName, priceLabel: price, image, category, weight })
+    addNotification('cart', `Added to cart!`, `${productName} (${price}) has been added to your cart.`)
   }
 
-  function handleAddProduct(productName: string, price: string) {
-    window.dispatchEvent(new CustomEvent("eskort-add-to-cart", { detail: { name: productName, price } }))
-    triggerToast(`Added ${productName} (${price}) to your cart!`)
+  function triggerToast(message: string) {
+    addNotification('system', 'Notice', message)
   }
 
   function toggleQuizOption(opt: string) {
@@ -118,20 +119,6 @@ export function EskortHomepage() {
 
   return (
     <div className="w-full overflow-hidden bg-white text-ink font-sans pb-16">
-
-      {/* TOAST NOTIFICATION */}
-      <div
-        className={`fixed bottom-6 right-6 z-50 bg-ink text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-neutral-800 transition-all duration-300 pointer-events-none ${toastMessage ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-      >
-        <span className="w-8 h-8 rounded-full bg-green-500 text-black flex items-center justify-center font-bold text-sm">
-          ✓
-        </span>
-        <div>
-          <p className="font-bold text-sm">{toastMessage || "Success!"}</p>
-          <p className="text-xs text-neutral-400">Your selection has been updated</p>
-        </div>
-      </div>
 
       {/* SECTION 1: HERO PROMOTIONAL CAROUSEL */}
       <section className="relative bg-[#FFAD00] border-b-2 border-black/10 overflow-hidden">
@@ -385,7 +372,7 @@ export function EskortHomepage() {
                     <span className="text-2xl font-black text-ink">{prod.price}</span>
                   </div>
                   <button
-                    onClick={() => handleAddProduct(prod.name, prod.price)}
+                    onClick={() => handleAddProduct(prod.name, prod.price, prod.id, prod.image, prod.category, prod.weight)}
                     className="bg-ink hover:bg-[#D0302F] text-white font-extrabold px-5 py-3 rounded-2xl text-xs flex items-center gap-1.5 shadow-lg hover:shadow-red-500/20 transition active:scale-95"
                   >
                     <span>+ Add</span>
@@ -661,6 +648,11 @@ export function EskortHomepage() {
           </div>
 
         </div>
+      </section>
+
+      {/* REWARDS PANEL */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <RewardsPanel />
       </section>
 
     </div>

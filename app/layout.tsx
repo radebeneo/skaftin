@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Anton, Poppins } from 'next/font/google'
 import './globals.css'
+import { ToastQueue } from '@/components/toast-queue'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -48,6 +49,7 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased">
         {children}
+        <ToastQueue />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
