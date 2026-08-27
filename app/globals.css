@@ -172,3 +172,45 @@
   transform-origin: center center;
   display: inline-block;
 }
+
+/* ── Skaftin Micro-animations ─────────────────────────────────────────────── */
+
+@keyframes skaftin-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes star-float {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  60%  { transform: translateY(-12px) scale(1.2); opacity: 0.8; }
+  100% { transform: translateY(-20px) scale(0.8); opacity: 0; }
+}
+
+@keyframes item-fly-in {
+  0%   { transform: translateY(8px) scale(0.95); opacity: 0; }
+  100% { transform: translateY(0)   scale(1);    opacity: 1; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 51, 41, 0.4); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 10px rgba(230, 51, 41, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0  rgba(230, 51, 41, 0); }
+}
+
+.animate-skaftin-pop  { animation: skaftin-pop  0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-star-float   { animation: star-float   0.6s ease-out forwards; }
+.animate-item-fly-in  { animation: item-fly-in  0.2s ease-out both; }
+.animate-pulse-ring   { animation: pulse-ring   1.5s ease-in-out infinite; }
+
+/* Respect prefers-reduced-motion for all animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

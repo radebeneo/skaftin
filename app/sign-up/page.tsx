@@ -54,7 +54,7 @@ export default function SignUpPage() {
 
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Eskort" className="h-10 w-auto brightness-0 invert" />
+          <img src="/logo.png" alt="Eskort" className="h-10 w-auto brightness-0 invert" />
         </div>
 
         <div className="relative z-10 max-w-sm">
@@ -90,7 +90,7 @@ export default function SignUpPage() {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 sm:px-12">
         <div className="lg:hidden mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Eskort" className="h-9 w-auto" />
+          <img src="/logo.png" alt="Eskort" className="h-9 w-auto" />
         </div>
 
         <div className="w-full max-w-md">

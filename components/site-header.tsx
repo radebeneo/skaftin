@@ -64,7 +64,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-6">
             <Link href="/" className="shrink-0 transition transform active:scale-95">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.svg" alt="Eskort" width={109} height={30} className="h-8 sm:h-9 w-auto object-contain" />
+              <img src="/logo.png" alt="Eskort" width={109} height={30} className="h-8 sm:h-9 w-auto object-contain" />
             </Link>
 
             {/* Store Selector */}

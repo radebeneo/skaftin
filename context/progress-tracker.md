@@ -4,11 +4,14 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-- **Phase 2 — Feature Build** (Active)
+- **Phase 2 — Motion** (COMPLETE)
+- **Phase 3 — Skaftin Curator Upgrade** (COMPLETE)
+- **Phase 3 — Days & week flow** (COMPLETE)
+- **Phase 6 — Asset & visual polish** (COMPLETE)
 
 ## Current Goal
 
-- Building all feature stores (cart, auth, notifications, rewards), then wiring UI components.
+- Polish remaining UX edge cases; await user QA feedback.
 
 ## Completed
 
@@ -30,12 +33,44 @@ Update this file after every meaningful implementation change.
 - [x] `components/rewards-panel.tsx` — star balance, tier badge, progress bar, earn history
 - [x] `app/sign-in` and `app/sign-up` — branded two-panel auth pages
 - [x] `app/profile` — 4-tab profile page (account, plans, preferences, addresses)
-- [x] Updated `components/myskaftin/data.ts` — JUNIOR_MENU_ITEMS with 15 items across 5 categories
-- [x] Updated `components/myskaftin/step-menu.tsx` — tabbed UI (Weekly Plans + Build Your Own)
-- [x] Updated `components/myskaftin/confirmation.tsx` — awards stars + dispatches notification
-- [x] Full `components/site-header.tsx` rewrite — auth state, notifications bell, functional cart
-- [x] Updated `app/page.tsx` — reads stars from rewards store
-- [x] Updated `app/layout.tsx` — mounts ToastQueue globally
+- [x] **Phase 3 Days & Week Flow (2026-08-26)**:
+  - [x] Show `LiveSkaftinPreview` on Step 2 (Build My Week).
+  - [x] Dynamic day thumbnails based on 3-day or 5-day plan selection.
+  - [x] Framer Motion loading animation for week generation transition.
+  - [x] Map generated week and BYO mode custom items back to live preview.
+- [x] **Phase 3 Curator Upgrade (2026-08-26)**:
+  - [x] Redesigned `components/myskaftin/data.ts` — Muncher Personalities, allergen IDs, favourite affinities, Themed Weeks, Sticker Themes, DailyLunchbox/GeneratedWeek model, SNACK_OPTIONS
+  - [x] New `lib/recommendation-engine.ts` — deterministic meal ranking, week generation, per-day remix, variety analysis, come-home-empty score
+  - [x] Rewrote `components/myskaftin/experience.tsx` — 3-step wizard (Taste → Build → Order), persistent rewards strip, back-navigation
+  - [x] Rewrote `components/myskaftin/step-taste.tsx` — 6 Muncher Personality cards, personalised copy, emoji food chips, allergy positive-confirmation toast, improved prep cards
+  - [x] New `components/myskaftin/step-build.tsx` — Build It For Me, Day Cards with Remix, Variety Meter, Come-Home-Empty Score, Budget tiles, Curated/Themed/BYO tabs
+  - [x] New `components/myskaftin/step-review.tsx` — week preview payoff, sticker theme selector, first-order gift, cart summary, rewards strip, unified delivery form
+  - [x] Rewrote `components/myskaftin/confirmation.tsx` — week strip, share API, WhatsApp, quick prep guides, Thursday nudge
+  - [x] Updated `app/skaftin/page.tsx` — fixed "3 taps" → accurate "3 steps"
+  - [x] Extended `app/globals.css` — 4 keyframes + prefers-reduced-motion block
+- [x] **Phase 2 Motion (2026-08-26)**:
+  - [x] Added `framer-motion` dependency
+  - [x] Built `SkaftinMotionProvider` context for global cross-screen animations
+  - [x] Added fly-into-box animation on Taste & Prep item selection
+  - [x] Added popLayout enter/exit animations to `LiveSkaftinPreview`
+  - [x] Added ARIA-live screen reader announcements for food added/removed
+  - [x] Added popLayout crossfade animation to Remix action in `StepBuild`
+
+- [x] **Phase 4 Dietary Safety (2026-08-26)**:
+  - [x] Cascading restriction filter: toggle a dislike removes conflicting likes
+  - [x] Conflicting custom items removed from Build Your Own list
+  - [x] Incompatible Generated Week meals are automatically replaced via `remixDay`
+  - [x] Screen-reader announcement for restriction-triggered food removals
+  - [x] Incompatible likes are hidden from the selection pool
+  - [x] Incompatible Build Your Own meals are filtered out natively
+
+- [x] **Phase 6 Asset & visual polish (2026-08-26)**:
+  - [x] Create `/assets/skaftin/lunchbox/` and `/assets/skaftin/foods/` structure.
+  - [x] Move existing food images and generate SVGs for missing placeholders.
+  - [x] Centralised food metadata in `lib/skaftin-data.ts`.
+  - [x] Updated `live-skaftin-preview.tsx` to render images with drop-shadows.
+  - [x] Added "Air Fryer Ready" and "Chilled & Ready" badges to preview header.
+  - [x] Added sparse micro-interaction (bounce & glow) on food entry in `live-skaftin-preview.tsx`.
 
 ## In Progress
 
@@ -43,8 +78,7 @@ Update this file after every meaningful implementation change.
 
 ## Next Up
 
-- Run `npm run build` to verify zero TypeScript errors
-- Manual verification pass (mobile + desktop)
+- User QA pass: mobile (375px), tablet (768px), desktop (1280px)
 - Swap mock auth for real Clerk when API keys are available
 
 ## Open Questions

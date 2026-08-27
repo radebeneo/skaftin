@@ -19,7 +19,7 @@ export function SiteFooter() {
             <div className="flex items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Eskort"
                 width={109}
                 height={30}

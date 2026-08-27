@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     id: "cheese-grillers",
     name: "Cheese Griller Viennas",
     blurb: "Juicy viennas with a cheesy middle — a lunchbox classic.",
-    image: "/images/food-viennas.png",
+    image: "/assets/skaftin/foods/food-viennas.png",
     kind: "sausage",
     formats: ["lunchbox", "airfryer"],
     pricePerServing: 14,
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     id: "mini-viennas",
     name: "Mini Cocktail Viennas",
     blurb: "Bite-size viennas that are perfect for little hands.",
-    image: "/images/food-viennas.png",
+    image: "/assets/skaftin/foods/food-viennas.png",
     kind: "sausage",
     formats: ["lunchbox", "airfryer"],
     pricePerServing: 11,
@@ -65,7 +65,7 @@ export const PRODUCTS: Product[] = [
     id: "tonkies-bites",
     name: "Kiddos Tonkies Bites",
     blurb: "Crispy potato & bacon bites — a certified Lunchbox Legend.",
-    image: "/images/food-nuggets.png",
+    image: "/assets/skaftin/foods/food-nuggets.png",
     kind: "chicken",
     formats: ["airfryer"],
     pricePerServing: 16,
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
     id: "chicken-nuggets",
     name: "Golden Chicken Nuggets",
     blurb: "Air-fry till crunchy, dip and dunk. Always a winner.",
-    image: "/images/food-nuggets.png",
+    image: "/assets/skaftin/foods/food-nuggets.png",
     kind: "chicken",
     formats: ["airfryer"],
     pricePerServing: 18,
@@ -87,7 +87,7 @@ export const PRODUCTS: Product[] = [
     id: "back-bacon",
     name: "Rindless Back Bacon",
     blurb: "Crispy bacon strips to jazz up a wrap or mini roll.",
-    image: "/images/food-bacon.png",
+    image: "/assets/skaftin/foods/food-bacon.png",
     kind: "bacon",
     formats: ["airfryer"],
     pricePerServing: 20,
@@ -98,7 +98,7 @@ export const PRODUCTS: Product[] = [
     id: "chopped-ham",
     name: "Chopped Ham Slices",
     blurb: "Soft, mild ham that rolls up neatly into any lunchbox.",
-    image: "/images/food-ham.png",
+    image: "/assets/skaftin/foods/food-ham.png",
     kind: "coldmeat",
     formats: ["lunchbox"],
     pricePerServing: 13,
@@ -109,7 +109,7 @@ export const PRODUCTS: Product[] = [
     id: "polony-sandwich",
     name: "Polony & Cheese Triangles",
     blurb: "The everyday hero — soft polony and cheese on fresh bread.",
-    image: "/images/food-sandwich.png",
+    image: "/assets/skaftin/foods/food-sandwich.png",
     kind: "coldmeat",
     formats: ["lunchbox"],
     pricePerServing: 10,
@@ -120,7 +120,7 @@ export const PRODUCTS: Product[] = [
     id: "mini-frikkadels",
     name: "Mini Frikkadels",
     blurb: "Little seasoned meatballs — great warm or cold.",
-    image: "/images/food-meatballs.png",
+    image: "/assets/skaftin/foods/food-meatballs.png",
     kind: "meatball",
     formats: ["lunchbox", "airfryer"],
     pricePerServing: 17,
@@ -130,11 +130,11 @@ export const PRODUCTS: Product[] = [
 ]
 
 export const LIKE_OPTIONS: LikeOption[] = [
-  { id: "sausage", label: "Sausages & Viennas", image: "/images/food-viennas.png" },
-  { id: "chicken", label: "Chicken & Nuggets", image: "/images/food-nuggets.png" },
-  { id: "bacon", label: "Bacon", image: "/images/food-bacon.png" },
-  { id: "coldmeat", label: "Ham & Sandwiches", image: "/images/food-ham.png" },
-  { id: "meatball", label: "Meatballs & Frikkadels", image: "/images/food-meatballs.png" },
+  { id: "sausage", label: "Sausages & Viennas", image: "/assets/skaftin/foods/food-viennas.png" },
+  { id: "chicken", label: "Chicken & Nuggets", image: "/assets/skaftin/foods/food-nuggets.png" },
+  { id: "bacon", label: "Bacon", image: "/assets/skaftin/foods/food-bacon.png" },
+  { id: "coldmeat", label: "Ham & Sandwiches", image: "/assets/skaftin/foods/food-ham.png" },
+  { id: "meatball", label: "Meatballs & Frikkadels", image: "/assets/skaftin/foods/food-meatballs.png" },
 ]
 
 export const DISLIKE_OPTIONS: DislikeOption[] = [
@@ -269,5 +269,76 @@ export function buildPlan(input: PlanInput): SkaftinPlan {
     weeklyCost,
     perDay: Math.round(weeklyCost / meals.length),
     withinBudget: weeklyCost <= budget,
+  }
+}
+
+export type Compartment = 'main' | 'protein' | 'snacks' | 'fruit' | 'extras'
+
+export type FoodMetadata = {
+  id: string
+  label: string
+  emoji: string
+  image?: string
+  compartment: Compartment
+  placeholderBg: string
+  category: string
+}
+
+export const FOOD_METADATA: Record<string, FoodMetadata> = {
+  viennas: { id: 'viennas', label: 'Viennas', emoji: '🌭', image: '/assets/skaftin/foods/food-viennas.png', compartment: 'protein', placeholderBg: 'bg-eskort-yellow/20', category: 'Protein' },
+  bacon: { id: 'bacon', label: 'Bacon', emoji: '🥓', image: '/assets/skaftin/foods/food-bacon.png', compartment: 'protein', placeholderBg: 'bg-eskort-red/10', category: 'Protein' },
+  sausage: { id: 'sausage', label: 'Sausages', emoji: '🥐', image: '/assets/skaftin/foods/food-sausage.svg', compartment: 'protein', placeholderBg: 'bg-eskort-yellow/20', category: 'Protein' },
+  nuggets: { id: 'nuggets', label: 'Nuggets', emoji: '🍗', image: '/assets/skaftin/foods/food-nuggets.png', compartment: 'protein', placeholderBg: 'bg-brand-green/10', category: 'Protein' },
+  ham: { id: 'ham', label: 'Ham', emoji: '🥪', image: '/assets/skaftin/foods/food-ham.png', compartment: 'main', placeholderBg: 'bg-brand-blue/10', category: 'Main' },
+  cheese: { id: 'cheese', label: 'Cheese', emoji: '🧀', image: '/assets/skaftin/foods/food-cheese.svg', compartment: 'snacks', placeholderBg: 'bg-brand-yellow/20', category: 'Snacks' },
+  crackers: { id: 'crackers', label: 'Crackers', emoji: '🍪', image: '/assets/skaftin/foods/food-crackers.svg', compartment: 'snacks', placeholderBg: 'bg-panel', category: 'Snacks' },
+  fruit: { id: 'fruit', label: 'Fruit', emoji: '🍎', image: '/assets/skaftin/foods/food-fruit.svg', compartment: 'fruit', placeholderBg: 'bg-eskort-red/10', category: 'Fruit' },
+}
+
+export type LunchboxDay = {
+  main: string[]
+  protein: string[]
+  snacks: string[]
+  fruit: string[]
+  extras: string[]
+}
+
+export function buildLunchboxFromSelection(likes: string[], dislikes: string[]): LunchboxDay {
+  const box: LunchboxDay = {
+    main: [],
+    protein: [],
+    snacks: [],
+    fruit: [],
+    extras: [],
+  }
+
+  likes.forEach((likeId) => {
+    const meta = FOOD_METADATA[likeId]
+    if (meta) {
+      box[meta.compartment].push(likeId)
+    }
+  })
+
+  return box
+}
+
+export type WeekBoxState = {
+  day1: LunchboxDay
+  day2: LunchboxDay
+  day3: LunchboxDay
+  day4: LunchboxDay
+  day5: LunchboxDay
+}
+
+export function buildWeekFromSelection(likes: string[], dislikes: string[], days: 3 | 5): WeekBoxState {
+  const baseBox = buildLunchboxFromSelection(likes, dislikes)
+  // For Phase 1, we populate the week uniformly based on likes.
+  // In future phases, variety logic can mutate these per day.
+  return {
+    day1: baseBox,
+    day2: baseBox,
+    day3: baseBox,
+    day4: days === 5 ? baseBox : { main: [], protein: [], snacks: [], fruit: [], extras: [] },
+    day5: days === 5 ? baseBox : { main: [], protein: [], snacks: [], fruit: [], extras: [] },
   }
 }

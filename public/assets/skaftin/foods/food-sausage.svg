@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+    <rect width="200" height="200" rx="40" fill="#b45309" fill-opacity="0.2" stroke="#b45309" stroke-width="4" stroke-dasharray="8 8" />
+    <text x="100" y="90" font-size="60" text-anchor="middle" dominant-baseline="middle">🥐</text>
+    <text x="100" y="140" font-size="16" font-family="sans-serif" font-weight="bold" fill="#b45309" text-anchor="middle">PLACEHOLDER</text>
+    <text x="100" y="160" font-size="14" font-family="sans-serif" fill="#b45309" text-anchor="middle">Sausage</text>
+  </svg>

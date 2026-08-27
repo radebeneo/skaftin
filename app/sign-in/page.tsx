@@ -51,7 +51,7 @@ export default function SignInPage() {
 
         <div className="relative z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Eskort" className="h-10 w-auto" />
+          <img src="/logo.png" alt="Eskort" className="h-10 w-auto" />
         </div>
 
         <div className="relative z-10 max-w-sm">
@@ -80,7 +80,7 @@ export default function SignInPage() {
         {/* Mobile logo */}
         <div className="lg:hidden mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="Eskort" className="h-9 w-auto" />
+          <img src="/logo.png" alt="Eskort" className="h-9 w-auto" />
         </div>
 
         <div className="w-full max-w-md">
