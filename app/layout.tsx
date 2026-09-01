@@ -17,14 +17,14 @@ const anton = Anton({
 })
 
 export const metadata: Metadata = {
-  title: 'MySkaftin — Eskort Weekly Lunchbox Builder',
+  title: 'Eskort Weekly Lunchbox Builder',
   description:
     'Beat lunchbox boredom. Build a fun, kid-approved weekly Skaftin plan with Eskort products, in a few simple steps — and earn Skaftin Stars every week.',
   generator: 'v0.app',
   icons: {
     icon: [
       {
-        url: '/logo.png',
+        url: '/eskort@4x-192x192.png',
         type: 'image/png',
       },
     ],

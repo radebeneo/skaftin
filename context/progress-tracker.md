@@ -8,10 +8,11 @@ Update this file after every meaningful implementation change.
 - **Phase 3 — Skaftin Curator Upgrade** (COMPLETE)
 - **Phase 3 — Days & week flow** (COMPLETE)
 - **Phase 6 — Asset & visual polish** (COMPLETE)
+- **Phase 7 — Header + Hero Redesign** (COMPLETE)
 
 ## Current Goal
 
-- Polish remaining UX edge cases; await user QA feedback.
+- User QA pass on new header and hero carousel. "Browse Your Favourites" section redesign pending (separate scope).
 
 ## Completed
 
@@ -64,13 +65,12 @@ Update this file after every meaningful implementation change.
   - [x] Incompatible likes are hidden from the selection pool
   - [x] Incompatible Build Your Own meals are filtered out natively
 
-- [x] **Phase 6 Asset & visual polish (2026-08-26)**:
-  - [x] Create `/assets/skaftin/lunchbox/` and `/assets/skaftin/foods/` structure.
-  - [x] Move existing food images and generate SVGs for missing placeholders.
-  - [x] Centralised food metadata in `lib/skaftin-data.ts`.
-  - [x] Updated `live-skaftin-preview.tsx` to render images with drop-shadows.
-  - [x] Added "Air Fryer Ready" and "Chilled & Ready" badges to preview header.
-  - [x] Added sparse micro-interaction (bounce & glow) on food entry in `live-skaftin-preview.tsx`.
+- [x] **Phase 7 — Header + Hero Redesign (2026-09-01)**:
+  - [x] `globals.css`: Added `@font-face` for `EskortBarber5` and `EskortSpazaClean`; added `--font-eskort-barber` and `--font-eskort-spaza` tokens to `@theme inline`
+  - [x] `globals.css`: Defined all 10 new CSS classes: `.btn-arrow-light`, `.btn-play`, `.btn-pause`, `.video-play`, `.deco-sticky-left`, `.deco-sticky-right`, `.deco-carousel-porky`, `.deco-title-squiggle`, `.bg-grunge-black`, `.bg-grunge-black-after`
+  - [x] `globals.css`: Added `@keyframes hero-progress` + `.animate-hero-progress` utility
+  - [x] `site-header.tsx`: Full redesign — dark background (`var(--ink)`), scroll-triggered shadow upgrade, new nav (Recipes/Quality/About/Specials/What's New), search expand-on-click, cart with yellow ring + count badge, wishlist stub, account icon; mobile hamburger drawer with dark theme
+  - [x] `eskort-homepage.tsx`: Replaced `SECTION 1` (yellow SHOP ONLINE hero) with full-bleed `HeroCarousel` component: two video slides (`ogilvy-home-banner.mp4` + `eskort-bongi-banner.mp4`), 3.5s auto-advance, 400ms crossfade, dark left-to-right scrim, social-proof pill with avatar cluster, EskortBarber5 display heading, EskortSpazaClean yellow script, squiggle deco, body copy, SHOP PRODUCTS + VIEW SPECIALS CTAs, progress bar + pig-nose marker, play/pause toggle, stickers, grunge edge; `prefers-reduced-motion` disables autoplay
 
 ## In Progress
 
