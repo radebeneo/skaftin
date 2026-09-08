@@ -17,6 +17,7 @@ All components must use these CSS custom property tokens. No hardcoded hex value
 | Muted text | `--muted-foreground` | `oklch(0.5 0.01 60)` | `text-muted-foreground` |
 | Eskort Red (primary action) | `--eskort-red` | `#e63329` | `bg-eskort-red` / `text-eskort-red` |
 | Brand Red (slightly brighter) | `--brand-red` | `#e8443b` | `bg-brand-red` |
+| Hero CTA Red | `--cta-red` | `#DC2626` | Homepage `.button-red` |
 | Eskort Yellow (hero) | `--eskort-yellow` | `#fdb913` | `bg-eskort-yellow` |
 | Brand Yellow (CTA) | `--brand-yellow` | `#f6a700` | `bg-brand-yellow` |
 | Brand Yellow Soft | `--brand-yellow-soft` | `#ffd64d` | `bg-brand-yellow-soft` |
@@ -26,7 +27,7 @@ All components must use these CSS custom property tokens. No hardcoded hex value
 | Border default | `--border` | `oklch(0.9 0.005 250)` | `border-border` |
 | Error / destructive | `--destructive` | `oklch(0.62 0.21 27)` | `text-destructive` |
 
-**Direct hex values used only in inline styles for legacy sections of the homepage.** New components must not use them.
+New components must not use direct hex values in inline styles.
 
 ## Typography
 

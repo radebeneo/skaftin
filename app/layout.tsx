@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-ZA"
       className={`${poppins.variable} ${anton.variable} bg-background`}
     >
       <body className="font-sans antialiased">

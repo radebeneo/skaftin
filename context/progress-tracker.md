@@ -71,6 +71,28 @@ Update this file after every meaningful implementation change.
   - [x] `globals.css`: Added `@keyframes hero-progress` + `.animate-hero-progress` utility
   - [x] `site-header.tsx`: Full redesign — dark background (`var(--ink)`), scroll-triggered shadow upgrade, new nav (Recipes/Quality/About/Specials/What's New), search expand-on-click, cart with yellow ring + count badge, wishlist stub, account icon; mobile hamburger drawer with dark theme
   - [x] `eskort-homepage.tsx`: Replaced `SECTION 1` (yellow SHOP ONLINE hero) with full-bleed `HeroCarousel` component: two video slides (`ogilvy-home-banner.mp4` + `eskort-bongi-banner.mp4`), 3.5s auto-advance, 400ms crossfade, dark left-to-right scrim, social-proof pill with avatar cluster, EskortBarber5 display heading, EskortSpazaClean yellow script, squiggle deco, body copy, SHOP PRODUCTS + VIEW SPECIALS CTAs, progress bar + pig-nose marker, play/pause toggle, stickers, grunge edge; `prefers-reduced-motion` disables autoplay
+- [x] **Standalone homepage TSX conversion (2026-09-07)**:
+  - [x] Added the React homepage component at `eskort-homepage-new/index.tsx` and wired `app/page.tsx` to import it.
+  - [x] Converted the standalone behavior script to strict, DOM-typed `script.ts`; browser-ready JavaScript remains compiled alongside it.
+- [x] **Legacy homepage cleanup (2026-09-07)**:
+  - [x] Removed `components/eskort-homepage.tsx`; its sections were internal to the monolithic component, so no separate component dependencies required deletion.
+  - [x] Preserved shared app-shell, cart, notification, rewards, and Skaftin route components.
+- [x] **Standalone homepage styling (2026-09-07)**:
+  - [x] Imported `eskort-homepage-new/styles.css` from the active `eskort-homepage-new/index.tsx` component.
+- [x] **Standalone homepage parity (2026-09-07)**:
+  - [x] Restored the standalone header, search panel, mobile navigation, skip link, main landmark, footer, newsletter, and social links in `eskort-homepage-new/index.tsx`.
+  - [x] Added homepage-specific title, description, and favicon metadata in `app/page.tsx`.
+  - [x] Updated the document language to `en-ZA` in `app/layout.tsx`.
+- [x] **Standalone homepage asset paths (2026-09-08)**:
+  - [x] Corrected sticker, specials, rib-rack, and favourites URLs to match their deployed location under `public/images1/images1/`.
+  - [x] Included the responsive mobile rib-rack artwork in the path correction.
+- [x] **Homepage specials card width (2026-09-08)**:
+  - [x] Removed the desktop specials container cap so all three equal-width product cards expand through the available space to the right, while preserving existing tablet and mobile sizing.
+  - [x] Increased desktop `.special-card` sizing to `min-width: calc((100% - 18px) / 3)`; existing tablet and mobile overrides remain unchanged.
+  - [x] Expanded the desktop specials carousel grid from `calc(100% - 48px)` to the full container width.
+- [x] **Homepage mySkaftin CTA (2026-09-08)**:
+  - [x] Added a third hero CTA labelled `mySkaftin`, displayed inline with both existing hero CTAs and routing to `http://localhost:3000/skaftin`.
+  - [x] Applied the requested `#DC2626` background through the homepage `--cta-red` CSS token.
 
 ## In Progress
 
@@ -100,4 +122,4 @@ Update this file after every meaningful implementation change.
 - Project uses Tailwind v4 with CSS `@theme` block in `globals.css` — token syntax is `--color-*` mapped from CSS custom properties, not a `tailwind.config.js` file.
 - `pnpm` is the package manager (`pnpm-lock.yaml` exists). Use `pnpm add` not `npm install` if adding packages.
 - Dev server runs on `0.0.0.0` (`next dev -H 0.0.0.0`) — accessible on local network.
-- The homepage still uses some hardcoded hex values in `eskort-homepage.tsx` inline styles — these are in legacy sections and are left as-is per the code standards exception.
+- The active homepage is implemented in `eskort-homepage-new/index.tsx`.

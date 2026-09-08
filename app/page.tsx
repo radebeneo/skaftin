@@ -1,17 +1,15 @@
-"use client"
+import type { Metadata } from "next"
+import { EskortHomepage } from "@/eskort-homepage-new"
 
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { EskortHomepage } from "@/components/eskort-homepage"
+export const metadata: Metadata = {
+  title: "Eskort | From Our Table To Yours",
+  description:
+    "Eskort quality pork products, specials, recipes and stores across South Africa.",
+  icons: {
+    icon: "/images1/eskort@4x-32x32.png",
+  },
+}
 
 export default function Page() {
-  return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <SiteHeader />
-      <main className="flex-1">
-        <EskortHomepage />
-      </main>
-      <SiteFooter />
-    </div>
-  )
+  return <EskortHomepage />
 }

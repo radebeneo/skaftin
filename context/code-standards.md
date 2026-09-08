@@ -29,7 +29,6 @@
 ## Styling
 
 - Use Tailwind token classes only — never hardcode hex values in JSX (e.g., use `text-eskort-red`, not `text-[#e63329]`).
-- Exception: legacy sections of `eskort-homepage.tsx` that pre-date this rule may retain inline hex values — do not touch those sections unless explicitly asked.
 - Follow the border radius scale from `ui-context.md`. Do not invent new radius values.
 - Responsive classes follow mobile-first: base (mobile) → `sm:` (640px) → `md:` (768px) → `lg:` (1024px) → `xl:` (1280px).
 - Animations use `tw-animate-css` utilities or Tailwind `transition` + `duration-*` classes. Do not write custom CSS animations unless adding to `globals.css`.
