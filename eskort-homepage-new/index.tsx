@@ -3,6 +3,7 @@
 "use client"
 
 import React, { useEffect, useRef } from "react";
+import Link from "next/link";
 import "./styles.css";
 
 export function EskortHomepage() {
@@ -404,7 +405,7 @@ export function EskortHomepage() {
               <div className="button-row">
                 <a className="button button-yellow button-cta" href="#favourites">Products</a>
                 <a className="button button-outline button-cta" href="#specials">Specials</a>
-                <a id="hero-myskaftin-cta" className="button button-red button-cta" href="http://localhost:3000/skaftin">mySkaftin</a>
+                <Link id="hero-myskaftin-cta" className="button button-red button-cta" href="/skaftin">mySkaftin</Link>
               </div>
             </div>
             <div className="hero-controls">

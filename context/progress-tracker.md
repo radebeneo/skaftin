@@ -91,8 +91,9 @@ Update this file after every meaningful implementation change.
   - [x] Increased desktop `.special-card` sizing to `min-width: calc((100% - 18px) / 3)`; existing tablet and mobile overrides remain unchanged.
   - [x] Expanded the desktop specials carousel grid from `calc(100% - 48px)` to the full container width.
 - [x] **Homepage mySkaftin CTA (2026-09-08)**:
-  - [x] Added a third hero CTA labelled `mySkaftin`, displayed inline with both existing hero CTAs and routing to `http://localhost:3000/skaftin`.
+  - [x] Added a third hero CTA labelled `mySkaftin`, displayed inline with both existing hero CTAs and routing internally to `/skaftin`.
   - [x] Applied the requested `#DC2626` background through the homepage `--cta-red` CSS token.
+  - [x] Replaced the development-only localhost URL with a deployment-safe `next/link` route.
 - [x] **Vercel pnpm lockfile repair (2026-09-08)**:
   - [x] Synchronized `pnpm-lock.yaml` with the configured `hono` override using pnpm `10.34.5`.
   - [x] Verified a CI-mode frozen install and production build.
