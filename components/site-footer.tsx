@@ -1,58 +1,82 @@
-import Link from "next/link"
+"use client"
 
-const LINKS = [
-  { label: "Shop Online", href: "/" },
-  { label: "MySkaftin Builder", href: "/skaftin" },
-  { label: "Recipes & Combos", href: "/#recipes" },
-  { label: "Stores (Verified)", href: "/" },
-  { label: "Quality And Safety", href: "/" },
-  { label: "Contact Us", href: "/" },
-  { label: "FAQ's", href: "/" },
-]
+import Link from "next/link"
+import { FormEvent, useState } from "react"
+import "./site-footer.css"
 
 export function SiteFooter() {
+  const [message, setMessage] = useState("")
+  const [isValid, setIsValid] = useState<boolean | null>()
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    const email = form.elements.namedItem("email")
+    const valid = email instanceof HTMLInputElement && email.validity.valid && email.value.trim() !== ""
+
+    setIsValid(valid)
+    setMessage(valid ? "Thanks. You're on the Eskort list." : "Please enter a valid email address.")
+
+    if (valid) {
+      form.reset()
+    } else if (email instanceof HTMLInputElement) {
+      email.focus()
+    }
+  }
+
   return (
-    <footer className="bg-ink text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo.png"
-                alt="Eskort"
-                width={109}
-                height={30}
-                className="h-8 w-auto brightness-200"
-              />
+    <footer className="site-footer">
+      <div className="container">
+        <section className="newsletter" aria-labelledby="newsletter-title">
+          <div className="newsletter-heading">
+            <span className="mail-icon" aria-hidden="true"></span>
+            <div>
+              <h2 id="newsletter-title">Newsletter</h2>
+              <p>Get all the latest specials and news</p>
             </div>
-            <p className="mt-3 max-w-sm text-sm text-white/70 leading-relaxed font-medium">
-              Mzansi&apos;s favourite pork brand since 1917. Experience farm-fresh cuts, sizzling promotional specials, and our interactive weekly lunchbox planner.
-            </p>
           </div>
-          <nav
-            className="flex flex-wrap gap-x-6 gap-y-3 md:max-w-md md:justify-end"
-            aria-label="Footer"
-          >
-            {LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-sm font-semibold text-white/80 transition-colors hover:text-[#FFAD00]"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <form className="newsletter-form" noValidate onSubmit={handleSubmit}>
+            <label className="sr-only" htmlFor="footer-email">Email address</label>
+            <input
+              id="footer-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="Email*"
+              required
+              aria-invalid={isValid === false}
+              onChange={() => {
+                setIsValid(null)
+                setMessage("")
+              }}
+            />
+            <button className="button button-yellow button-cta" type="submit">Subscribe</button>
+            <p className={`form-message${isValid ? " success" : ""}`} aria-live="polite">{message}</p>
+          </form>
+        </section>
+        <img className="footer-pig footer-pig-right" src="/images1/deco/porki-footer.svg" alt="" width="160" height="160" />
+        <div className="footer-outlines" aria-hidden="true">
+          <img className="footer-outline" src="/images1/deco/eskort-vector.svg" alt="" width="879" height="130" />
+          <img className="footer-outline" src="/images1/deco/eskort-vector.svg" alt="" width="879" height="130" />
+          <img className="footer-outline" src="/images1/deco/eskort-vector.svg" alt="" width="879" height="130" />
+        </div>
+        <div className="footer-main">
+          <Link className="footer-brand" href="/" aria-label="Eskort home">
+            <img src="/images1/logo-footer.svg" alt="Eskort" width="150" height="70" />
+          </Link>
+          <nav className="footer-links" aria-label="Footer navigation">
+            <div><Link href="/">Shop Online</Link><Link href="/#recipes">Recipes</Link><Link href="/#store-locator">Store Locator</Link><Link href="/#heritage">About Us</Link></div>
+            <div><Link href="/#quality">Quality & Safety</Link><Link href="/">FAQs</Link><Link href="/">News</Link><Link href="/">Contact Us</Link></div>
+            <div><Link href="/">Disclaimer</Link><Link href="/">PAIA</Link><Link href="/">Privacy Policy</Link><Link href="/">Terms of Service</Link><Link href="/">Cookies Settings</Link></div>
           </nav>
-        </div>
-        <div className="mt-10 border-t border-white/15 pt-6 text-sm text-white/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Eskort (Pty) Ltd. All rights reserved. Mzansi&apos;s Favourite Pork Brand.</p>
-          <div className="flex items-center gap-6 text-xs">
-            <Link href="/" className="hover:text-white transition">Privacy Policy</Link>
-            <Link href="/" className="hover:text-white transition">Terms of Service</Link>
-            <Link href="/skaftin" className="text-[#FFAD00] hover:underline font-bold">MySkaftin App →</Link>
+          <div className="socials">
+            <a href="#" aria-label="Eskort on Facebook"><img src="/images1/facebook-icon.svg" alt="" width="25" height="25" /></a>
+            <a href="#" aria-label="Eskort on Instagram"><img src="/images1/instagram-icon.svg" alt="" width="25" height="25" /></a>
+            <a href="#" aria-label="Eskort on YouTube"><img src="/images1/youtube-icon.svg" alt="" width="25" height="25" /></a>
           </div>
         </div>
+        <p className="copyright">&copy; 2026 Eskort. All rights reserved.</p>
       </div>
     </footer>
   )

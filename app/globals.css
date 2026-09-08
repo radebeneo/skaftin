@@ -51,6 +51,7 @@
   --color-eskort-yellow: var(--eskort-yellow);
   --color-eskort-blue: var(--eskort-blue);
   --color-eskort-blue-light: var(--eskort-blue-light);
+  --color-skaftin-cream: var(--skaftin-cream);
   --color-eskort-green: var(--eskort-green);
   --color-eskort-gold: var(--eskort-gold);
   --color-eskort-ink: var(--eskort-ink);
@@ -131,6 +132,7 @@
   --eskort-yellow: #fdb913;
   --eskort-blue: #075188;
   --eskort-blue-light: #d6eeff;
+  --skaftin-cream: #fcf9f1;
   --eskort-green: #006e43;
   --eskort-gold: #a18418;
   --eskort-ink: #14110f;

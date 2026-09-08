@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import "./styles.css";
 import { HomepageHeader } from "./header";
+import { SiteFooter } from "@/components/site-footer";
 
 export function EskortHomepage() {
   const isInitialized = useRef(false);
@@ -106,28 +107,6 @@ export function EskortHomepage() {
             );
             button.querySelector("img").src = active ? "images1/icon-heart-active.svg" : "images1/icon-heart.svg";
           });
-        });
-
-        const newsletter = document.querySelector(".newsletter-form");
-        const email = newsletter && newsletter.querySelector("input");
-        const message = newsletter && newsletter.querySelector(".form-message");
-
-        newsletter && newsletter.addEventListener("submit", (event) => {
-          event.preventDefault();
-          const valid = email.validity.valid && email.value.trim() !== "";
-          email.setAttribute("aria-invalid", String(!valid));
-          message.classList.toggle("success", valid);
-          message.textContent = valid
-            ? "Thanks. You're on the Eskort list."
-            : "Please enter a valid email address.";
-          if (!valid) email.focus();
-          if (valid) newsletter.reset();
-        });
-
-        email && email.addEventListener("input", () => {
-          email.removeAttribute("aria-invalid");
-          message.textContent = "";
-          message.classList.remove("success");
         });
 
         const promotion = document.querySelector(".rib-rack-art");
@@ -812,47 +791,7 @@ export function EskortHomepage() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container">
-          <section className="newsletter" aria-labelledby="newsletter-title">
-            <div className="newsletter-heading">
-              <span className="mail-icon" aria-hidden="true"></span>
-              <div>
-                <h2 id="newsletter-title">Newsletter</h2>
-                <p>Get all the latest specials and news</p>
-              </div>
-            </div>
-            <form className="newsletter-form" noValidate>
-              <label className="sr-only" htmlFor="email">Email address</label>
-              <input id="email" name="email" type="email" autoComplete="email" placeholder="Email*" required />
-              <button className="button button-yellow button-cta" type="submit">Subscribe</button>
-              <p className="form-message" aria-live="polite"></p>
-            </form>
-          </section>
-          <img className="footer-pig footer-pig-right" src="/images1/deco/porki-footer.svg" alt="" width="160" height="160" />
-          <div className="footer-outlines" aria-hidden="true">
-            <img className="footer-outline" src="/images1/deco/eskort-vector.svg" alt="" width="879" height="130" />
-            <img className="footer-outline" src="/images1/deco/eskort-vector.svg" alt="" width="879" height="130" />
-            <img className="footer-outline" src="/images1/deco/eskort-vector.svg" alt="" width="879" height="130" />
-          </div>
-          <div className="footer-main">
-            <a className="footer-brand" href="#" aria-label="Eskort home">
-              <img src="/images1/logo-footer.svg" alt="Eskort" width="150" height="70" />
-            </a>
-            <nav className="footer-links" aria-label="Footer navigation">
-              <div><a href="#">Shop Online</a><a href="#recipes">Recipes</a><a href="#store-locator">Store Locator</a><a href="#heritage">About Us</a></div>
-              <div><a href="#quality">Quality & Safety</a><a href="#">FAQs</a><a href="#">News</a><a href="#">Contact Us</a></div>
-              <div><a href="#">Disclaimer</a><a href="#">PAIA</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookies Settings</a></div>
-            </nav>
-            <div className="socials">
-              <a href="#" aria-label="Eskort on Facebook"><img src="/images1/facebook-icon.svg" alt="" width="25" height="25" /></a>
-              <a href="#" aria-label="Eskort on Instagram"><img src="/images1/instagram-icon.svg" alt="" width="25" height="25" /></a>
-              <a href="#" aria-label="Eskort on YouTube"><img src="/images1/youtube-icon.svg" alt="" width="25" height="25" /></a>
-            </div>
-          </div>
-          <p className="copyright">&copy; 2026 Eskort. All rights reserved.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

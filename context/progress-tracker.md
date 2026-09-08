@@ -109,6 +109,10 @@ Update this file after every meaningful implementation change.
 - [x] **Skaftin homepage header parity (2026-09-08)**:
   - [x] Extracted the active standalone homepage header into a shared `HomepageHeader` component.
   - [x] Replaced the legacy `/skaftin` header and removed the "Back to Eskort Shop Online" row.
+- [x] **Skaftin homepage footer parity (2026-09-08)**:
+  - [x] Extracted the active standalone homepage footer into the shared `SiteFooter` component.
+  - [x] Replaced the legacy `/skaftin` footer while preserving the homepage footer markup, responsive styling, assets, and newsletter feedback.
+  - [x] Added the deployed `bg-grundge-black-before.svg` artwork as a native-height blended top edge on both shared footer instances.
 - [x] **Skaftin hero visual refresh (2026-09-08)**:
   - [x] Changed the hero to the tokenized `#D6EEFF` light-blue background with accessible dark foreground text.
   - [x] Replaced the text-based Lunchbox Legend pill with the supplied SVG badge.
@@ -123,6 +127,9 @@ Update this file after every meaningful implementation change.
 
   - [x] Added the supplied light arrow icon to the BUILD MY KIT CTA.
   - [x] Added the supplied light arrow icon to the BUILD MY WEEK and REVIEW & ORDER wizard CTAs.
+
+- [x] **Skaftin builder background (2026-09-08)**:
+  - [x] Added the tokenized `#FCF9F1` cream background to the full section between the Skaftin hero and shared footer.
 
 ## In Progress
 

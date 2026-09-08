@@ -23,6 +23,7 @@ All components must use these CSS custom property tokens. No hardcoded hex value
 | Brand Yellow Soft | `--brand-yellow-soft` | `#ffd64d` | `bg-brand-yellow-soft` |
 | Eskort Blue (info) | `--eskort-blue` | `#075188` | `bg-eskort-blue` |
 | Eskort Blue Light (Skaftin hero) | `--eskort-blue-light` | `#d6eeff` | `bg-eskort-blue-light` |
+| Skaftin Cream (builder background) | `--skaftin-cream` | `#fcf9f1` | `bg-skaftin-cream` |
 | Eskort Green (Skaftin hero heading) | `--eskort-green` | `#006e43` | `text-eskort-green` |
 | Eskort Gold (Skaftin hero accent) | `--eskort-gold` | `#a18418` | `text-eskort-gold` |
 | Brand Blue | `--brand-blue` | `#5e94c4` | `bg-brand-blue` |
