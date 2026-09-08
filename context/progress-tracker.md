@@ -130,6 +130,7 @@ Update this file after every meaningful implementation change.
 
 - [x] **Skaftin builder background (2026-09-08)**:
   - [x] Added the tokenized `#FCF9F1` cream background to the full section between the Skaftin hero and shared footer.
+  - [x] Extended the cream background behind the hero's 26px light-blue grunge edge.
 
 ## In Progress
 

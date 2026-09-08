@@ -3,7 +3,7 @@ import { Gift, Star, Clock } from 'lucide-react'
 
 export function MySkaftinHero() {
   return (
-    <section className="relative mb-[26px] bg-eskort-blue-light text-eskort-ink">
+    <section className="relative bg-eskort-blue-light text-eskort-ink">
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2 md:py-16">
         <div>
           <h1 className="mt-4 font-gobold text-5xl uppercase leading-[0.9] sm:text-6xl">
