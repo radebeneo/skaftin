@@ -22,6 +22,9 @@ All components must use these CSS custom property tokens. No hardcoded hex value
 | Brand Yellow (CTA) | `--brand-yellow` | `#f6a700` | `bg-brand-yellow` |
 | Brand Yellow Soft | `--brand-yellow-soft` | `#ffd64d` | `bg-brand-yellow-soft` |
 | Eskort Blue (info) | `--eskort-blue` | `#075188` | `bg-eskort-blue` |
+| Eskort Blue Light (Skaftin hero) | `--eskort-blue-light` | `#d6eeff` | `bg-eskort-blue-light` |
+| Eskort Green (Skaftin hero heading) | `--eskort-green` | `#006e43` | `text-eskort-green` |
+| Eskort Gold (Skaftin hero accent) | `--eskort-gold` | `#a18418` | `text-eskort-gold` |
 | Brand Blue | `--brand-blue` | `#5e94c4` | `bg-brand-blue` |
 | Brand Green | `--brand-green` | `#4c9a2a` | `bg-brand-green` |
 | Border default | `--border` | `oklch(0.9 0.005 250)` | `border-border` |
@@ -35,7 +38,9 @@ New components must not use direct hex values in inline styles.
 |---|---|---|
 | Body / UI text | Gilroy → PP Neue Montreal → Poppins → system-ui | `font-sans` |
 | Hero display headings | GT Super Display → Gilroy → Anton → Poppins | `font-display` |
+| Condensed Skaftin hero heading | Gobold Bold → Impact | `font-gobold` |
 | Condensed hero text (SHOP / ONLINE NOW) | League Gothic → Antonio → Teko → Anton → Impact | `.hero-impact-text` |
+| Skaftin accent script | EskortSpazaClean → Caveat → Permanent Marker | `font-eskort-spaza` |
 | Code / mono | System mono | Not used |
 
 Font weights in use: 400 (regular), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold), 900 (black).

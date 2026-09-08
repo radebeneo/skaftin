@@ -22,6 +22,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Gobold';
+  src: url('/fonts/Gobold-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -29,6 +37,7 @@
   --font-display: 'GT Super Display', 'Gilroy', var(--font-anton), var(--font-poppins), sans-serif;
   --font-eskort-barber: 'EskortBarber5', 'Anton', var(--font-poppins), sans-serif;
   --font-eskort-spaza: 'EskortSpazaClean', 'Caveat', 'Permanent Marker', cursive;
+  --font-gobold: 'Gobold', 'Impact', sans-serif;
 
   --color-brand-yellow: var(--brand-yellow);
   --color-brand-yellow-soft: var(--brand-yellow-soft);
@@ -41,6 +50,9 @@
   --color-eskort-red: var(--eskort-red);
   --color-eskort-yellow: var(--eskort-yellow);
   --color-eskort-blue: var(--eskort-blue);
+  --color-eskort-blue-light: var(--eskort-blue-light);
+  --color-eskort-green: var(--eskort-green);
+  --color-eskort-gold: var(--eskort-gold);
   --color-eskort-ink: var(--eskort-ink);
   --color-eskort-cloud: var(--eskort-cloud);
   --color-ink: var(--ink);
@@ -118,6 +130,9 @@
   --eskort-red: #e63329;
   --eskort-yellow: #fdb913;
   --eskort-blue: #075188;
+  --eskort-blue-light: #d6eeff;
+  --eskort-green: #006e43;
+  --eskort-gold: #a18418;
   --eskort-ink: #14110f;
   --eskort-cloud: #eef3f8;
   --chart-1: oklch(0.87 0 0);

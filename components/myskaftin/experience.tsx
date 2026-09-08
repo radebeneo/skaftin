@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { Star, Sparkles } from 'lucide-react'
 import { PRICE_TIERS, type PrepStyle, type GeneratedWeek, type ThemeId, type StickerThemeId } from './data'
@@ -223,7 +224,16 @@ export function MySkaftinExperience() {
             aria-label={step === 1 ? 'Continue to Build My Week' : 'Continue to Review & Order'}
           >
             {step === 1 ? 'Build My Week' : 'Review & Order'}
+            <Image
+              src="/images1/icons/btn-arrow-light.svg"
+              alt=""
+              width={9}
+              height={14}
+              aria-hidden="true"
+            />
+            <span className="hidden">
             <span aria-hidden="true">→</span>
+            </span>
           </button>
         </div>
       )}

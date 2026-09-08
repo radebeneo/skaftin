@@ -5,6 +5,7 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import "./styles.css";
+import { HomepageHeader } from "./header";
 
 export function EskortHomepage() {
   const isInitialized = useRef(false);
@@ -16,54 +17,8 @@ export function EskortHomepage() {
     try {
       (() => {
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const menuToggle = document.querySelector(".menu-toggle");
-        const mobileNav = document.querySelector(".mobile-nav");
-        const searchToggle = document.querySelector(".search-toggle");
-        const searchPanel = document.querySelector(".search-panel");
         const cartCount = document.querySelector(".cart-count");
         let cartTotal = 0;
-
-        const setExpanded = (button, panel, open) => {
-          button.setAttribute("aria-expanded", String(open));
-          panel.hidden = !open;
-        };
-
-        menuToggle && menuToggle.addEventListener("click", () => {
-          const open = menuToggle.getAttribute("aria-expanded") !== "true";
-          setExpanded(menuToggle, mobileNav, open);
-          document.body.classList.toggle("menu-open", open);
-          if (open && searchToggle.getAttribute("aria-expanded") === "true") {
-            setExpanded(searchToggle, searchPanel, false);
-          }
-        });
-
-        mobileNav && mobileNav.addEventListener("click", (event) => {
-          if (event.target.matches("a")) {
-            setExpanded(menuToggle, mobileNav, false);
-            document.body.classList.remove("menu-open");
-          }
-        });
-
-        searchToggle && searchToggle.addEventListener("click", () => {
-          const open = searchToggle.getAttribute("aria-expanded") !== "true";
-          setExpanded(searchToggle, searchPanel, open);
-          if (open) {
-            searchPanel.querySelector("input").focus();
-            setExpanded(menuToggle, mobileNav, false);
-            document.body.classList.remove("menu-open");
-          }
-        });
-
-        searchPanel && searchPanel.addEventListener("submit", (event) => {
-          event.preventDefault();
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key !== "Escape") return;
-          setExpanded(menuToggle, mobileNav, false);
-          setExpanded(searchToggle, searchPanel, false);
-          document.body.classList.remove("menu-open");
-        });
 
         const scrollCarousel = (track, direction) => {
           const item = track.firstElementChild;
@@ -326,56 +281,7 @@ export function EskortHomepage() {
     <div className="eskort-homepage">
       <a className="skip-link" href="#main-content">Skip to content</a>
 
-      <header className="site-header">
-        <div className="header-inner">
-          <a className="brand" href="#" aria-label="Eskort home">
-            <img src="/images1/logo.svg" alt="Eskort" width="112" height="46" />
-          </a>
-          <a className="store-link" href="#store-locator">
-            <img src="/images1/nav-location-icon.svg" alt="" width="17" height="21" />
-            <span>[Store Name]</span>
-          </a>
-          <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="#recipes">Recipes</a>
-            <a href="#quality">Quality</a>
-            <a href="#heritage">About</a>
-            <a href="#specials">Specials</a>
-            <a href="#community">What's New</a>
-          </nav>
-          <div className="header-actions">
-            <button className="icon-button search-toggle" type="button" aria-label="Open search" aria-expanded="false">
-              <img src="/images1/nav-search-icon.svg" alt="" width="22" height="22" />
-            </button>
-            <button className="icon-button cart-button" type="button" aria-label="Open cart">
-              <img src="/images1/cart.svg" alt="" width="21" height="21" />
-              <span className="cart-count" aria-label="0 items">0</span>
-            </button>
-            <button className="icon-button header-heart" type="button" aria-label="Open wishlist">
-              <img src="/images1/icon-heart.svg" alt="" width="21" height="21" />
-            </button>
-            <button className="icon-button account-button" type="button" aria-label="Open account">
-              <img src="/images1/person-icon.svg" alt="" width="21" height="21" />
-            </button>
-            <button className="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"
-              aria-controls="mobile-menu">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-        </div>
-        <form className="search-panel" role="search" hidden>
-          <label htmlFor="site-search">Search Eskort</label>
-          <input id="site-search" type="search" placeholder="What are you looking for?" />
-          <button type="submit">Search</button>
-        </form>
-        <nav className="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
-          <a href="#recipes">Recipes</a>
-          <a href="#quality">Quality</a>
-          <a href="#heritage">About</a>
-          <a href="#specials">Specials</a>
-          <a href="#community">What's New</a>
-          <a href="#store-locator">Find a Store</a>
-        </nav>
-      </header>
+      <HomepageHeader />
 
       <main id="main-content">
         <section className="hero" aria-labelledby="hero-title" data-hero>

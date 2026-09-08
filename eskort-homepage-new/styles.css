@@ -40,6 +40,7 @@
 
 :root {
   --charcoal: #171918;
+  --black: #000;
   --cream: #f5f1e7;
   --yellow: #f8c900;
   --yellow-soft: #ffdf4d;
@@ -906,9 +907,44 @@ button {
 
 @media (min-width: 1025px) {
   .specials .split-carousel {
-    width: 100%;
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 32px;
+    width: calc(100% - clamp(40px, 6vw, 96px));
+    margin-right: 0;
+    margin-left: auto;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: clamp(36px, 4vw, 64px);
+  }
+
+  .specials .special-card,
+  .favourites .favourite-card {
+    min-width: clamp(180px, 22vw, 290px);
+    height: 280px;
+    padding: 30px 28px;
+  }
+
+  .favourites .favourite-card {
+    width: clamp(180px, 22vw, 290px);
+    flex: 0 0 clamp(180px, 22vw, 290px);
+  }
+
+  .specials .special-card .product-copy h3 {
+    max-width: 220px;
+    font-size: 27px;
+  }
+
+  .specials .special-card .product-copy strong {
+    font-size: 27px;
+  }
+
+  .specials .special-card .product-image {
+    height: 255px;
+  }
+
+  .specials .special-card:nth-child(2) .product-image {
+    height: 275px;
+  }
+
+  .specials .special-card:nth-child(3) .product-image {
+    height: 265px;
   }
 }
 
@@ -1000,11 +1036,16 @@ button {
   border-radius: 20px;
 }
 
-.special-card {
+.specials .special-card,
+.favourites .favourite-card {
   min-width: calc((100% - 18px) / 3);
+}
+
+.specials .special-card {
   overflow: hidden;
+  border-color: transparent;
   color: var(--white);
-  background: var(--charcoal);
+  background: var(--black);
 }
 
 .special-card .product-image {
@@ -1013,6 +1054,10 @@ button {
   width: 100%;
   height: 210px;
   object-position: center bottom;
+}
+
+.specials .special-card .product-image {
+  background: transparent;
 }
 
 .special-card:nth-child(2) .product-image {
@@ -2088,6 +2133,11 @@ button {
     min-width: calc((100% - 18px) / 2);
   }
 
+  .favourites .favourite-card {
+    width: calc((100% - 18px) / 2);
+    flex-basis: calc((100% - 18px) / 2);
+  }
+
   .quality-inner {
     grid-template-columns: 53% 47%;
   }
@@ -2170,6 +2220,11 @@ button {
   .product-card,
   .recipe-card {
     min-width: 82%;
+  }
+
+  .favourites .favourite-card {
+    width: 82%;
+    flex-basis: 82%;
   }
 
   .story-card {
@@ -2346,6 +2401,11 @@ button {
   .product-card,
   .recipe-card {
     min-width: 88%;
+  }
+
+  .favourites .favourite-card {
+    width: 88%;
+    flex-basis: 88%;
   }
 
   .product-next {
@@ -2544,6 +2604,11 @@ button {
 
   .product-card {
     min-width: 91%;
+  }
+
+  .favourites .favourite-card {
+    width: 91%;
+    flex-basis: 91%;
   }
 
   .story-copy h2 span {

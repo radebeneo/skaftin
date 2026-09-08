@@ -90,6 +90,15 @@ Update this file after every meaningful implementation change.
   - [x] Removed the desktop specials container cap so all three equal-width product cards expand through the available space to the right, while preserving existing tablet and mobile sizing.
   - [x] Increased desktop `.special-card` sizing to `min-width: calc((100% - 18px) / 3)`; existing tablet and mobile overrides remain unchanged.
   - [x] Expanded the desktop specials carousel grid from `calc(100% - 48px)` to the full container width.
+- [x] **Homepage specials layout emphasis (2026-09-08)**:
+  - [x] Shifted the desktop specials composition toward the right with a responsive left inset and right-aligned container.
+  - [x] Increased desktop specials card width, height, padding, product imagery, and product typography while preserving tablet and mobile overrides.
+  - [x] Reduced the emphasized desktop card width slightly after visual review while retaining the increased height and internal scale.
+  - [x] Changed the specials cards from charcoal to the homepage black color token.
+  - [x] Scoped the black card and transparent image backgrounds to the specials section so later global product-card styles cannot override them.
+- [x] **Homepage favourites card sizing (2026-09-08)**:
+  - [x] Matched favourites card width, desktop height, and desktop padding to the specials cards while preserving favourites-specific artwork and styling.
+  - [x] Added explicit responsive flex bases so the favourites carousel cannot compress cards below their intended widths.
 - [x] **Homepage mySkaftin CTA (2026-09-08)**:
   - [x] Added a third hero CTA labelled `mySkaftin`, displayed inline with both existing hero CTAs and routing internally to `/skaftin`.
   - [x] Applied the requested `#DC2626` background through the homepage `--cta-red` CSS token.
@@ -97,6 +106,23 @@ Update this file after every meaningful implementation change.
 - [x] **Vercel pnpm lockfile repair (2026-09-08)**:
   - [x] Synchronized `pnpm-lock.yaml` with the configured `hono` override using pnpm `10.34.5`.
   - [x] Verified a CI-mode frozen install and production build.
+- [x] **Skaftin homepage header parity (2026-09-08)**:
+  - [x] Extracted the active standalone homepage header into a shared `HomepageHeader` component.
+  - [x] Replaced the legacy `/skaftin` header and removed the "Back to Eskort Shop Online" row.
+- [x] **Skaftin hero visual refresh (2026-09-08)**:
+  - [x] Changed the hero to the tokenized `#D6EEFF` light-blue background with accessible dark foreground text.
+  - [x] Replaced the text-based Lunchbox Legend pill with the supplied SVG badge.
+  - [x] Added the supplied light-blue grunge artwork to the bottom hero edge.
+  - [x] Enlarged the lunchbox artwork and removed its frame, border, and shadow.
+  - [x] Applied Gobold Bold to the hero heading and EskortSpazaClean to the highlighted word.
+  - [x] Kept the grunge edge at its native 26px depth and increased the visual emphasis of the EskortSpazaClean \"boring\" accent.
+
+  - [x] Applied the requested green heading, gold hero accents, and black BUILD MY KIT CTA through named brand tokens.
+
+  - [x] Enforced the Skaftin hero CTA's black background and white label against higher-specificity homepage link styles.
+
+  - [x] Added the supplied light arrow icon to the BUILD MY KIT CTA.
+  - [x] Added the supplied light arrow icon to the BUILD MY WEEK and REVIEW & ORDER wizard CTAs.
 
 ## In Progress
 
