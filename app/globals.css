@@ -30,11 +30,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans: 'Gilroy', 'PP Neue Montreal', var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-display: 'GT Super Display', 'Gilroy', var(--font-anton), var(--font-poppins), sans-serif;
+  --font-montserrat: 'Montserrat', Arial, sans-serif;
   --font-eskort-barber: 'EskortBarber5', 'Anton', var(--font-poppins), sans-serif;
   --font-eskort-spaza: 'EskortSpazaClean', 'Caveat', 'Permanent Marker', cursive;
   --font-gobold: 'Gobold', 'Impact', sans-serif;
@@ -1175,4 +1184,13 @@
 .product-preview.favourites .product-card.gold {
   background: #fffdf5;
   border-color: rgba(246,167,0,0.4);
+}
+
+/* Skaftin builder: readable UI copy with condensed brand display headings. */
+.bg-skaftin-cream {
+  font-family: var(--font-montserrat);
+}
+
+.bg-skaftin-cream .font-display {
+  font-family: var(--font-gobold);
 }

@@ -7,7 +7,7 @@
 | Framework | Next.js 16 (App Router) + TypeScript 5.7 | Full-stack React framework, routing, SSR/SSG |
 | UI | Tailwind CSS v4 + shadcn/ui | Utility styling + accessible component primitives |
 | Icons | lucide-react v1.16 | Stroke-based icon set |
-| Fonts | Gilroy (CDN), Anton, Poppins (Google Fonts) | Brand typography |
+| Fonts | Gilroy (CDN), Anton, Poppins (Google Fonts), local Gobold and Montserrat | Brand typography |
 | Auth | localStorage mock (Clerk-interface-compatible) | User sessions, sign-in/sign-up flow |
 | State | React useState + custom hooks + localStorage | Cart, notifications, rewards, profile persistence |
 | Analytics | @vercel/analytics | Page view tracking (production only) |

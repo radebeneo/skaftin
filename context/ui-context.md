@@ -40,6 +40,8 @@ New components must not use direct hex values in inline styles.
 | Body / UI text | Gilroy → PP Neue Montreal → Poppins → system-ui | `font-sans` |
 | Hero display headings | GT Super Display → Gilroy → Anton → Poppins | `font-display` |
 | Condensed Skaftin hero heading | Gobold Bold → Impact | `font-gobold` |
+| Skaftin builder body / UI text | Montserrat → Arial → sans-serif | `font-montserrat` |
+| Skaftin builder display text | Gobold Bold → Impact | Scoped `.font-display` override |
 | Condensed hero text (SHOP / ONLINE NOW) | League Gothic → Antonio → Teko → Anton → Impact | `.hero-impact-text` |
 | Skaftin accent script | EskortSpazaClean → Caveat → Permanent Marker | `font-eskort-spaza` |
 | Code / mono | System mono | Not used |
@@ -47,6 +49,8 @@ New components must not use direct hex values in inline styles.
 Font weights in use: 400 (regular), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold), 900 (black).
 
 **Rule**: Headings on marketing sections use `font-display font-black uppercase tracking-tight`. Body copy uses `font-sans font-medium`. Button labels use `font-extrabold`.
+
+Within the `/skaftin` cream builder section, body and UI copy use Montserrat while elements marked with `font-display` use Gobold. The Skaftin hero and shared site chrome retain their own typography.
 
 ## Border Radius
 

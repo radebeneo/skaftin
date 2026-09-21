@@ -131,6 +131,9 @@ Update this file after every meaningful implementation change.
 - [x] **Skaftin builder background (2026-09-08)**:
   - [x] Added the tokenized `#FCF9F1` cream background to the full section between the Skaftin hero and shared footer.
   - [x] Extended the cream background behind the hero's 26px light-blue grunge edge.
+- [x] **Skaftin builder typography (2026-09-21)**:
+  - [x] Added the local Montserrat variable font as the `font-montserrat` Tailwind token.
+  - [x] Scoped Montserrat body/UI copy and Gobold display text to the cream `/skaftin` builder section without changing the hero or shared site chrome.
 
 ## In Progress
 
