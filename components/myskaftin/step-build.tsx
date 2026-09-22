@@ -57,10 +57,10 @@ function VarietyMeter({ week }: { week: DailyLunchbox[] }) {
     repetitive: 'bg-muted border-border text-muted-foreground',
   }
   return (
-    <div className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-bold ${colours[result.score]}`}>
+    <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border px-3 py-2 text-xs font-bold ${colours[result.score]}`}>
       <span aria-hidden="true">{result.emoji}</span>
       <span className="font-extrabold uppercase tracking-wide">{result.label}</span>
-      <span className="font-semibold opacity-80">— {result.description}</span>
+      <span className="font-semibold opacity-80">{result.description}</span>
     </div>
   )
 }
@@ -229,7 +229,7 @@ function BudgetSelector({
   const weekly = value * days
   return (
     <div>
-      <div className="mb-3 flex items-end justify-between">
+      <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <span className="block text-[11px] font-black uppercase tracking-widest text-muted-foreground">
             Daily budget
@@ -238,7 +238,7 @@ function BudgetSelector({
             R{value}<span className="text-base font-semibold text-muted-foreground">/day</span>
           </span>
         </div>
-        <span className="text-sm font-bold text-muted-foreground">R{weekly} total/week</span>
+        <span className="text-sm font-bold text-muted-foreground sm:text-right">R{weekly} total/week</span>
       </div>
 
       {/* Preset tiles */}
@@ -415,7 +415,7 @@ export function StepBuild({
           onClick={handleSurpriseMe}
           disabled={generating}
           aria-label={`Generate a complete ${value.days}-day lunchbox week`}
-          className="relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-[24px] bg-eskort-ink px-6 py-5 font-display text-xl uppercase text-white shadow-lg transition-all active:scale-[0.98] hover:shadow-xl disabled:opacity-70"
+          className="relative flex w-full flex-col items-center justify-center gap-1 overflow-hidden rounded-[24px] bg-eskort-ink px-4 py-5 text-center font-display text-lg uppercase text-white shadow-lg transition-all active:scale-[0.98] hover:shadow-xl disabled:opacity-70 sm:flex-row sm:gap-3 sm:px-6 sm:text-xl"
         >
           <span className="text-eskort-yellow" aria-hidden="true">
             {generating ? (
@@ -426,7 +426,7 @@ export function StepBuild({
           </span>
           {generating ? `Packing ${possessive} week…` : `Build it for me`}
           {!generating && (
-            <span className="text-sm text-white/60 font-semibold normal-case ml-1">
+            <span className="text-xs font-semibold normal-case text-white/60 sm:ml-1 sm:text-sm">
               — perfect {value.days}-day week
             </span>
           )}
@@ -461,7 +461,7 @@ export function StepBuild({
                 </div>
               ))}
             </div>
-            <div className={`hidden sm:grid gap-3`} style={{ gridTemplateColumns: `repeat(${value.days}, minmax(0, 1fr))` }}>
+            <div className="hidden gap-3 sm:grid sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
               {value.generatedWeek.map((entry) => (
                 <DayCard key={entry.day} dayEntry={entry} profile={profile} week={value.generatedWeek} onRemix={handleRemix} />
               ))}
@@ -483,7 +483,7 @@ export function StepBuild({
         </div>
 
         {/* Tab bar */}
-        <div className="mb-5 flex items-center gap-1 rounded-2xl bg-muted/60 p-1 w-fit">
+        <div className="mb-5 grid w-full grid-cols-1 gap-1 rounded-2xl bg-muted/60 p-1 sm:grid-cols-3">
           {(
             [
               { id: 'recommended', label: '⭐ Curated Weeks' },
@@ -497,7 +497,7 @@ export function StepBuild({
               type="button"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`rounded-xl px-3.5 py-2 text-xs font-extrabold transition whitespace-nowrap ${
+              className={`rounded-xl px-3.5 py-2 text-xs font-extrabold transition ${
                 activeTab === tab.id ? 'bg-white text-ink shadow-sm' : 'text-muted-foreground hover:text-ink'
               }`}
             >

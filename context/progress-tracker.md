@@ -134,6 +134,10 @@ Update this file after every meaningful implementation change.
 - [x] **Skaftin builder typography (2026-09-21)**:
   - [x] Added the local Montserrat variable font as the `font-montserrat` Tailwind token.
   - [x] Scoped Montserrat body/UI copy and Gobold display text to the cream `/skaftin` builder section without changing the hero or shared site chrome.
+- [x] **Skaftin responsive layout (2026-09-21)**:
+  - [x] Expanded the hero and interactive builder to the shared `max-w-7xl` desktop canvas with fluid page gutters.
+  - [x] Kept review and confirmation content at readable widths while giving the active builder and live preview more room on large screens.
+  - [x] Reworked compact progress, tabs, preview controls, card grids, rewards, and navigation to avoid compression and overlap from 320px through 1440px+.
 
 ## In Progress
 
@@ -141,7 +145,7 @@ Update this file after every meaningful implementation change.
 
 ## Next Up
 
-- User QA pass: mobile (375px), tablet (768px), desktop (1280px)
+- User QA pass for remaining pages and flows
 - Swap mock auth for real Clerk when API keys are available
 
 ## Open Questions

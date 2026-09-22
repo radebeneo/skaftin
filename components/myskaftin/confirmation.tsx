@@ -102,7 +102,7 @@ export function Confirmation({
   return (
     <div className="space-y-6">
       {/* ── Success hero ──────────────────────────────────────── */}
-      <div className="relative overflow-hidden rounded-[32px] bg-eskort-blue p-8 text-center text-white">
+      <div className="relative overflow-hidden rounded-[32px] bg-eskort-blue p-5 text-center text-white sm:p-8 lg:p-10">
         <div
           className="pointer-events-none absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }}
@@ -111,7 +111,7 @@ export function Confirmation({
         <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-white/15">
           <CheckCircle2 className="h-10 w-10" aria-hidden="true" />
         </span>
-        <h1 className="mt-5 font-display text-4xl uppercase leading-none">Your week is packed 🎉</h1>
+        <h1 className="mt-5 font-display text-3xl uppercase leading-none sm:text-4xl lg:text-5xl">Your week is packed 🎉</h1>
         <p className="mx-auto mt-3 max-w-md text-sm font-semibold text-white/85">
           {value.days} lunches planned.{' '}
           {value.days === 5 ? 'Five mornings sorted.' : 'Three mornings sorted.'}{' '}
@@ -124,9 +124,9 @@ export function Confirmation({
           type="button"
           onClick={copyRef}
           aria-label={`Copy order reference ${orderDetails.orderRef} to clipboard`}
-          className="mx-auto mt-4 flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-widest transition-colors hover:bg-white/25"
+          className="mx-auto mt-4 flex max-w-full items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-widest transition-colors hover:bg-white/25"
         >
-          <span>Ref: {orderDetails.orderRef}</span>
+          <span className="min-w-0 break-all">Ref: {orderDetails.orderRef}</span>
           {copied ? (
             <Check className="h-3.5 w-3.5 text-eskort-yellow" aria-hidden="true" />
           ) : (
@@ -230,7 +230,7 @@ export function Confirmation({
       </div>
 
       {/* ── Stars earned ─────────────────────────────────────────── */}
-      <div className="flex items-center justify-between gap-4 rounded-[24px] bg-eskort-yellow px-5 py-5 text-ink">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-[24px] bg-eskort-yellow px-5 py-5 text-ink">
         <div className="flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-2xl bg-ink text-eskort-yellow">
             <Star className="h-6 w-6 fill-eskort-yellow" aria-hidden="true" />

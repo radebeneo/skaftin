@@ -204,9 +204,9 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
       {/* ── Full Preview (Hidden on mobile when collapsed) ── */}
       <div className={`${!isMobileExpanded ? 'hidden lg:flex' : 'flex'} flex-col gap-4`}>
         {/* ── Main Preview Card ── */}
-        <div className="flex h-full min-h-[400px] flex-col rounded-[32px] border-2 border-border bg-card p-6 shadow-sm">
+        <div className="flex h-full min-h-[320px] flex-col rounded-[32px] border-2 border-border bg-card p-4 shadow-sm sm:p-6 lg:min-h-[400px]">
         <div className="mb-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h3 className="flex items-center gap-2 font-display text-[16px] uppercase tracking-wide text-ink">
               <span className="block h-2.5 w-2.5 rounded-full border-2 border-brand-green bg-transparent" />
               Live Skaftin Preview
@@ -227,7 +227,7 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
           </p>
         </div>
         
-        <div className="relative flex-1 rounded-2xl border-2 border-dashed border-border bg-background p-4">
+        <div className="relative flex-1 rounded-2xl border-2 border-dashed border-border bg-background p-3 sm:p-4">
           <AnimatePresence mode="wait">
             {value.isGenerating ? (
               <motion.div key="generating" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full">
@@ -257,7 +257,7 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
                 key={dayKey}
                 type="button"
                 onClick={() => setActiveDay(dayKey)}
-                className={`relative flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border-2 p-3 text-center transition-all ${
+                className={`relative flex min-w-20 flex-1 flex-col items-center justify-center gap-2 rounded-2xl border-2 p-3 text-center transition-all ${
                   isActive 
                     ? 'border-eskort-red shadow-sm shadow-eskort-red/10 bg-background' 
                     : 'border-border bg-background hover:border-eskort-red/30'
@@ -281,7 +281,7 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
           
           <button
             type="button"
-            className="relative flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border p-3 text-center transition-all hover:border-eskort-red/30 bg-background"
+            className="relative flex min-w-24 flex-1 flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-border bg-background p-3 text-center transition-all hover:border-eskort-red/30"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-muted text-lg text-muted-foreground">
               +

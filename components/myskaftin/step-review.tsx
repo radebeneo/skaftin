@@ -243,7 +243,7 @@ export function StepReview({
       </div>
 
       {/* ── Rewards strip ─────────────────────────────────────────── */}
-      <div className="flex items-center gap-4 rounded-[24px] bg-eskort-yellow px-5 py-4 text-ink">
+      <div className="flex flex-wrap items-center gap-3 rounded-[24px] bg-eskort-yellow px-4 py-4 text-ink sm:gap-4 sm:px-5">
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-ink text-eskort-yellow">
           <Star className="h-6 w-6 fill-eskort-yellow" aria-hidden="true" />
         </span>
@@ -255,13 +255,13 @@ export function StepReview({
             Added to your balance when your order is confirmed.
           </span>
         </div>
-        <span className="ml-auto rounded-full bg-ink px-3 py-1.5 text-xs font-black text-eskort-yellow whitespace-nowrap">
+        <span className="rounded-full bg-ink px-3 py-1.5 text-xs font-black text-eskort-yellow sm:ml-auto whitespace-nowrap">
           {totalPoints} total
         </span>
       </div>
 
       {/* ── Order total strip ─────────────────────────────────────── */}
-      <div className="flex items-center justify-between rounded-2xl bg-ink px-5 py-4 text-white">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-ink px-4 py-4 text-white sm:px-5">
         <div>
           <span className="block text-xs font-black uppercase tracking-widest opacity-60">Order total</span>
           <span className="font-display text-3xl leading-none text-eskort-yellow">R{total}</span>
