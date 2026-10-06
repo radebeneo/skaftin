@@ -61,8 +61,9 @@ MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa'
 
 ### Skaftin Builder
 - 4-step wizard with progress indicator
-- Step 1: Taste profile (likes + dislikes)
+- Step 1: Taste profile (likes + dislikes), including fruit, crackers, Wiggles, and yoghurt
 - Step 2: Menu picker — Weekly Plans tab + Build Your Own tab (junior item categories)
+- Live lunchbox preview with an open sandwich that builds as fillings are selected and separate compartments for proteins, snacks, fruit, and yoghurt/extras
 - Step 3: Price tier + delivery slot + child name
 - Step 4: Full checkout summary + place order
 - Confirmation with stars award animation

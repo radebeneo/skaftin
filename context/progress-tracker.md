@@ -16,6 +16,14 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Skaftin live lunchbox preview (2026-10-06)**:
+  - [x] Replaced the preview surface with the provided open-box artwork and positioned the selected foods inside its compartments.
+  - [x] Kept the lunchbox at a fixed square size as items are added; compartment contents stay bounded and scroll internally when needed.
+  - [x] Removed the scroll-triggered mobile collapse/expand control so the preview remains visible.
+  - [x] Routed sandwich fillings, proteins, crackers/Wiggles, fruit, yoghurt and custom junior-menu picks into appropriate compartments.
+  - [x] Added Wiggles and yoghurt to taste choices, with yoghurt removed when dairy-free is selected.
+  - [x] Replaced the tall junior-menu category pills with a compact expandable food browser and category dropdown.
+  - [x] Removed the inactive "Build Your Own" preview control, corrected selected-day copy, and fitted day controls to narrow screens.
 - [x] Six-File Context System written for this project (`context/` folder at project root)
 - [x] `AGENTS.md` entry point updated
 - [x] Project scaffolding: Next.js 16 + TypeScript + Tailwind v4 + shadcn/ui
@@ -139,6 +147,10 @@ Update this file after every meaningful implementation change.
   - [x] Kept review and confirmation content at readable widths while giving the active builder and live preview more room on large screens.
   - [x] Reworked compact progress, tabs, preview controls, card grids, rewards, and navigation to avoid compression and overlap from 320px through 1440px+.
 
+- [x] **Live preview photo lunchbox (2026-10-06)**:
+  - [x] Overlay the lunchbox artwork at a fixed aspect ratio in `live-skaftin-preview.tsx`; added foods are constrained to their designated compartments.
+  - [x] Food photos (`public/assets/skaftin/foods/*.png`) and emoji fallbacks continue to render inside the fixed compartment areas.
+
 ## In Progress
 
 - Nothing currently in progress.
@@ -168,3 +180,5 @@ Update this file after every meaningful implementation change.
 - `pnpm` is the package manager (`pnpm-lock.yaml` exists). Use `pnpm add` not `npm install` if adding packages.
 - Dev server runs on `0.0.0.0` (`next dev -H 0.0.0.0`) — accessible on local network.
 - The active homepage is implemented in `eskort-homepage-new/index.tsx`.
+
+- Live preview: lunchbox image now cropped/zoomed (~19%) in a 3:2-based frame; compartment overlays realigned to the image's actual compartments (components/myskaftin/live-skaftin-preview.tsx).

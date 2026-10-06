@@ -89,7 +89,7 @@ export function StepTaste({
       // Cascade restrictions
       // 1. Remove conflicting likes
       const CONFLICTS: Record<string, string[]> = {
-        'no-dairy': ['cheese'],
+        'no-dairy': ['cheese', 'yoghurt'],
         'no-gluten': ['crackers', 'sausage', 'nuggets'],
       }
       const conflictingLikes = CONFLICTS[id] || []
