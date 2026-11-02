@@ -24,11 +24,13 @@ export function StepReview({
   onChange,
   total,
   onConfirm,
+  onBack,
 }: {
   value: Selection
   onChange: (patch: Partial<Selection>) => void
   total: number
   onConfirm: (details: OrderDetails) => void
+  onBack: () => void
 }) {
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -301,16 +303,27 @@ export function StepReview({
 
       {/* ── CTA ──────────────────────────────────────────────────── */}
       <div className="space-y-3">
-        <button
-          id="confirm-place-order"
-          type="button"
-          onClick={handleConfirm}
-          disabled={!isValid}
-          className="flex w-full items-center justify-center gap-2 rounded-full bg-eskort-red px-6 py-4 font-display text-xl uppercase text-white shadow-lg shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
-          aria-label="Confirm and place your order"
-        >
-          <CheckCircle2 className="h-5 w-5" aria-hidden="true" /> Place Order · R{total}
-        </button>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            id="review-back"
+            type="button"
+            onClick={onBack}
+            className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-background px-4 py-2.5 font-display text-sm uppercase transition-colors hover:border-ink sm:px-5 sm:text-base"
+            aria-label="Go back to Build My Week"
+          >
+            ← Back
+          </button>
+          <button
+            id="confirm-place-order"
+            type="button"
+            onClick={handleConfirm}
+            disabled={!isValid}
+            className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-eskort-red px-5 py-3 font-display text-sm uppercase text-white shadow-md shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:text-base"
+            aria-label="Confirm and place your order"
+          >
+            <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Place Order · R{total}
+          </button>
+        </div>
         <p className="flex items-center justify-center gap-1.5 text-center text-xs font-semibold text-muted-foreground">
           🔒 Secure checkout · Free delivery · No lock-in · Cancel anytime
         </p>

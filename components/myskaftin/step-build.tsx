@@ -17,6 +17,7 @@ import {
   type DailyLunchbox,
 } from './data'
 import type { Selection } from './experience'
+import { isCustomPlan } from './plan-summary'
 import {
   generateWeek,
   remixDay,
@@ -337,6 +338,8 @@ export function StepBuild({
   const possessive = childName ? `${childName}'s` : "their"
 
   const days = value.days === 5 ? WEEKDAYS_5 : WEEKDAYS_3
+  // Handpicked Build Your Own items replace the generated week until a style is chosen.
+  const hasHandpicks = isCustomPlan(value)
 
   /** Build a fresh week. Choosing a style replaces any handpicked Build Your Own box. */
   function buildWeek(patch: Partial<Selection> = {}) {
@@ -456,16 +459,32 @@ export function StepBuild({
               : 'Safe choices within your restrictions'}
           </div>
         )}
+
+        {hasHandpicks && (
+          <div
+            role="note"
+            className="mt-3 rounded-xl border border-eskort-yellow/40 bg-eskort-yellow/10 px-4 py-2.5 text-xs font-bold text-ink"
+          >
+            You&apos;re using {value.customItems.length} handpicked item{value.customItems.length !== 1 ? 's' : ''} from
+            Build Your Own, packed every day. Shuffling or picking a Curated Week or Themed Drop will replace them.
+          </div>
+        )}
       </div>
 
       {/* ── Generated week ──────────────────────────────────────── */}
       {value.generatedWeek.length > 0 && (
-        <div className="space-y-4">
+        <div className={`space-y-4 ${hasHandpicks ? 'opacity-50' : ''}`}>
           <div className="flex flex-wrap items-center gap-3">
             <h3 className="font-display text-xl uppercase tracking-wide">
               {possessive.charAt(0).toUpperCase() + possessive.slice(1)} week
             </h3>
-            <VarietyMeter week={value.generatedWeek} />
+            {hasHandpicks ? (
+              <span className="text-xs font-bold text-muted-foreground">
+                Not in use while your handpicked box is active
+              </span>
+            ) : (
+              <VarietyMeter week={value.generatedWeek} />
+            )}
           </div>
 
           {/* On mobile: horizontal scroll; on sm+: grid */}
@@ -618,7 +637,7 @@ export function StepBuild({
         {activeTab === 'buildown' && (
           <div className="space-y-5">
             <p className="text-sm font-semibold text-muted-foreground">
-              Handpick items for {nameLabel}&apos;s box — they&apos;re packed every day instead of the week above. Restricted items are hidden.
+              Handpick items for {nameLabel}&apos;s box — they&apos;re packed every day instead of the week above. Shuffling or picking a style later will clear them. Restricted items are hidden.
               {value.customItems.length > 0 && (
                 <span className="ml-2 font-black text-eskort-red">
                   {value.customItems.length} item{value.customItems.length !== 1 ? 's' : ''} selected
