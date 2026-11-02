@@ -25,10 +25,10 @@ MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa'
 
 ### Skaftin Builder Flow
 1. User clicks **Skaftin** in the nav → navigated to `/skaftin`.
-2. **Step 1 — Taste Profile**: selects likes (viennas, bacon, ham…) and dislikes (no spicy, nut-free…).
-3. **Step 2 — Pick a Menu**: chooses a Weekly Plan *or* builds their own from the Junior Menu items by category.
-4. **Step 3 — Order Details**: selects price tier (Everyday/Family/Legend), delivery slot, and confirms child's name.
-5. **Step 4 — Checkout**: reviews full plan summary and places order.
+2. **Step 1 — Taste & Prep** (answers only, no lunchboxes yet): child's name, 3 or 5 days, muncher personality, likes, allergies/dislikes, and prep style (Grab & Go or Air Fryer). The side preview is a **Sneak Peek** of the liked foods only.
+3. **Pack My Week** button → moves to Step 2 and automatically generates a full week (one lunchbox per day) from the Step 1 answers.
+4. **Step 2 — Build My Week** (where lunchboxes are built): set the daily budget/price tier, Remix single days, Shuffle the whole week, or start from a Curated Week, Themed Drop, or Build Your Own picks. The **Live Skaftin Preview** shows each day's box.
+5. **Step 3 — Review & Order**: plan summary, free sticker theme, order total, contact details, delivery address and slot, then **Place Order**.
 6. **Confirmation**: animated confetti, stars awarded, notification dispatched.
 
 ### Auth Flow
@@ -60,11 +60,11 @@ MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa'
 - Item count badge on header cart button
 
 ### Skaftin Builder
-- 4-step wizard with progress indicator
-- Step 1: Taste profile (likes + dislikes)
-- Step 2: Menu picker — Weekly Plans tab + Build Your Own tab (junior item categories)
-- Step 3: Price tier + delivery slot + child name
-- Step 4: Full checkout summary + place order
+- 3-step wizard (Taste & Prep → Build My Week → Review & Order) with progress indicator
+- Step 1: Taste & Prep — name, days, muncher personality, likes (including fruit, crackers, Wiggles, yoghurt), allergies/dislikes, prep style. Collects answers only; no plan exists yet.
+- Step 2: Build My Week — week auto-generated on entry; budget tiles (sets price tier), per-day Remix, Shuffle my week, and Curated Weeks / Themed Drops / Build Your Own tabs. Build Your Own picks replace the generated week (same box every day) until a style is chosen again; a notice warns about this.
+- Lunchbox preview beside Steps 1–2: "Sneak Peek" on Step 1 (liked foods, no day selector); "Live Skaftin Preview" on Step 2 (real per-day boxes with a day selector, or the handpicked box)
+- Step 3: Review & Order — plan summary, sticker theme, total, contact + delivery details, delivery slot, Place Order
 - Confirmation with stars award animation
 
 ### Junior Menu Items (Build Your Own)
@@ -121,7 +121,7 @@ MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa'
 ## Success Criteria
 
 1. A signed-in user can add an Eskort product to the cart, open the cart drawer, adjust quantity, and see the correct total — all persisting after page refresh.
-2. A parent can complete the full 4-step Skaftin wizard, see the junior menu "Build Your Own" tab with all categories, and receive stars on confirmation.
+2. A parent can complete the full 3-step Skaftin wizard, see the junior menu "Build Your Own" tab with all categories, and receive stars on confirmation.
 3. The notification bell shows new notifications when cart items are added or stars are awarded, and unread count clears on "Mark all read."
 4. The profile page at `/profile` saves and restores display name, preferences, and a saved address across page refreshes.
 5. `npm run build` passes with zero TypeScript errors and zero broken imports.

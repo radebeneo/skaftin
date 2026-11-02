@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { Selection } from './experience'
 import { buildWeekFromSelection, FOOD_METADATA, type LunchboxDay } from '@/lib/skaftin-data'
 import { JUNIOR_MENU_ITEMS } from './data'
+import { isCustomPlan } from './plan-summary'
 
 function FoodItem({ id }: { id: string }) {
   const meta = FOOD_METADATA[id]
@@ -113,25 +114,41 @@ function GeneratingState() {
 }
 
 function SkaftinLunchbox({ box }: { box: LunchboxDay }) {
+  // The frame trims only the PNG's transparent margin. The visible lunchbox spans
+  // x 74–1457 and y 57–983 of the 1536×1024 artwork; the frame covers x 64–1472 and
+  // y 48–992, so the lid is never cut off. The inner layer is the full artwork, so the
+  // compartment percentages below still line up.
   return (
-    <div className="flex-1 overflow-y-auto">
-      <div className="flex flex-col gap-1">
-        <SkaftinCompartment label="Main" items={box.main} />
-        <SkaftinCompartment label="Protein" items={box.protein} />
-        <SkaftinCompartment label="Snacks" items={box.snacks} />
-        <SkaftinCompartment label="Fruit" items={box.fruit} />
-        <SkaftinCompartment label="Extras" items={box.extras} />
-      </div>
-    </div>
+    <div className="relative isolate aspect-[1408/944] w-full overflow-hidden">
+      <div className="absolute left-[-4.545%] top-[-5.085%] h-[108.475%] w-[109.091%]">
+      <Image
+        src={LUNCHBOX_IMAGE}
+        alt="Open blue lunchbox with five stainless-steel compartments"
+        fill
+        priority
+        sizes="(max-width: 1024px) 100vw, 40vw"
+        className="object-contain"
+      />
+      <MainCompartment items={box.main} />
+      <SkaftinCompartment label="Protein" items={box.protein} className="left-[51.9%] top-[17.2%] h-[36.4%] w-[37.1%]" emptyMessage="Add a protein" />
+      <SkaftinCompartment label="Snacks" items={box.snacks} className="left-[13.7%] top-[60.3%] h-[26.5%] w-[34.2%]" emptyMessage="Crackers & bites" />
+      <SkaftinCompartment label="Fruit" items={box.fruit} className="left-[51.4%] top-[60.3%] h-[26.5%] w-[37.1%]" emptyMessage="Add some fruit" />
+      <SkaftinCompartment label="Extras" items={box.extras} className="left-[42%] top-[44.4%] h-[23.5%] w-[15.9%]" emptyMessage="Extras" round />
+            </div>
+          </div>
   )
 }
 
 type DayKey = 'day1' | 'day2' | 'day3' | 'day4' | 'day5'
 const ALL_DAYS: DayKey[] = ['day1', 'day2', 'day3', 'day4', 'day5']
 
-export function LiveSkaftinPreview({ value }: { value: Selection }) {
+export function LiveSkaftinPreview({ value, step }: { value: Selection; step: number }) {
   const [activeDay, setActiveDay] = useState<DayKey>('day1')
-  const [isMobileExpanded, setIsMobileExpanded] = useState(true)
+  // Step 1 only collects answers, so the preview is a sneak peek of the liked foods.
+  // The real week is built (and previewed day by day) on Step 2.
+  const isSneakPeek = step === 1
+  const childName = value.kidName.trim()
+  const customBox = isCustomPlan(value)
 
   useEffect(() => {
     let lastScrollY = window.scrollY
@@ -150,9 +167,12 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
   }, [])
   
   let currentBox: LunchboxDay = { main: [], protein: [], snacks: [], fruit: [], extras: [] }
-  const dayIndex = ALL_DAYS.indexOf(activeDay)
+  const shownDay: DayKey = isSneakPeek ? 'day1' : activeDay
+  const dayIndex = ALL_DAYS.indexOf(shownDay)
 
-  if (value.generatedWeek.length > 0 && value.menuId !== null && !value.menuId.startsWith('custom-')) {
+  if (isSneakPeek) {
+    currentBox = buildWeekFromSelection(value.likes, value.dislikes, value.days)[shownDay]
+  } else if (value.generatedWeek.length > 0 && value.menuId !== null && !value.menuId.startsWith('custom-')) {
     const dayData = value.generatedWeek[dayIndex] || value.generatedWeek[0]
     currentBox = {
       main: [dayData.mealId],
@@ -171,7 +191,7 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
     }
   } else {
     const week = buildWeekFromSelection(value.likes, value.dislikes, value.days)
-    currentBox = week[activeDay]
+    currentBox = week[shownDay]
   }
 
   const totalItems = Object.values(currentBox).reduce((acc, items) => acc + items.length, 0)
@@ -209,7 +229,7 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
           <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h3 className="flex items-center gap-2 font-display text-[16px] uppercase tracking-wide text-ink">
               <span className="block h-2.5 w-2.5 rounded-full border-2 border-brand-green bg-transparent" />
-              Live Skaftin Preview
+              {isSneakPeek ? 'Sneak Peek' : 'Live Skaftin Preview'}
             </h3>
             
             <div className="flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-widest text-ink">
@@ -223,7 +243,11 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
             </div>
           </div>
           <p className="mt-1 text-xs font-semibold text-muted-foreground">
-            Selected foods pop straight into the box.
+            {isSneakPeek
+              ? `Based on what ${childName || 'your child'} loves — we'll pack the full week next.`
+              : customBox
+                ? 'Your handpicked box — packed the same every day.'
+                : `This is ${childName ? `${childName}'s` : 'their'} week. Tap a day to see its box.`}
           </p>
         </div>
         
@@ -246,7 +270,8 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
         </div>
       </div>
       
-      {/* ── Day Selector Card ── */}
+      {/* ── Day Selector Card (Step 2 only — days don't exist until the week is built) ── */}
+      {!isSneakPeek && (
       <div className="rounded-[32px] border-2 border-border bg-card p-4 sm:p-6 shadow-sm">
         <div className="flex gap-2 overflow-x-auto pb-2">
           {ALL_DAYS.slice(0, value.days).map((dayKey, i) => {
@@ -296,7 +321,7 @@ export function LiveSkaftinPreview({ value }: { value: Selection }) {
           {value.days} tasty days ahead! You can customise each day in the next step.
         </p>
       </div>
-      </div>
+      )}
     </div>
   )
 }

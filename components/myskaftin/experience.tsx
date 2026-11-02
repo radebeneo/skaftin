@@ -3,10 +3,12 @@
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { Star, Sparkles } from 'lucide-react'
-import { PRICE_TIERS, type PrepStyle, type GeneratedWeek, type ThemeId, type StickerThemeId } from './data'
+import { PRICE_TIERS, JUNIOR_MENU_ITEMS, type PrepStyle, type GeneratedWeek, type ThemeId, type StickerThemeId } from './data'
 import type { PersonalityId } from './data'
 import { StepTaste } from './step-taste'
-import { StepBuild } from './step-build'
+import { StepBuild, getProfile } from './step-build'
+import { hasPlan, isCustomPlan } from './plan-summary'
+import { generateWeek } from '@/lib/recommendation-engine'
 import { StepReview } from './step-review'
 import { Confirmation } from './confirmation'
 import { LiveSkaftinPreview } from './live-skaftin-preview'
@@ -42,6 +44,11 @@ const STEPS = [
 
 const BASE_POINTS = 320
 
+/** The Taste & Prep answers a week is built from. A change means the week is stale. */
+function tasteKey(value: Selection): string {
+  return JSON.stringify([value.likes, value.dislikes, value.prep, value.days, value.personality])
+}
+
 export function MySkaftinExperience() {
   const [step, setStep] = useState(1)
   const [done, setDone] = useState(false)
@@ -67,6 +74,27 @@ export function MySkaftinExperience() {
 
   const onChange = (patch: Partial<Selection>) => setValue((v) => ({ ...v, ...patch }))
 
+  // Taste answers the current week was built from, recorded when leaving the Build step.
+  const [plannedFor, setPlannedFor] = useState<string | null>(null)
+
+  function goToStep(target: number) {
+    // Entering Build: have a ready-made week waiting instead of an empty screen.
+    // Rebuild only on first entry or when the Taste answers changed, so remixes survive.
+    if (step === 1 && target === 2 && (value.generatedWeek.length === 0 || plannedFor !== tasteKey(value))) {
+      const customItems = value.customItems.filter((id) => {
+        const item = JUNIOR_MENU_ITEMS.find((i) => i.id === id)
+        return item ? item.allergenIds.every((allergen) => !value.dislikes.includes(allergen)) : false
+      })
+      onChange({
+        generatedWeek: generateWeek(getProfile(value)),
+        customItems,
+        menuId: isCustomPlan(value) && customItems.length > 0 ? value.menuId : 'generated',
+      })
+    }
+    if (target === 1 && step > 1) setPlannedFor(tasteKey(value))
+    setStep(target)
+  }
+
   const earned = useMemo(
     () => PRICE_TIERS.find((t) => t.id === value.tierId)?.points ?? 0,
     [value.tierId],
@@ -85,6 +113,7 @@ export function MySkaftinExperience() {
     setStep(1)
     setDone(false)
     setOrderDetails(null)
+    setPlannedFor(null)
     setValue({
       kidName: '',
       days: 5,
@@ -147,7 +176,7 @@ export function MySkaftinExperience() {
                 <button
                   type="button"
                   disabled={s.n > step}
-                  onClick={() => { if (s.n < step) setStep(s.n) }}
+                  onClick={() => { if (s.n < step) goToStep(s.n) }}
                   aria-label={`Step ${s.n}: ${s.full}${complete ? ' (completed)' : active ? ' (current)' : ''}`}
                   className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center disabled:cursor-default sm:flex-row sm:gap-2 sm:text-left"
                 >
@@ -183,7 +212,18 @@ export function MySkaftinExperience() {
       </div>
 
       {/* ── Step content ─────────────────────────────────────── */}
-      <div className={step <= 2 ? 'flex flex-col gap-6 pb-28 lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)] lg:items-start lg:gap-8 lg:pb-0 xl:gap-10' : 'mx-auto max-w-4xl pb-28 lg:pb-0'}>
+      <div
+        className={
+          step <= 2
+            ? `flex flex-col gap-6 pb-28 lg:grid lg:items-start lg:gap-8 lg:pb-0 xl:gap-10 ${
+                // Step 1: form and Sneak Peek share the width equally. Step 2 keeps a wider build column.
+                step === 1
+                  ? 'lg:grid-cols-2'
+                  : 'lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)]'
+              }`
+            : 'mx-auto max-w-4xl pb-28 lg:pb-0'
+        }
+      >
         <div className="order-2 min-w-0 rounded-[32px] border-2 border-border bg-card p-4 sm:p-6 lg:order-1 xl:p-8">
           {step === 1 && <StepTaste value={value} onChange={onChange} />}
           {step === 2 && <StepBuild value={value} onChange={onChange} />}
@@ -192,14 +232,14 @@ export function MySkaftinExperience() {
               value={value}
               onChange={onChange}
               total={total}
-              totalPoints={totalPoints}
               onConfirm={handleOrderConfirmed}
+              onBack={() => goToStep(2)}
             />
           )}
         </div>
         {step <= 2 && (
           <div className="order-1 min-w-0 lg:order-2 lg:sticky lg:top-24">
-            <LiveSkaftinPreview value={value} />
+            <LiveSkaftinPreview value={value} step={step} />
           </div>
         )}
       </div>
@@ -210,8 +250,8 @@ export function MySkaftinExperience() {
           {step > 1 && (
             <button
               type="button"
-              onClick={() => setStep((s) => s - 1)}
-              className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-background px-4 py-3.5 font-display text-sm uppercase transition-colors hover:border-ink sm:px-5 sm:text-base lg:bg-background"
+              onClick={() => goToStep(step - 1)}
+              className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-background px-4 py-2.5 font-display text-sm uppercase transition-colors hover:border-ink sm:px-5 sm:text-base lg:bg-background"
               aria-label="Go back to previous step"
             >
               ← Back
@@ -219,11 +259,12 @@ export function MySkaftinExperience() {
           )}
           <button
             type="button"
-            onClick={() => setStep((s) => s + 1)}
-            className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-eskort-red px-4 py-4 font-display text-sm uppercase text-white shadow-lg shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 sm:px-6 sm:text-lg"
+            onClick={() => goToStep(step + 1)}
+            disabled={step === 2 && (value.isGenerating || !hasPlan(value))}
+            className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-eskort-red px-4 py-3 font-display text-sm uppercase text-white shadow-md shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:px-6 sm:text-base lg:ml-auto lg:flex-none lg:px-8"
             aria-label={step === 1 ? 'Continue to Build My Week' : 'Continue to Review & Order'}
           >
-            {step === 1 ? 'Build My Week' : 'Review & Order'}
+            {step === 1 ? 'Pack My Week' : 'Review & Order'}
             <Image
               src="/images1/icons/btn-arrow-light.svg"
               alt=""

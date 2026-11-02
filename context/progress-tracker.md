@@ -16,6 +16,40 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Skaftin wizard UI polish (2026-11-02)**:
+  - [x] `step-review.tsx`: new `onBack` prop; a "← Back" button sits beside Place Order and returns to Build My Week (wired in `experience.tsx`).
+  - [x] Smaller CTAs: Pack My Week / Review & Order (`experience.tsx`) and Place Order (`step-review.tsx`) now use `py-3`, `text-sm sm:text-base`, `shadow-md`. On desktop the wizard CTA no longer stretches full width.
+  - [x] `step-taste.tsx`: 3-day / 5-day buttons are smaller (`px-3 py-2`, `text-lg` heading).
+  - [x] Removed the "Half-week helper" / "Full school week" subtitles from the 3-day / 5-day buttons; each button now shows only its `{d}-DAY` heading, and its `aria-label` is simply "`{d}` days".
+  - [x] Centered the `{d}-DAY` heading inside the 3-day / 5-day buttons (`text-left` → `text-center` in `step-taste.tsx`).
+  - [x] Stopped the lunchbox artwork being cropped at its left and right edges. `SkaftinLunchbox` in `live-skaftin-preview.tsx` used a `1290/952` frame with an oversized (`119%` × `107.5%`), offset artwork layer and `overflow-hidden`, which cut about 35px of the blue lid off each side. The frame now matches the full artwork (`aspect-[3/2]`, artwork `inset-0`, no overflow clipping). Compartment positions are unchanged because they are percentages of the full artwork. Applies to both the Step 1 Sneak Peek and the Step 2 Live preview.
+  - [x] Enlarged the lunchbox about 9% without cropping it. The PNG's visible lunchbox spans x 74–1457, y 57–983, so `SkaftinLunchbox` now frames x 64–1472, y 48–992 (`aspect-[1408/944]`, `overflow-hidden`). The full-artwork layer is offset and scaled (`left-[-4.545%] top-[-5.085%] h-[108.475%] w-[109.091%]`), so only transparent margin is trimmed and compartment percentages are unchanged.
+  - [x] New `components/myskaftin/multi-select-dropdown.tsx` (no new library; click-outside pattern from `site-header.tsx`). "Yes please" likes and "No thanks / allergies" now use it instead of pill grids. Options keep the `like-{id}` / `dislike-{id}` ids, so the fly-into-box animation and allergy cascade still work. Likes that conflict with an active restriction are hidden from the list.
+  - [x] Muncher personality cards replaced with the same dropdown in a new `single` mode. Picking closes the list, and picking the selected item again clears it. Options show the emoji, name and tagline, and the trigger shows the chosen emoji. The description box below still appears once a personality is chosen. Options keep the `personality-{id}` ids. The old `MuncherPersonalityCard` component was removed.
+  - [x] Step 1 desktop layout: the "Tell us about the muncher" form and the Sneak Peek now share the width equally (`lg:grid-cols-2` in `experience.tsx`). Step 2 keeps its wider build column (`1.15fr / 0.85fr`).
+  - [x] Verification: `npx tsc --noEmit` passes.
+- [x] **Skaftin flow clarity (2026-11-02)** — makes it clear lunchboxes are built in Build My Week, not Taste & Prep:
+  - [x] `live-skaftin-preview.tsx`: takes a `step` prop. On Step 1 it is titled "Sneak Peek", shows only the liked foods (Day 1 of `buildWeekFromSelection`), says "we'll pack the full week next", and hides the day selector. On Step 2 it keeps "Live Skaftin Preview" with copy explaining the week or the handpicked box.
+  - [x] `experience.tsx`: Step 1 CTA renamed "Build My Week" → "Pack My Week"; passes `step` to the preview.
+  - [x] `step-build.tsx`: when Build Your Own picks are active, a notice explains they're packed every day and that Shuffle / Curated / Themed will replace them; the generated week is dimmed and labelled "Not in use". BYO intro copy also warns that picking a style clears the picks.
+  - [x] `context/project-overview.md`: flow, features, and success criteria updated from the old 4-step wizard to the current 3-step flow.
+  - [x] Verification: `npx tsc --noEmit` passes.
+- [x] **Skaftin build and order flow streamlining (2026-11-02, `live-skaftin-preview` branch)**:
+  - [x] Removed the static 3-step indicator from `app/skaftin/page.tsx`, which always showed step 1 as active. The wizard's live step indicator is now the only one.
+  - [x] Entering Build My Week now generates a week from the Taste answers automatically, so Build never opens empty. The week is only rebuilt when the Taste answers change, so remixes survive back-navigation. "Build it for me" is now "Shuffle my week".
+  - [x] Curated Weeks and Themed Drops now produce a real week (curated picks apply their prep style; themes feed `themeId` into `generateWeek`). Previously they were dead-end selections that left Review empty.
+  - [x] Build Your Own picks now carry through to Review and Confirmation through the new shared `components/myskaftin/plan-summary.tsx` (`PlanSummary`, `hasPlan`, `isCustomPlan`, `planLines`). Sharing text covers custom plans too.
+  - [x] Review: removed the duplicate rewards strip (the wizard's top rewards bar already shows it) and the duplicate order-total strip. The total now appears on the "Place Order" button. The parent's name is no longer pre-filled with the child's name.
+  - [x] Continue (step 2) and Place Order are disabled until a plan exists.
+  - [x] Verification: `npx tsc --noEmit` passes. `npm run lint` cannot run because ESLint is not installed and there is no `eslint.config.*` (see Open Questions).
+- [x] **Skaftin live lunchbox preview (2026-10-06)**:
+  - [x] Replaced the preview surface with the provided open-box artwork and positioned the selected foods inside its compartments.
+  - [x] Kept the lunchbox at a fixed square size as items are added; compartment contents stay bounded and scroll internally when needed.
+  - [x] Removed the scroll-triggered mobile collapse/expand control so the preview remains visible.
+  - [x] Routed sandwich fillings, proteins, crackers/Wiggles, fruit, yoghurt and custom junior-menu picks into appropriate compartments.
+  - [x] Added Wiggles and yoghurt to taste choices, with yoghurt removed when dairy-free is selected.
+  - [x] Replaced the tall junior-menu category pills with a compact expandable food browser and category dropdown.
+  - [x] Removed the inactive "Build Your Own" preview control, corrected selected-day copy, and fitted day controls to narrow screens.
 - [x] Six-File Context System written for this project (`context/` folder at project root)
 - [x] `AGENTS.md` entry point updated
 - [x] Project scaffolding: Next.js 16 + TypeScript + Tailwind v4 + shadcn/ui
@@ -153,6 +187,8 @@ Update this file after every meaningful implementation change.
 - **Clerk API keys**: When will these be available? The mock auth interface is Clerk-compatible. To upgrade: install `@clerk/nextjs`, wrap `<ClerkProvider>` in layout, replace `useAuthStore()` with `useUser()` from Clerk.
 - **Database**: When the product goes live, `eskort-cart`, `eskort-plans`, and `eskort-profile` should move from localStorage to a real backend (Supabase or Prisma). No changes to component interfaces required — just replace the store implementations.
 - **Junior menu images**: Placeholder divs are in place. Real product photography can replace placeholders by updating the `image` field in `JUNIOR_MENU_ITEMS` in `data.ts` and rendering `<img>` instead of the placeholder div in `step-menu.tsx`.
+- **Linting**: `package.json` defines `"lint": "eslint ."`, but ESLint is not a dependency and there is no `eslint.config.*`, so `npm run lint` fails. Add `eslint` and `eslint-config-next` with a flat config to enable it. Pre-existing unused imports and locals remain in `step-build.tsx` and `step-review.tsx`.
+- **Sneak Peek vs generated week**: The Step 1 Sneak Peek uses `buildWeekFromSelection` (`lib/skaftin-data.ts`) while Step 2 uses `generateWeek` (`lib/recommendation-engine.ts`), so the box contents change between steps. The copy now sets that expectation; unifying the two engines is a possible follow-up.
 - **Payment processing**: The checkout step currently has a "Place Order" button that simulates an order. Real payment (PayFast / Stripe) integration is out of scope for this phase.
 
 ## Architecture Decisions

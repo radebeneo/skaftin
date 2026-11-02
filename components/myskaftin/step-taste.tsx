@@ -11,47 +11,8 @@ import {
 } from './data'
 import type { Selection } from './experience'
 import { useSkaftinMotion } from './motion-context'
+import { MultiSelectDropdown } from './multi-select-dropdown'
 import { FOOD_METADATA } from '@/lib/skaftin-data'
-
-// ─── Muncher Personality Selector ────────────────────────────────────────────
-
-function MuncherPersonalityCard({
-  personality,
-  selected,
-  onSelect,
-}: {
-  personality: typeof MUNCHER_PERSONALITIES[0]
-  selected: boolean
-  onSelect: () => void
-}) {
-  return (
-    <button
-      type="button"
-      id={`personality-${personality.id}`}
-      onClick={onSelect}
-      aria-pressed={selected}
-      aria-label={`${personality.name}: ${personality.tagline}`}
-      className={`relative flex flex-col items-center gap-2 rounded-[24px] border-2 p-4 text-center transition-all duration-200 active:scale-[0.97] hover:shadow-md ${
-        selected
-          ? 'border-eskort-red bg-eskort-red/5 shadow-sm shadow-eskort-red/20'
-          : 'border-border bg-background hover:border-eskort-red/40'
-      }`}
-    >
-      {selected && (
-        <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-eskort-red text-white">
-          <Check className="h-3 w-3" aria-hidden="true" />
-        </span>
-      )}
-      <span className="text-3xl leading-none" aria-hidden="true">{personality.emoji}</span>
-      <span className={`font-display text-sm uppercase leading-tight ${selected ? 'text-eskort-red' : 'text-ink'}`}>
-        {personality.name}
-      </span>
-      <span className="text-[11px] font-semibold leading-snug text-muted-foreground">
-        {personality.tagline}
-      </span>
-    </button>
-  )
-}
 
 // ─── StepTaste ────────────────────────────────────────────────────────────────
 
@@ -142,6 +103,22 @@ export function StepTaste({
   const nameLabel = childName || 'your child'
   const possessive = childName ? `${childName}'s` : "your child's"
 
+  const personalityOptions = MUNCHER_PERSONALITIES.map((p) => ({
+    id: p.id,
+    label: p.name,
+    emoji: p.emoji,
+    hint: p.tagline,
+  }))
+
+  // Likes that clash with an active restriction are hidden from the dropdown.
+  const LIKE_CONFLICTS: Record<string, string[]> = {
+    'no-dairy': ['cheese'],
+    'no-gluten': ['crackers', 'sausage', 'nuggets'],
+  }
+  const likeOptions = LIKE_OPTIONS.filter(
+    (o) => !value.dislikes.some((d) => (LIKE_CONFLICTS[d] || []).includes(o.id)),
+  )
+
   // Positive allergy confirmation copy
   const activeDislikeLabel = DISLIKE_OPTIONS.find((d) => d.id === activeDislike)?.label
 
@@ -186,17 +163,14 @@ export function StepTaste({
                     type="button"
                     onClick={() => onChange({ days: d })}
                     aria-pressed={active}
-                    aria-label={`${d} days — ${d === 5 ? 'Full school week' : 'Half-week helper'}`}
-                    className={`rounded-2xl border-2 px-4 py-4 text-left transition-all active:scale-[0.97] ${
+                    aria-label={`${d} days`}
+                    className={`rounded-2xl border-2 px-3 py-2 text-center transition-all active:scale-[0.97] ${
                       active
                         ? 'border-eskort-red bg-eskort-red text-white'
                         : 'border-border bg-background hover:border-eskort-red/50'
                     }`}
                   >
-                    <span className="block font-display text-2xl leading-none">{d}-DAY</span>
-                    <span className={`block text-xs font-bold ${active ? 'text-white/80' : 'text-muted-foreground'}`}>
-                      {d === 5 ? 'Full school week' : 'Half-week helper'}
-                    </span>
+                    <span className="block font-display text-lg leading-none">{d}-DAY</span>
                   </button>
                 )
               })}
@@ -213,18 +187,17 @@ export function StepTaste({
         <p className="mb-4 text-sm font-semibold text-muted-foreground">
           Pick the one that fits best — we'll use it to build a better week.
         </p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {MUNCHER_PERSONALITIES.map((p) => (
-            <MuncherPersonalityCard
-              key={p.id}
-              personality={p}
-              selected={value.personality === p.id}
-              onSelect={() =>
-                onChange({ personality: value.personality === p.id ? null : (p.id as PersonalityId) })
-              }
-            />
-          ))}
-        </div>
+        <MultiSelectDropdown
+          single
+          label="Muncher personality"
+          placeholder="Choose a muncher type"
+          options={personalityOptions}
+          selected={value.personality ? [value.personality] : []}
+          onToggle={(id) =>
+            onChange({ personality: value.personality === id ? null : (id as PersonalityId) })
+          }
+          optionIdPrefix="personality"
+        />
         {value.personality && (
           <div className="mt-3 rounded-xl bg-eskort-blue/8 px-4 py-2.5 text-sm font-semibold text-eskort-blue">
             {MUNCHER_PERSONALITIES.find((p) => p.id === value.personality)?.description}
@@ -238,39 +211,16 @@ export function StepTaste({
           {childName ? `What does ${childName} love?` : 'Yes please!'}
         </h3>
         <p className="mb-4 text-sm font-semibold text-muted-foreground">
-          Tap everything {nameLabel} loves — we'll make sure it's in the box.
+          Pick everything {nameLabel} loves — we'll make sure it's in the box.
         </p>
-        <div className="flex flex-wrap gap-2">
-          {LIKE_OPTIONS.map((o) => {
-            const CONFLICTS: Record<string, string[]> = {
-              'no-dairy': ['cheese'],
-              'no-gluten': ['crackers', 'sausage', 'nuggets'],
-            }
-            const isRestricted = value.dislikes.some(d => (CONFLICTS[d] || []).includes(o.id))
-            if (isRestricted) return null
-
-            const active = value.likes.includes(o.id)
-            return (
-              <button
-                key={o.id}
-                id={`like-${o.id}`}
-                type="button"
-                onClick={() => toggle('likes', o.id)}
-                aria-pressed={active}
-                aria-label={`${o.label}${active ? ' (selected)' : ''}`}
-                className={`flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-all active:scale-95 ${
-                  active
-                    ? 'border-eskort-red bg-eskort-red text-white shadow-sm'
-                    : 'border-border bg-background hover:border-eskort-red/50'
-                }`}
-              >
-                <span aria-hidden="true" className="text-base">{o.emoji}</span>
-                {o.label}
-                {active && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
-              </button>
-            )
-          })}
-        </div>
+        <MultiSelectDropdown
+          label={childName ? `What ${childName} loves` : 'Yes please'}
+          placeholder="Choose their favourites"
+          options={likeOptions}
+          selected={value.likes}
+          onToggle={(id) => void toggle('likes', id)}
+          optionIdPrefix="like"
+        />
         {value.likes.length > 0 && (
           <p className="mt-2 text-xs font-semibold text-eskort-red">
             {value.likes.length} favourite{value.likes.length !== 1 ? 's' : ''} selected ✓
@@ -297,30 +247,15 @@ export function StepTaste({
           </div>
         )}
 
-        <div className="flex flex-wrap gap-2">
-          {DISLIKE_OPTIONS.map((o) => {
-            const active = value.dislikes.includes(o.id)
-            return (
-              <button
-                key={o.id}
-                id={`dislike-${o.id}`}
-                type="button"
-                onClick={() => toggle('dislikes', o.id)}
-                aria-pressed={active}
-                aria-label={`${o.label}${active ? ' (active restriction)' : ''}`}
-                className={`flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-all active:scale-95 ${
-                  active
-                    ? 'border-eskort-ink bg-eskort-ink text-white'
-                    : 'border-border bg-background hover:border-eskort-ink/40'
-                }`}
-              >
-                <span aria-hidden="true" className="text-base">{o.emoji}</span>
-                {o.label}
-                {active && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
-              </button>
-            )
-          })}
-        </div>
+        <MultiSelectDropdown
+          label="No thanks / allergies"
+          placeholder="None — no restrictions"
+          options={DISLIKE_OPTIONS}
+          selected={value.dislikes}
+          onToggle={(id) => void toggle('dislikes', id)}
+          optionIdPrefix="dislike"
+          tone="ink"
+        />
 
         {value.dislikes.length > 0 && (
           <p className="mt-2 text-xs font-semibold text-muted-foreground">
