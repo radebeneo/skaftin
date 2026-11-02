@@ -30,7 +30,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function getProfile(value: Selection): RecommendationProfile {
+export function getProfile(value: Selection): RecommendationProfile {
   return {
     likes: value.likes,
     dislikes: value.dislikes,
@@ -338,14 +338,27 @@ export function StepBuild({
 
   const days = value.days === 5 ? WEEKDAYS_5 : WEEKDAYS_3
 
-  function handleSurpriseMe() {
+  /** Build a fresh week. Choosing a style replaces any handpicked Build Your Own box. */
+  function buildWeek(patch: Partial<Selection> = {}) {
     setGenerating(true)
-    onChange({ isGenerating: true })
+    onChange({ ...patch, isGenerating: true })
     setTimeout(() => {
-      const week = generateWeek(profile)
-      onChange({ generatedWeek: week, menuId: 'generated', isGenerating: false })
+      const week = generateWeek(getProfile({ ...value, ...patch }))
+      onChange({ generatedWeek: week, customItems: [], isGenerating: false })
       setGenerating(false)
     }, 600)
+  }
+
+  function handleShuffle() {
+    buildWeek({ menuId: 'generated' })
+  }
+
+  function handleCuratedPick(menuId: string, prep: Selection['prep']) {
+    buildWeek({ menuId, prep })
+  }
+
+  function handleThemePick(themeId: Selection['themeId']) {
+    buildWeek({ themeId, menuId: 'generated' })
   }
 
   function handleRemix(day: string, newMealId: string) {
@@ -363,7 +376,7 @@ export function StepBuild({
     const newItems = value.customItems.includes(id)
       ? value.customItems.filter((x) => x !== id)
       : [...value.customItems, id]
-    onChange({ customItems: newItems, menuId: `custom-${id}` })
+    onChange({ customItems: newItems, menuId: newItems.length > 0 ? `custom-${id}` : 'generated' })
   }
 
   const categoryItems = JUNIOR_MENU_ITEMS.filter((i) => {
@@ -390,7 +403,7 @@ export function StepBuild({
           {childName ? `Let's build ${childName}'s week` : "Let's build their week"}
         </h2>
         <p className="mt-1 text-sm font-semibold text-muted-foreground">
-          We&apos;ll pick the meals — you can remix anything you want.
+          We&apos;ve packed a week from your answers. Remix any day, shuffle, or pick a different style below.
         </p>
       </div>
 
@@ -415,9 +428,9 @@ export function StepBuild({
         <button
           id="surprise-me-btn"
           type="button"
-          onClick={handleSurpriseMe}
+          onClick={handleShuffle}
           disabled={generating}
-          aria-label={`Generate a complete ${value.days}-day lunchbox week`}
+          aria-label={`Shuffle into a new ${value.days}-day lunchbox week`}
           className="relative flex w-full flex-col items-center justify-center gap-1 overflow-hidden rounded-[24px] bg-eskort-ink px-4 py-5 text-center font-display text-lg uppercase text-white shadow-lg transition-all active:scale-[0.98] hover:shadow-xl disabled:opacity-70 sm:flex-row sm:gap-3 sm:px-6 sm:text-xl"
         >
           <span className="text-eskort-yellow" aria-hidden="true">
@@ -427,10 +440,10 @@ export function StepBuild({
               '✨'
             )}
           </span>
-          {generating ? `Packing ${possessive} week…` : `Build it for me`}
+          {generating ? `Packing ${possessive} week…` : 'Shuffle my week'}
           {!generating && (
             <span className="text-xs font-semibold normal-case text-white/60 sm:ml-1 sm:text-sm">
-              — perfect {value.days}-day week
+              — new {value.days}-day mix
             </span>
           )}
         </button>
@@ -480,7 +493,7 @@ export function StepBuild({
         <div className="mb-4 flex items-center gap-2">
           <div className="h-px flex-1 bg-border" />
           <span className="text-xs font-black uppercase tracking-widest text-muted-foreground px-3">
-            or choose
+            or pick a style
           </span>
           <div className="h-px flex-1 bg-border" />
         </div>
@@ -522,7 +535,8 @@ export function StepBuild({
                     key={m.id}
                     id={`menu-weekly-${m.id}`}
                     type="button"
-                    onClick={() => onChange({ menuId: m.id })}
+                    onClick={() => handleCuratedPick(m.id, m.prep)}
+                    disabled={generating}
                     aria-pressed={active}
                     aria-label={`${m.name}: ${m.blurb}`}
                     className={`group overflow-hidden rounded-[24px] border-2 text-left transition-all active:scale-[0.99] ${
@@ -578,7 +592,8 @@ export function StepBuild({
                   key={t.id}
                   id={`theme-${t.id}`}
                   type="button"
-                  onClick={() => onChange({ themeId: active ? null : t.id })}
+                  onClick={() => handleThemePick(active ? null : t.id)}
+                  disabled={generating}
                   aria-pressed={active}
                   aria-label={`${t.name}: ${t.description}`}
                   className={`relative flex flex-col items-center gap-2 rounded-[24px] border-2 p-4 text-center transition-all active:scale-[0.97] ${
@@ -603,7 +618,7 @@ export function StepBuild({
         {activeTab === 'buildown' && (
           <div className="space-y-5">
             <p className="text-sm font-semibold text-muted-foreground">
-              Handpick items for {nameLabel}&apos;s box. Restricted items are hidden.
+              Handpick items for {nameLabel}&apos;s box — they&apos;re packed every day instead of the week above. Restricted items are hidden.
               {value.customItems.length > 0 && (
                 <span className="ml-2 font-black text-eskort-red">
                   {value.customItems.length} item{value.customItems.length !== 1 ? 's' : ''} selected

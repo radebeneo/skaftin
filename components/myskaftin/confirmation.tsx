@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import { CheckCircle2, Gift, Star, Clock, Bell, CalendarHeart, RotateCcw, MapPin, MessageCircle, Copy, Check, Share2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { PRICE_TIERS, RECIPE_CARDS, WEEKLY_MENUS, JUNIOR_MENU_ITEMS, STICKER_THEMES } from './data'
+import { PRICE_TIERS, RECIPE_CARDS, WEEKLY_MENUS, STICKER_THEMES } from './data'
+import { PlanSummary, hasPlan, planLines } from './plan-summary'
 import type { Selection } from './experience'
 import type { OrderDetails } from './step-order'
 import { useRewardsStore } from '@/lib/rewards-store'
@@ -75,11 +76,8 @@ export function Confirmation({
   }
 
   function shareWeek() {
-    const weekText = value.generatedWeek.length > 0
-      ? value.generatedWeek.map((d) => {
-          const meal = JUNIOR_MENU_ITEMS.find((m) => m.id === d.mealId)
-          return `${d.day}: ${meal?.emoji ?? ''} ${meal?.name ?? d.mealId}`
-        }).join('\n')
+    const weekText = hasPlan(value)
+      ? planLines(value).join('\n')
       : `${value.days}-day ${menu?.name ?? tier.name} plan`
 
     const shareData = {
@@ -136,45 +134,12 @@ export function Confirmation({
       </div>
 
       {/* ── Week visual summary ──────────────────────────────────── */}
-      {value.generatedWeek.length > 0 && (
+      {hasPlan(value) && (
         <div className="rounded-[24px] border-2 border-border bg-card p-5">
           <h2 className="mb-4 font-display text-lg uppercase tracking-wide">
             {possessive} Skaftin Week
           </h2>
-          <div className="overflow-x-auto -mx-2 px-2">
-            <div
-              className="flex gap-2 pb-1"
-              style={{ minWidth: `${value.days * 110}px` }}
-            >
-              {value.generatedWeek.map((entry) => {
-                const meal = JUNIOR_MENU_ITEMS.find((m) => m.id === entry.mealId)
-                if (!meal) return null
-                return (
-                  <div
-                    key={entry.day}
-                    className="flex flex-col items-center rounded-2xl border border-border bg-background p-3 text-center min-w-[100px]"
-                  >
-                    <span className="mb-1 block text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                      {entry.day}
-                    </span>
-                    <div
-                      className="mb-1.5 flex h-10 w-10 items-center justify-center rounded-xl text-xl"
-                      style={{ background: meal.placeholderBg }}
-                      aria-label={meal.name}
-                    >
-                      <span aria-hidden="true">{meal.emoji === 'ABC' ? '🔡' : meal.emoji}</span>
-                    </div>
-                    <span className="block text-[11px] font-bold leading-tight">{meal.name}</span>
-                    <div className="mt-1 flex items-center justify-center gap-0.5">
-                      {entry.sides.map((s, i) => (
-                        <span key={i} className="text-sm" aria-hidden="true">{s}</span>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
+          <PlanSummary value={value} />
         </div>
       )}
 

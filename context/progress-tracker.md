@@ -16,6 +16,14 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Skaftin build and order flow streamlining (2026-11-02, `live-skaftin-preview` branch)**:
+  - [x] Removed the static 3-step indicator from `app/skaftin/page.tsx`, which always showed step 1 as active. The wizard's live step indicator is now the only one.
+  - [x] Entering Build My Week now generates a week from the Taste answers automatically, so Build never opens empty. The week is only rebuilt when the Taste answers change, so remixes survive back-navigation. "Build it for me" is now "Shuffle my week".
+  - [x] Curated Weeks and Themed Drops now produce a real week (curated picks apply their prep style; themes feed `themeId` into `generateWeek`). Previously they were dead-end selections that left Review empty.
+  - [x] Build Your Own picks now carry through to Review and Confirmation through the new shared `components/myskaftin/plan-summary.tsx` (`PlanSummary`, `hasPlan`, `isCustomPlan`, `planLines`). Sharing text covers custom plans too.
+  - [x] Review: removed the duplicate rewards strip (the wizard's top rewards bar already shows it) and the duplicate order-total strip. The total now appears on the "Place Order" button. The parent's name is no longer pre-filled with the child's name.
+  - [x] Continue (step 2) and Place Order are disabled until a plan exists.
+  - [x] Verification: `npx tsc --noEmit` passes. `npm run lint` cannot run because ESLint is not installed and there is no `eslint.config.*` (see Open Questions).
 - [x] **Skaftin live lunchbox preview (2026-10-06)**:
   - [x] Replaced the preview surface with the provided open-box artwork and positioned the selected foods inside its compartments.
   - [x] Kept the lunchbox at a fixed square size as items are added; compartment contents stay bounded and scroll internally when needed.
@@ -165,6 +173,7 @@ Update this file after every meaningful implementation change.
 - **Clerk API keys**: When will these be available? The mock auth interface is Clerk-compatible. To upgrade: install `@clerk/nextjs`, wrap `<ClerkProvider>` in layout, replace `useAuthStore()` with `useUser()` from Clerk.
 - **Database**: When the product goes live, `eskort-cart`, `eskort-plans`, and `eskort-profile` should move from localStorage to a real backend (Supabase or Prisma). No changes to component interfaces required — just replace the store implementations.
 - **Junior menu images**: Placeholder divs are in place. Real product photography can replace placeholders by updating the `image` field in `JUNIOR_MENU_ITEMS` in `data.ts` and rendering `<img>` instead of the placeholder div in `step-menu.tsx`.
+- **Linting**: `package.json` defines `"lint": "eslint ."`, but ESLint is not a dependency and there is no `eslint.config.*`, so `npm run lint` fails. Add `eslint` and `eslint-config-next` with a flat config to enable it. Pre-existing unused imports and locals remain in `step-build.tsx` and `step-review.tsx`.
 - **Payment processing**: The checkout step currently has a "Place Order" button that simulates an order. Real payment (PayFast / Stripe) integration is out of scope for this phase.
 
 ## Architecture Decisions

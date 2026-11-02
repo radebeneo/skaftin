@@ -1,16 +1,14 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import {
-  MapPin, Phone, User, Clock, CheckCircle2, Loader2, ShieldCheck, Gift, Star, Package, Sparkles
-} from 'lucide-react'
+import { MapPin, User, Clock, CheckCircle2, Loader2, Gift, Package } from 'lucide-react'
+import { PlanSummary, hasPlan } from './plan-summary'
 import Image from 'next/image'
 import {
   DELIVERY_SLOTS,
   PRICE_TIERS,
   LIKE_OPTIONS,
   DISLIKE_OPTIONS,
-  JUNIOR_MENU_ITEMS,
   STICKER_THEMES,
   WEEKDAYS_5,
   WEEKDAYS_3,
@@ -25,19 +23,17 @@ export function StepReview({
   value,
   onChange,
   total,
-  totalPoints,
   onConfirm,
 }: {
   value: Selection
   onChange: (patch: Partial<Selection>) => void
   total: number
-  totalPoints: number
   onConfirm: (details: OrderDetails) => void
 }) {
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [details, setDetails] = useState({
-    fullName: value.kidName,
+    fullName: '',
     phone: '',
     street: '',
     suburb: '',
@@ -50,6 +46,7 @@ export function StepReview({
     setDetails((d) => ({ ...d, [key]: val }))
 
   const isValid =
+    hasPlan(value) &&
     details.fullName.trim() !== '' &&
     details.phone.trim() !== '' &&
     details.street.trim() !== '' &&
@@ -58,7 +55,6 @@ export function StepReview({
     details.deliverySlot !== ''
 
   const tier = PRICE_TIERS.find((t) => t.id === value.tierId) ?? PRICE_TIERS[0]
-  const points = tier.points
   const likeLabels = LIKE_OPTIONS.filter((o) => value.likes.includes(o.id)).map((o) => o.label)
   const dislikeLabels = DISLIKE_OPTIONS.filter((o) => value.dislikes.includes(o.id)).map((o) => o.label)
 
@@ -120,40 +116,9 @@ export function StepReview({
           Here&apos;s what we&apos;ve packed. Looking good?
         </p>
 
-        {value.generatedWeek.length > 0 ? (
-          <div className="mt-4 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-            <div
-              className="flex gap-2 pb-2 sm:grid"
-              style={{
-                minWidth: `${value.days * 120}px`,
-                gridTemplateColumns: `repeat(${value.days}, minmax(0, 1fr))`,
-              }}
-            >
-              {value.generatedWeek.map((entry) => {
-                const meal = JUNIOR_MENU_ITEMS.find((m) => m.id === entry.mealId)
-                if (!meal) return null
-                return (
-                  <div key={entry.day} className="flex flex-col items-center rounded-[20px] border-2 border-border bg-background p-3 text-center min-w-[110px] sm:min-w-0">
-                    <span className="mb-1.5 block text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                      {entry.day}
-                    </span>
-                    <div
-                      className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl text-2xl"
-                      style={{ background: meal.placeholderBg }}
-                      aria-label={meal.name}
-                    >
-                      <span aria-hidden="true">{meal.emoji === 'ABC' ? '🔡' : meal.emoji}</span>
-                    </div>
-                    <span className="block text-[11px] font-bold leading-tight">{meal.name}</span>
-                    <div className="mt-1 flex items-center justify-center gap-0.5">
-                      {entry.sides.map((s, i) => (
-                        <span key={i} className="text-sm" aria-hidden="true">{s}</span>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+        {hasPlan(value) ? (
+          <div className="mt-4">
+            <PlanSummary value={value} />
           </div>
         ) : (
           <div className="mt-4 rounded-2xl border-2 border-dashed border-border p-5 text-center text-sm font-semibold text-muted-foreground">
@@ -239,36 +204,6 @@ export function StepReview({
             <span className="font-display text-xl uppercase">Total</span>
             <span className="font-display text-2xl text-eskort-red">R{total}</span>
           </div>
-        </div>
-      </div>
-
-      {/* ── Rewards strip ─────────────────────────────────────────── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-[24px] bg-eskort-yellow px-4 py-4 text-ink sm:gap-4 sm:px-5">
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-ink text-eskort-yellow">
-          <Star className="h-6 w-6 fill-eskort-yellow" aria-hidden="true" />
-        </span>
-        <div>
-          <span className="block font-display text-lg uppercase leading-tight">
-            +{points} Skaftin Stars
-          </span>
-          <span className="text-sm font-semibold opacity-80">
-            Added to your balance when your order is confirmed.
-          </span>
-        </div>
-        <span className="rounded-full bg-ink px-3 py-1.5 text-xs font-black text-eskort-yellow sm:ml-auto whitespace-nowrap">
-          {totalPoints} total
-        </span>
-      </div>
-
-      {/* ── Order total strip ─────────────────────────────────────── */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-ink px-4 py-4 text-white sm:px-5">
-        <div>
-          <span className="block text-xs font-black uppercase tracking-widest opacity-60">Order total</span>
-          <span className="font-display text-3xl leading-none text-eskort-yellow">R{total}</span>
-        </div>
-        <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5">
-          <ShieldCheck className="h-4 w-4 text-eskort-yellow" aria-hidden="true" />
-          <span className="text-xs font-black text-white/90">Secure checkout</span>
         </div>
       </div>
 
@@ -374,10 +309,10 @@ export function StepReview({
           className="flex w-full items-center justify-center gap-2 rounded-full bg-eskort-red px-6 py-4 font-display text-xl uppercase text-white shadow-lg shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
           aria-label="Confirm and place your order"
         >
-          <CheckCircle2 className="h-5 w-5" aria-hidden="true" /> Confirm &amp; Place Order
+          <CheckCircle2 className="h-5 w-5" aria-hidden="true" /> Place Order · R{total}
         </button>
         <p className="flex items-center justify-center gap-1.5 text-center text-xs font-semibold text-muted-foreground">
-          🔒 Free delivery · No lock-in · Cancel anytime
+          🔒 Secure checkout · Free delivery · No lock-in · Cancel anytime
         </p>
         {!isValid && (
           <p className="text-center text-xs font-semibold text-muted-foreground" role="status">

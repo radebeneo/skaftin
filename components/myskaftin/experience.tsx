@@ -3,10 +3,12 @@
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { Star, Sparkles } from 'lucide-react'
-import { PRICE_TIERS, type PrepStyle, type GeneratedWeek, type ThemeId, type StickerThemeId } from './data'
+import { PRICE_TIERS, JUNIOR_MENU_ITEMS, type PrepStyle, type GeneratedWeek, type ThemeId, type StickerThemeId } from './data'
 import type { PersonalityId } from './data'
 import { StepTaste } from './step-taste'
-import { StepBuild } from './step-build'
+import { StepBuild, getProfile } from './step-build'
+import { hasPlan, isCustomPlan } from './plan-summary'
+import { generateWeek } from '@/lib/recommendation-engine'
 import { StepReview } from './step-review'
 import { Confirmation } from './confirmation'
 import { LiveSkaftinPreview } from './live-skaftin-preview'
@@ -42,6 +44,11 @@ const STEPS = [
 
 const BASE_POINTS = 320
 
+/** The Taste & Prep answers a week is built from. A change means the week is stale. */
+function tasteKey(value: Selection): string {
+  return JSON.stringify([value.likes, value.dislikes, value.prep, value.days, value.personality])
+}
+
 export function MySkaftinExperience() {
   const [step, setStep] = useState(1)
   const [done, setDone] = useState(false)
@@ -67,6 +74,27 @@ export function MySkaftinExperience() {
 
   const onChange = (patch: Partial<Selection>) => setValue((v) => ({ ...v, ...patch }))
 
+  // Taste answers the current week was built from, recorded when leaving the Build step.
+  const [plannedFor, setPlannedFor] = useState<string | null>(null)
+
+  function goToStep(target: number) {
+    // Entering Build: have a ready-made week waiting instead of an empty screen.
+    // Rebuild only on first entry or when the Taste answers changed, so remixes survive.
+    if (step === 1 && target === 2 && (value.generatedWeek.length === 0 || plannedFor !== tasteKey(value))) {
+      const customItems = value.customItems.filter((id) => {
+        const item = JUNIOR_MENU_ITEMS.find((i) => i.id === id)
+        return item ? item.allergenIds.every((allergen) => !value.dislikes.includes(allergen)) : false
+      })
+      onChange({
+        generatedWeek: generateWeek(getProfile(value)),
+        customItems,
+        menuId: isCustomPlan(value) && customItems.length > 0 ? value.menuId : 'generated',
+      })
+    }
+    if (target === 1 && step > 1) setPlannedFor(tasteKey(value))
+    setStep(target)
+  }
+
   const earned = useMemo(
     () => PRICE_TIERS.find((t) => t.id === value.tierId)?.points ?? 0,
     [value.tierId],
@@ -85,6 +113,7 @@ export function MySkaftinExperience() {
     setStep(1)
     setDone(false)
     setOrderDetails(null)
+    setPlannedFor(null)
     setValue({
       kidName: '',
       days: 5,
@@ -147,7 +176,7 @@ export function MySkaftinExperience() {
                 <button
                   type="button"
                   disabled={s.n > step}
-                  onClick={() => { if (s.n < step) setStep(s.n) }}
+                  onClick={() => { if (s.n < step) goToStep(s.n) }}
                   aria-label={`Step ${s.n}: ${s.full}${complete ? ' (completed)' : active ? ' (current)' : ''}`}
                   className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center disabled:cursor-default sm:flex-row sm:gap-2 sm:text-left"
                 >
@@ -192,7 +221,6 @@ export function MySkaftinExperience() {
               value={value}
               onChange={onChange}
               total={total}
-              totalPoints={totalPoints}
               onConfirm={handleOrderConfirmed}
             />
           )}
@@ -210,7 +238,7 @@ export function MySkaftinExperience() {
           {step > 1 && (
             <button
               type="button"
-              onClick={() => setStep((s) => s - 1)}
+              onClick={() => goToStep(step - 1)}
               className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-background px-4 py-3.5 font-display text-sm uppercase transition-colors hover:border-ink sm:px-5 sm:text-base lg:bg-background"
               aria-label="Go back to previous step"
             >
@@ -219,8 +247,9 @@ export function MySkaftinExperience() {
           )}
           <button
             type="button"
-            onClick={() => setStep((s) => s + 1)}
-            className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-eskort-red px-4 py-4 font-display text-sm uppercase text-white shadow-lg shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 sm:px-6 sm:text-lg"
+            onClick={() => goToStep(step + 1)}
+            disabled={step === 2 && (value.isGenerating || !hasPlan(value))}
+            className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-eskort-red px-4 py-4 font-display text-sm uppercase text-white shadow-lg shadow-eskort-red/25 transition-all active:scale-[0.98] hover:shadow-eskort-red/40 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:px-6 sm:text-lg"
             aria-label={step === 1 ? 'Continue to Build My Week' : 'Continue to Review & Order'}
           >
             {step === 1 ? 'Build My Week' : 'Review & Order'}
