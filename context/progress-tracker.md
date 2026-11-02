@@ -173,10 +173,6 @@ Update this file after every meaningful implementation change.
   - [x] Kept review and confirmation content at readable widths while giving the active builder and live preview more room on large screens.
   - [x] Reworked compact progress, tabs, preview controls, card grids, rewards, and navigation to avoid compression and overlap from 320px through 1440px+.
 
-- [x] **Live preview photo lunchbox (2026-10-06)**:
-  - [x] Overlay the lunchbox artwork at a fixed aspect ratio in `live-skaftin-preview.tsx`; added foods are constrained to their designated compartments.
-  - [x] Food photos (`public/assets/skaftin/foods/*.png`) and emoji fallbacks continue to render inside the fixed compartment areas.
-
 ## In Progress
 
 - Nothing currently in progress.
@@ -208,5 +204,3 @@ Update this file after every meaningful implementation change.
 - `pnpm` is the package manager (`pnpm-lock.yaml` exists). Use `pnpm add` not `npm install` if adding packages.
 - Dev server runs on `0.0.0.0` (`next dev -H 0.0.0.0`) — accessible on local network.
 - The active homepage is implemented in `eskort-homepage-new/index.tsx`.
-
-- Live preview: lunchbox image now cropped/zoomed (~19%) in a 3:2-based frame; compartment overlays realigned to the image's actual compartments (components/myskaftin/live-skaftin-preview.tsx).

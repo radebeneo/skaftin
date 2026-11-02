@@ -58,7 +58,7 @@ export function MySkaftinExperience() {
   const [value, setValue] = useState<Selection>({
     kidName: '',
     days: 5,
-    likes: [],
+    likes: ['viennas', 'cheese'],
     dislikes: [],
     prep: 'prepacked',
     tierId: 'family',
@@ -117,7 +117,7 @@ export function MySkaftinExperience() {
     setValue({
       kidName: '',
       days: 5,
-      likes: [],
+      likes: ['viennas', 'cheese'],
       dislikes: [],
       prep: 'prepacked',
       tierId: 'family',
