@@ -16,6 +16,11 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Vercel build repair after PR #4 merge (2026-11-03)**:
+  - [x] Cause: merging `main` into `live-skaftin-preview` (`8ec41ac`) re-applied the earlier PR #2 revert (`fdc3881`) on top of the newer lunchbox work. That left `live-skaftin-preview.tsx` half-merged (unclosed JSX, undefined `Image`/`LUNCHBOX_IMAGE`/`MainCompartment`/`isMobileExpanded`), deleted `public/assets/skaftin/lunchbox/eskort-lunchbox-design-preview.png`, and removed the Wiggles/Yoghurt options and food-metadata updates.
+  - [x] Fix: restored `live-skaftin-preview.tsx`, `data.ts`, `experience.tsx`, `step-build.tsx`, `step-taste.tsx`, `lib/skaftin-data.ts`, this tracker and the lunchbox PNG from `8a6e17b`. Patch IDs confirmed the merge's changes to these files were identical to the old revert, so no `main` work was lost.
+  - [x] Verification: `npx tsc --noEmit` and `npx next build` pass; all referenced `/assets/skaftin/*` files exist.
+  - [x] Local note: pnpm 12 refuses `pnpm run` because `package.json` still uses the `pnpm.overrides` field (Vercel uses pnpm 10, which is unaffected). See Open Questions.
 - [x] **Skaftin wizard UI polish (2026-11-02)**:
   - [x] `step-review.tsx`: new `onBack` prop; a "← Back" button sits beside Place Order and returns to Build My Week (wired in `experience.tsx`).
   - [x] Smaller CTAs: Pack My Week / Review & Order (`experience.tsx`) and Place Order (`step-review.tsx`) now use `py-3`, `text-sm sm:text-base`, `shadow-md`. On desktop the wizard CTA no longer stretches full width.
@@ -173,6 +178,10 @@ Update this file after every meaningful implementation change.
   - [x] Kept review and confirmation content at readable widths while giving the active builder and live preview more room on large screens.
   - [x] Reworked compact progress, tabs, preview controls, card grids, rewards, and navigation to avoid compression and overlap from 320px through 1440px+.
 
+- [x] **Live preview photo lunchbox (2026-10-06)**:
+  - [x] Overlay the lunchbox artwork at a fixed aspect ratio in `live-skaftin-preview.tsx`; added foods are constrained to their designated compartments.
+  - [x] Food photos (`public/assets/skaftin/foods/*.png`) and emoji fallbacks continue to render inside the fixed compartment areas.
+
 ## In Progress
 
 - Nothing currently in progress.
@@ -189,6 +198,7 @@ Update this file after every meaningful implementation change.
 - **Junior menu images**: Placeholder divs are in place. Real product photography can replace placeholders by updating the `image` field in `JUNIOR_MENU_ITEMS` in `data.ts` and rendering `<img>` instead of the placeholder div in `step-menu.tsx`.
 - **Linting**: `package.json` defines `"lint": "eslint ."`, but ESLint is not a dependency and there is no `eslint.config.*`, so `npm run lint` fails. Add `eslint` and `eslint-config-next` with a flat config to enable it. Pre-existing unused imports and locals remain in `step-build.tsx` and `step-review.tsx`.
 - **Sneak Peek vs generated week**: The Step 1 Sneak Peek uses `buildWeekFromSelection` (`lib/skaftin-data.ts`) while Step 2 uses `generateWeek` (`lib/recommendation-engine.ts`), so the box contents change between steps. The copy now sets that expectation; unifying the two engines is a possible follow-up.
+- **pnpm overrides location**: `package.json` defines `pnpm.overrides` (the `hono` override). pnpm 11+ no longer reads that field and blocks `pnpm run` locally until it moves to `pnpm-workspace.yaml`. Vercel currently builds with pnpm 10, so deploys are unaffected, but moving it (and regenerating the lockfile) will be needed before upgrading pnpm.
 - **Payment processing**: The checkout step currently has a "Place Order" button that simulates an order. Real payment (PayFast / Stripe) integration is out of scope for this phase.
 
 ## Architecture Decisions
@@ -204,3 +214,5 @@ Update this file after every meaningful implementation change.
 - `pnpm` is the package manager (`pnpm-lock.yaml` exists). Use `pnpm add` not `npm install` if adding packages.
 - Dev server runs on `0.0.0.0` (`next dev -H 0.0.0.0`) — accessible on local network.
 - The active homepage is implemented in `eskort-homepage-new/index.tsx`.
+
+- Live preview: lunchbox image now cropped/zoomed (~19%) in a 3:2-based frame; compartment overlays realigned to the image's actual compartments (components/myskaftin/live-skaftin-preview.tsx).

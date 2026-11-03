@@ -286,13 +286,15 @@ export type FoodMetadata = {
 
 export const FOOD_METADATA: Record<string, FoodMetadata> = {
   viennas: { id: 'viennas', label: 'Viennas', emoji: '🌭', image: '/assets/skaftin/foods/food-viennas.png', compartment: 'protein', placeholderBg: 'bg-eskort-yellow/20', category: 'Protein' },
-  bacon: { id: 'bacon', label: 'Bacon', emoji: '🥓', image: '/assets/skaftin/foods/food-bacon.png', compartment: 'protein', placeholderBg: 'bg-eskort-red/10', category: 'Protein' },
+  bacon: { id: 'bacon', label: 'Bacon', emoji: '🥓', image: '/assets/skaftin/foods/food-bacon.png', compartment: 'main', placeholderBg: 'bg-eskort-red/10', category: 'Sandwich filling' },
   sausage: { id: 'sausage', label: 'Sausages', emoji: '🥐', image: '/assets/skaftin/foods/food-sausage.svg', compartment: 'protein', placeholderBg: 'bg-eskort-yellow/20', category: 'Protein' },
   nuggets: { id: 'nuggets', label: 'Nuggets', emoji: '🍗', image: '/assets/skaftin/foods/food-nuggets.png', compartment: 'protein', placeholderBg: 'bg-brand-green/10', category: 'Protein' },
-  ham: { id: 'ham', label: 'Ham', emoji: '🥪', image: '/assets/skaftin/foods/food-ham.png', compartment: 'main', placeholderBg: 'bg-brand-blue/10', category: 'Main' },
-  cheese: { id: 'cheese', label: 'Cheese', emoji: '🧀', image: '/assets/skaftin/foods/food-cheese.svg', compartment: 'snacks', placeholderBg: 'bg-brand-yellow/20', category: 'Snacks' },
-  crackers: { id: 'crackers', label: 'Crackers', emoji: '🍪', image: '/assets/skaftin/foods/food-crackers.svg', compartment: 'snacks', placeholderBg: 'bg-panel', category: 'Snacks' },
-  fruit: { id: 'fruit', label: 'Fruit', emoji: '🍎', image: '/assets/skaftin/foods/food-fruit.svg', compartment: 'fruit', placeholderBg: 'bg-eskort-red/10', category: 'Fruit' },
+  ham: { id: 'ham', label: 'Ham', emoji: '🍖', image: '/assets/skaftin/foods/food-ham.png', compartment: 'main', placeholderBg: 'bg-brand-blue/10', category: 'Sandwich filling' },
+  cheese: { id: 'cheese', label: 'Cheese', emoji: '🧀', compartment: 'main', placeholderBg: 'bg-brand-yellow/20', category: 'Sandwich filling' },
+  crackers: { id: 'crackers', label: 'Crackers', emoji: '🍪', compartment: 'snacks', placeholderBg: 'bg-panel', category: 'Snacks' },
+  fruit: { id: 'fruit', label: 'Fruit', emoji: '🍎', compartment: 'fruit', placeholderBg: 'bg-eskort-red/10', category: 'Fruit' },
+  wiggles: { id: 'wiggles', label: 'Wiggles', emoji: '🌀', compartment: 'snacks', placeholderBg: 'bg-brand-yellow/20', category: 'Snacks' },
+  yoghurt: { id: 'yoghurt', label: 'Yoghurt', emoji: '🥣', compartment: 'extras', placeholderBg: 'bg-brand-blue/10', category: 'Extras' },
 }
 
 export type LunchboxDay = {

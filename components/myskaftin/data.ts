@@ -170,7 +170,7 @@ export type JuniorCategory =
   | 'Classic Junior'
 
 /** Which LIKE_OPTIONS ids this meal satisfies */
-export type LikeId = 'viennas' | 'bacon' | 'cheese' | 'ham' | 'nuggets' | 'sausage' | 'fruit' | 'crackers'
+export type LikeId = 'viennas' | 'bacon' | 'cheese' | 'ham' | 'nuggets' | 'sausage' | 'fruit' | 'crackers' | 'wiggles' | 'yoghurt'
 
 /** Which DISLIKE_OPTIONS ids exclude this meal */
 export type AllergenId = 'no-spicy' | 'no-tomato' | 'no-nuts' | 'no-gluten' | 'no-dairy' | 'no-green'
@@ -214,6 +214,8 @@ export const LIKE_OPTIONS: TasteOption[] = [
   { id: 'sausage', label: 'Sausage Rolls', icon: Croissant, emoji: '🥐' },
   { id: 'fruit', label: 'Fruit', icon: Apple, emoji: '🍎' },
   { id: 'crackers', label: 'Crackers', icon: Cherry, emoji: '🍪' },
+  { id: 'wiggles', label: 'Wiggles', icon: Cookie, emoji: '🌀' },
+  { id: 'yoghurt', label: 'Yoghurt', icon: Milk, emoji: '🥣' },
 ]
 
 export const DISLIKE_OPTIONS: TasteOption[] = [
@@ -829,6 +831,8 @@ export const SNACK_OPTIONS = [
   { emoji: '🥕', label: 'Carrot sticks', satisfies: [] as LikeId[], allergens: [] as AllergenId[] },
   { emoji: '🧀', label: 'Cheese cubes', satisfies: ['cheese'] as LikeId[], allergens: ['no-dairy'] as AllergenId[] },
   { emoji: '🍪', label: 'Crackers', satisfies: ['crackers'] as LikeId[], allergens: ['no-gluten'] as AllergenId[] },
+  { emoji: '🌀', label: 'Wiggles', satisfies: ['wiggles'] as LikeId[], allergens: [] as AllergenId[] },
+  { emoji: '🥣', label: 'Yoghurt', satisfies: ['yoghurt'] as LikeId[], allergens: ['no-dairy'] as AllergenId[] },
   { emoji: '🍌', label: 'Banana', satisfies: ['fruit'] as LikeId[], allergens: [] as AllergenId[] },
   { emoji: '🫐', label: 'Blueberries', satisfies: ['fruit'] as LikeId[], allergens: [] as AllergenId[] },
 ]
