@@ -44,11 +44,13 @@ New components must not use direct hex values in inline styles.
 | Skaftin builder display text | Gobold Bold → Impact | Scoped `.font-display` override |
 | Condensed hero text (SHOP / ONLINE NOW) | League Gothic → Antonio → Teko → Anton → Impact | `.hero-impact-text` |
 | Skaftin accent script | EskortSpazaClean → Caveat → Permanent Marker | `font-eskort-spaza` |
+| Homepage button labels (except the split hero CTA) | Montserrat Bold (dedicated `Montserrat CTA Bold` face → `fonts/Montserrat-Bold.ttf`), weight 700 | Scoped `.eskort-homepage :is(button, .button):not(#hero-myskaftin-cta)` |
+| Homepage hero CTA "CAV ISKHAFTIN" | "CAV" in Montserrat Bold (dedicated `Montserrat CTA Bold` face → `fonts/Montserrat-Bold.ttf`), "ISKHAFTIN" in EskortSpazaClean at 1.45em of the button size (`Spaza` family in `eskort-homepage-new/styles.css`) | `.cta-label-montserrat` / `.cta-label-spaza` |
 | Code / mono | System mono | Not used |
 
 Font weights in use: 400 (regular), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold), 900 (black).
 
-**Rule**: Headings on marketing sections use `font-display font-black uppercase tracking-tight`. Body copy uses `font-sans font-medium`. Button labels use `font-extrabold`.
+**Rule**: Headings on marketing sections use `font-display font-black uppercase tracking-tight`. Body copy uses `font-sans font-medium`. Button labels use `font-extrabold` by default; homepage buttons use the dedicated Montserrat Bold face at weight 700, except for the unchanged "CAV ISKHAFTIN" split-font CTA.
 
 Within the `/skaftin` cream builder section, body and UI copy use Montserrat while elements marked with `font-display` use Gobold. The Skaftin hero and shared site chrome retain their own typography.
 

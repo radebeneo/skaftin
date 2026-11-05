@@ -552,6 +552,60 @@ button {
   background-image: url('images1/icons/btn-arrow-light.svg');
 }
 
+/* Split-font label for the hero CAV ISKHAFTIN CTA */
+
+/* Dedicated family so "CAV" always uses the static Montserrat Bold file,
+   not whichever global Montserrat @font-face wins the cascade. */
+@font-face {
+  font-family: "Montserrat CTA Bold";
+  src: url("fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Use the static Montserrat Bold face for all other homepage buttons,
+   including link CTAs, search, newsletter and product quantity controls. */
+.eskort-homepage :is(button, .button):not(#hero-myskaftin-cta) {
+  font-family: "Montserrat CTA Bold", Montserrat, Arial, sans-serif;
+  font-weight: 700;
+}
+
+.eskort-homepage .quantity-control b {
+  font-weight: inherit;
+}
+
+.cta-split-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .3em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cta-label-montserrat {
+  font-family: "Montserrat CTA Bold", Montserrat, Arial, sans-serif;
+  font-weight: 700;
+}
+
+.cta-label-spaza {
+  font-family: Spaza, Caveat, "Permanent Marker", cursive;
+  font-size: 1.45em;
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+
+@media (max-width: 640px) {
+  /* The two-word label is longer than its siblings, so give it a little more of the shared row */
+  .button-row #hero-myskaftin-cta {
+    flex-grow: 1.3;
+  }
+
+  .cta-split-label {
+    gap: .25em;
+  }
+}
+
 .button-dark {
   color: var(--white);
   background: var(--charcoal);

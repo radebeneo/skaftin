@@ -290,7 +290,12 @@ export function EskortHomepage() {
               <div className="button-row">
                 <a className="button button-yellow button-cta" href="#favourites">Products</a>
                 <a className="button button-outline button-cta" href="#specials">Specials</a>
-                <Link id="hero-myskaftin-cta" className="button button-red button-cta" href="/skaftin">mySkaftin</Link>
+                <Link id="hero-myskaftin-cta" className="button button-red button-cta" href="/skaftin">
+                  <span className="cta-split-label">
+                    <span className="cta-label-montserrat">CAV</span>{' '}
+                    <span className="cta-label-spaza">ISKHAFTIN</span>
+                  </span>
+                </Link>
               </div>
             </div>
             <div className="hero-controls">

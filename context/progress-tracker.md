@@ -16,6 +16,21 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Homepage button typography (2026-11-05)**:
+  - [x] All homepage buttons and link CTAs now explicitly use the existing static `Montserrat CTA Bold` face at weight 700, including Products, Specials, section CTAs, store actions, Search, Subscribe, and product Add/quantity controls.
+  - [x] Scoped the typography to `.eskort-homepage` and excluded `#hero-myskaftin-cta`; its CAV/ISKHAFTIN split-font label, sizing, and spacing remain unchanged. Other pages and generated UI primitives are untouched.
+  - [x] Updated `context/ui-context.md` to document the homepage button rule.
+  - [x] Verification: `npx tsc --noEmit --incremental false`, `npm run build`, and `git diff --check` pass. Browser visual verification was unavailable because the screenshot result was missing.
+- [x] **Homepage hero CTA label sizing (2026-11-05)**:
+  - [x] "CAV" now uses a dedicated `Montserrat CTA Bold` `@font-face` pointing at `eskort-homepage-new/fonts/Montserrat-Bold.ttf`, so it can't be overridden by the competing variable `Montserrat` face in `app/globals.css`.
+  - [x] "ISKHAFTIN" (`.cta-label-spaza`) enlarged to `1.45em` of the button font size (about 23px on desktop, 13px at ≤640px). The label uses `line-height: 1` so the button height is unchanged.
+- [x] **Homepage hero CTA font swap (2026-11-05)**:
+  - [x] "ISKHAFTIN" in the `#hero-myskaftin-cta` button now uses the existing `Spaza` (EskortSpazaClean) face instead of `Barber` (EskortBarber5). The class was renamed `.cta-label-barber` → `.cta-label-spaza` in `eskort-homepage-new/index.tsx` and `styles.css`. Fallbacks: Caveat → Permanent Marker → cursive.
+- [x] **Homepage hero CTA rename (2026-11-05)**:
+  - [x] `eskort-homepage-new/index.tsx`: the `#hero-myskaftin-cta` button (still linking to `/skaftin`) now reads "CAV ISKHAFTIN" instead of "mySkaftin".
+  - [x] `eskort-homepage-new/styles.css`: new `.cta-split-label`, `.cta-label-montserrat` (Montserrat Bold for "CAV") and `.cta-label-barber` (the existing `Barber` / EskortBarber5 face for "ISKHAFTIN"). Both words sit in one inline-flex span, so the arrow keeps its existing spacing.
+  - [x] At ≤640px the button gets `flex-grow: 1.3` in the shared hero button row so the longer label fits.
+  - [x] Verification: `npx tsc --noEmit` passes.
 - [x] **Skaftin wizard banner and stepper (2026-11-05)**:
   - [x] `experience.tsx`: the rewards banner above the stepper now reads "Oinker Points" instead of "Skaftin Stars".
   - [x] Renamed the loyalty currency from "Skaftin Stars" / "Stars" to "Oinker Points" in all user-facing copy: `app/layout.tsx` metadata, sign-in, sign-up, profile, site header (badge aria-label and mobile menu), rewards panel, loyalty panel, skaftin hero, step-menu, confirmation (toast and balance), plus the `data.ts` doc comment and the context docs. Internal identifiers (`stars` state, `'stars'` notification type, `header-stars-badge` id, `Star` icon) are unchanged so stored data keeps working. "Star"-shaped food names and the Super Shapes theme copy refer to shapes and were left as is.
