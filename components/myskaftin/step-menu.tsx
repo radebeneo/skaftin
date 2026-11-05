@@ -98,7 +98,7 @@ export function StepMenu({
                 <span className="mt-3 block font-display text-3xl leading-none">R{t.pricePerDay}</span>
                 <span className="text-xs font-bold opacity-70">per day</span>
                 <span className="mt-2 flex items-center gap-1 text-xs font-extrabold text-eskort-red">
-                  <Star className="h-3.5 w-3.5 fill-eskort-red" /> +{t.points} Skaftin Stars
+                  <Star className="h-3.5 w-3.5 fill-eskort-red" /> +{t.points} Oinker Points
                 </span>
               </button>
             )

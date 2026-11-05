@@ -16,6 +16,10 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Skaftin wizard banner and stepper (2026-11-05)**:
+  - [x] `experience.tsx`: the rewards banner above the stepper now reads "Oinker Points" instead of "Skaftin Stars".
+  - [x] Renamed the loyalty currency from "Skaftin Stars" / "Stars" to "Oinker Points" in all user-facing copy: `app/layout.tsx` metadata, sign-in, sign-up, profile, site header (badge aria-label and mobile menu), rewards panel, loyalty panel, skaftin hero, step-menu, confirmation (toast and balance), plus the `data.ts` doc comment and the context docs. Internal identifiers (`stars` state, `'stars'` notification type, `header-stars-badge` id, `Star` icon) are unchanged so stored data keeps working. "Star"-shaped food names and the Super Shapes theme copy refer to shapes and were left as is.
+  - [x] `experience.tsx`: the step progress indicator is centred from `sm` up. Steps size to their content (`sm:flex-initial`) and the connectors have a fixed width (`w-6` / `md:w-16` / `lg:w-24`) instead of stretching, and the row uses `sm:justify-center`. The mobile 3-column grid is unchanged.
 - [x] **Vercel build repair after PR #4 merge (2026-11-03)**:
   - [x] Cause: merging `main` into `live-skaftin-preview` (`8ec41ac`) re-applied the earlier PR #2 revert (`fdc3881`) on top of the newer lunchbox work. That left `live-skaftin-preview.tsx` half-merged (unclosed JSX, undefined `Image`/`LUNCHBOX_IMAGE`/`MainCompartment`/`isMobileExpanded`), deleted `public/assets/skaftin/lunchbox/eskort-lunchbox-design-preview.png`, and removed the Wiggles/Yoghurt options and food-metadata updates.
   - [x] Fix: restored `live-skaftin-preview.tsx`, `data.ts`, `experience.tsx`, `step-build.tsx`, `step-taste.tsx`, `lib/skaftin-data.ts`, this tracker and the lunchbox PNG from `8a6e17b`. Patch IDs confirmed the merge's changes to these files were identical to the old revert, so no `main` work was lost.
@@ -66,7 +70,7 @@ Update this file after every meaningful implementation change.
 - [x] `lib/cart-store.ts` — localStorage cart with add/remove/quantity/total
 - [x] `lib/auth.ts` — localStorage mock auth (Clerk-interface-compatible)
 - [x] `lib/notifications-store.ts` — localStorage notifications with add/markRead/clearAll
-- [x] `lib/rewards-store.ts` — localStorage Skaftin Stars with tiers and history
+- [x] `lib/rewards-store.ts` — localStorage Oinker Points (formerly Skaftin Stars) with tiers and history
 - [x] `components/cart-drawer.tsx` — slide-in drawer, item list, quantity stepper, order summary
 - [x] `components/notifications-bell.tsx` — bell icon, unread count, dropdown panel
 - [x] `components/toast-queue.tsx` — global slide-in toast queue

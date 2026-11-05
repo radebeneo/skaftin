@@ -43,7 +43,7 @@ export function RewardsPanel() {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/20 bg-white/10 text-white text-xs font-bold uppercase tracking-wider mb-3">
               <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-              <span>Skaftin Stars</span>
+              <span>Oinker Points</span>
             </div>
             <h2 className="font-display font-black text-3xl sm:text-4xl text-white uppercase tracking-tight">
               MY REWARDS
@@ -64,7 +64,7 @@ export function RewardsPanel() {
 
         {/* Star balance */}
         <div className="flex items-end gap-3 mb-6">
-          <span className="font-display font-black text-5xl sm:text-6xl text-white leading-none" aria-label={`${stars} Skaftin Stars`}>
+          <span className="font-display font-black text-5xl sm:text-6xl text-white leading-none" aria-label={`${stars} Oinker Points`}>
             {stars.toLocaleString()}
           </span>
           <div className="pb-2">
@@ -115,7 +115,7 @@ export function RewardsPanel() {
 
         {/* How to earn */}
         <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
-          <h3 className="text-xs font-black uppercase tracking-wider text-white/50 mb-3">How to Earn Stars</h3>
+          <h3 className="text-xs font-black uppercase tracking-wider text-white/50 mb-3">How to Earn Oinker Points</h3>
           <div className="space-y-2">
             {[
               { label: 'Complete a Skaftin plan', stars: '80–220 ⭐', desc: 'Depends on your chosen tier' },

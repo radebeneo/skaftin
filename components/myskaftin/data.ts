@@ -193,7 +193,7 @@ export type JuniorMenuItem = {
   allergenIds: AllergenId[]
   /** per-serving price used for budget scoring */
   pricePerDay: number
-  /** Skaftin Stars awarded */
+  /** Oinker Points awarded */
   points: number
   /** personality affinities: which personalities love this item */
   personalityAffinity: PersonalityId[]

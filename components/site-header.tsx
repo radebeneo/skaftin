@@ -169,7 +169,7 @@ export function SiteHeader() {
           {/* RIGHT: Actions */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             {isSignedIn && (
-              <Link href="/profile" id="header-stars-badge" className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-eskort-yellow/30 px-3 py-1.5 text-xs font-bold text-eskort-yellow hover:bg-eskort-yellow/10 transition" aria-label={`${stars} Skaftin Stars`} style={{ background: 'rgba(253,185,19,0.08)' }}>
+              <Link href="/profile" id="header-stars-badge" className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-eskort-yellow/30 px-3 py-1.5 text-xs font-bold text-eskort-yellow hover:bg-eskort-yellow/10 transition" aria-label={`${stars} Oinker Points`} style={{ background: 'rgba(253,185,19,0.08)' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
                 <span>{stars}</span>
               </Link>
@@ -261,7 +261,7 @@ export function SiteHeader() {
                 </div>
                 <div>
                   <p className="font-black text-sm text-white">{user.displayName}</p>
-                  <p className="text-xs text-white/50">{stars} Stars</p>
+                  <p className="text-xs text-white/50">{stars} Oinker Points</p>
                 </div>
               </div>
             )}

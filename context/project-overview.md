@@ -2,12 +2,12 @@
 
 ## Overview
 
-MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa's most loved meat brand (est. 1917). It serves two audiences: shoppers browsing and purchasing Eskort products online, and parents building personalised weekly lunchbox ("skaftin") plans for their children using Eskort products. Users earn Skaftin Stars (loyalty rewards) for every completed plan, redeemable against future orders. The app is a marketing and e-commerce hybrid: it drives product discovery, builds brand loyalty through the rewards system, and converts browsers into repeat buyers.
+MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa's most loved meat brand (est. 1917). It serves two audiences: shoppers browsing and purchasing Eskort products online, and parents building personalised weekly lunchbox ("skaftin") plans for their children using Eskort products. Users earn Oinker Points (loyalty rewards) for every completed plan, redeemable against future orders. The app is a marketing and e-commerce hybrid: it drives product discovery, builds brand loyalty through the rewards system, and converts browsers into repeat buyers.
 
 ## Goals
 
 1. Enable a parent to browse Eskort products, build a 5-day lunchbox plan in under 3 minutes, and check out — all in one flow.
-2. Drive brand loyalty by awarding Skaftin Stars for every completed plan and displaying a tiered rewards status.
+2. Drive brand loyalty by awarding Oinker Points for every completed plan and displaying a tiered rewards status.
 3. Expand junior menu variety so children can choose from shaped foods, animal bites, alphabet snacks, and lunchables-style packs.
 4. Provide full account management: sign in, sign up, profile settings, saved addresses, and dietary preferences.
 5. Surface contextual notifications (order confirmations, star awards, weekly specials) without leaving the page.
@@ -89,12 +89,12 @@ MySkaftin is a consumer-facing Next.js web application for Eskort, South Africa'
 - Preferences: dietary restrictions, favourite Eskort products
 - Addresses: saved delivery addresses with add/edit/delete
 
-### Rewards (Skaftin Stars)
-- Star balance displayed in header (signed-in only)
+### Rewards (Oinker Points)
+- Points balance displayed in header (signed-in only)
 - 3 tiers: Bronze (0–199 ⭐), Silver (200–499 🌟), Gold (500+ 🏆)
 - Animated progress bar to next tier
 - Earn history (last 5 events)
-- Stars awarded on: plan completion (varies by tier), first sign-up (50 bonus)
+- Points awarded on: plan completion (varies by tier), first sign-up (50 bonus)
 - Rewards panel component on homepage
 
 ## Scope

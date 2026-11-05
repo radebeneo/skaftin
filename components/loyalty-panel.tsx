@@ -30,7 +30,7 @@ export function LoyaltyPanel({
         <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold uppercase tracking-widest text-ink">
-              <Star className="h-3.5 w-3.5 fill-ink" aria-hidden="true" /> Skaftin Stars
+              <Star className="h-3.5 w-3.5 fill-ink" aria-hidden="true" /> Oinker Points
             </span>
             <h2
               id="loyalty-heading"
@@ -51,7 +51,7 @@ export function LoyaltyPanel({
                   {stars}
                 </div>
                 <div className="mt-1 text-xs font-semibold text-white/60">
-                  Stars earned
+                  Points earned
                 </div>
               </div>
               <div className="rounded-2xl bg-white/10 px-5 py-4">

@@ -19,7 +19,7 @@ const anton = Anton({
 export const metadata: Metadata = {
   title: 'Eskort Weekly Lunchbox Builder',
   description:
-    'Beat lunchbox boredom. Build a fun, kid-approved weekly Skaftin plan with Eskort products, in a few simple steps — and earn Skaftin Stars every week.',
+    'Beat lunchbox boredom. Build a fun, kid-approved weekly Skaftin plan with Eskort products, in a few simple steps — and earn Oinker Points every week.',
   generator: 'v0.app',
   icons: {
     icon: [

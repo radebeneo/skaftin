@@ -42,7 +42,7 @@
 - Every user signs in via the mock auth system (`lib/auth.ts`), which stores a session in localStorage under `eskort-auth`.
 - Auth state is read client-side only (`'use client'`). No server-side auth middleware in this phase.
 - The profile page (`/profile`) checks for a session on mount and redirects to `/sign-in` if absent.
-- Skaftin Stars are tied to the localStorage session; stars persist per device.
+- Oinker Points are tied to the localStorage session; points persist per device. (Internally the store, hook value and notification type are still named `stars`.)
 - The mock auth interface matches the Clerk `useUser()` shape: `{ isSignedIn, user: { id, fullName, emailAddresses, imageUrl } }` — making real Clerk integration a drop-in replacement.
 
 ## Invariants

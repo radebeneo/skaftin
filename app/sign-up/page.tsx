@@ -39,7 +39,7 @@ export default function SignUpPage() {
     setTimeout(() => {
       signIn(email, name)
       addStars(50, 'Welcome bonus — new account')
-      addNotification('stars', 'Welcome to Eskort! 🎉', `Hi ${name}! You've earned 50 Skaftin Stars as a welcome bonus.`)
+      addNotification('stars', 'Welcome to Eskort! 🎉', `Hi ${name}! You've earned 50 Oinker Points as a welcome bonus.`)
       addNotification('system', 'Your account is ready', 'You can now build Skaftin plans and track your rewards.')
       setLoading(false)
       router.replace('/')
@@ -62,11 +62,11 @@ export default function SignUpPage() {
             JOIN THE<br />FAMILY
           </h1>
           <p className="text-base font-bold text-white/90 leading-relaxed">
-            Create your free Eskort account and start building personalised lunchbox plans for your kids. Earn Stars. Unlock rewards.
+            Create your free Eskort account and start building personalised lunchbox plans for your kids. Earn Oinker Points. Unlock rewards.
           </p>
           <div className="mt-8 space-y-3">
             {[
-              { emoji: '⭐', title: '50 Stars welcome bonus', sub: 'On your first sign-up' },
+              { emoji: '⭐', title: '50 Oinker Points welcome bonus', sub: 'On your first sign-up' },
               { emoji: '🎒', title: 'Build unlimited Skaftin plans', sub: 'New plan every week' },
               { emoji: '🏆', title: 'Climb the rewards tiers', sub: 'Bronze → Silver → Gold' },
             ].map(item => (
@@ -191,7 +191,7 @@ export default function SignUpPage() {
                 <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
               ) : (
                 <>
-                  <span>Create Account — Earn 50 Stars</span>
+                  <span>Create Account — Earn 50 Oinker Points</span>
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}

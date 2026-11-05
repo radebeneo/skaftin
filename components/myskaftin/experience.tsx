@@ -156,7 +156,7 @@ export function MySkaftinExperience() {
         <div className="flex items-center gap-2">
           <Star className="h-4 w-4 fill-eskort-yellow text-eskort-yellow" aria-hidden="true" />
           <span className="text-sm font-extrabold text-ink">
-            {stars} <span className="font-semibold text-muted-foreground">Skaftin Stars</span>
+            {stars} <span className="font-semibold text-muted-foreground">Oinker Points</span>
           </span>
         </div>
         <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
@@ -167,18 +167,18 @@ export function MySkaftinExperience() {
 
       {/* ── Step progress indicator ──────────────────────────── */}
       <div className="mb-8">
-        <div className="grid grid-cols-3 items-start gap-2 sm:flex sm:items-center sm:gap-0">
+        <div className="grid grid-cols-3 items-start gap-2 sm:flex sm:items-center sm:justify-center sm:gap-0">
           {STEPS.map((s, i) => {
             const active = step === s.n
             const complete = step > s.n
             return (
-              <div key={s.n} className="flex min-w-0 flex-1 items-center">
+              <div key={s.n} className="flex min-w-0 flex-1 items-center sm:flex-initial">
                 <button
                   type="button"
                   disabled={s.n > step}
                   onClick={() => { if (s.n < step) goToStep(s.n) }}
                   aria-label={`Step ${s.n}: ${s.full}${complete ? ' (completed)' : active ? ' (current)' : ''}`}
-                  className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center disabled:cursor-default sm:flex-row sm:gap-2 sm:text-left"
+                  className="flex min-w-0 flex-1 flex-col items-center gap-1.5 text-center disabled:cursor-default sm:flex-initial sm:flex-row sm:gap-2 sm:text-left"
                 >
                   <span
                     className={`grid h-9 w-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold transition-all duration-300 sm:h-10 sm:w-10 sm:text-base ${
@@ -202,7 +202,7 @@ export function MySkaftinExperience() {
                 </button>
                 {i < STEPS.length - 1 && (
                   <div
-                    className={`mx-3 hidden h-0.5 flex-1 rounded-full transition-all duration-500 sm:block ${step > s.n ? 'bg-eskort-blue' : 'bg-muted'}`}
+                    className={`mx-2 hidden h-0.5 w-6 shrink-0 rounded-full transition-all duration-500 sm:block md:mx-3 md:w-16 lg:w-24 ${step > s.n ? 'bg-eskort-blue' : 'bg-muted'}`}
                   />
                 )}
               </div>

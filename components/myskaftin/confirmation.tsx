@@ -43,7 +43,7 @@ export function Confirmation({
   // Award stars and fire notification once on mount
   useEffect(() => {
     addStars(earned, `Skaftin plan — ${tier.name}`)
-    addNotification('stars', `+${earned} Skaftin Stars earned! ⭐`, `Your ${tier.name} plan has been confirmed. Stars added to your balance.`)
+    addNotification('stars', `+${earned} Oinker Points earned! ⭐`, `Your ${tier.name} plan has been confirmed. Points added to your balance.`)
     addNotification('order', 'Skaftin Plan Confirmed! 🎒', `Order ${orderDetails.orderRef} is confirmed. Delivery: ${slotLabel}.`)
     try {
       const raw = localStorage.getItem('eskort-plans')
@@ -194,7 +194,7 @@ export function Confirmation({
         </div>
       </div>
 
-      {/* ── Stars earned ─────────────────────────────────────────── */}
+      {/* ── Points earned ─────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-[24px] bg-eskort-yellow px-5 py-5 text-ink">
         <div className="flex items-center gap-3">
           <span className="grid h-12 w-12 place-items-center rounded-2xl bg-ink text-eskort-yellow">
@@ -202,7 +202,7 @@ export function Confirmation({
           </span>
           <div>
             <span className="block text-xs font-extrabold uppercase tracking-wide opacity-70">
-              Skaftin Stars balance
+              Oinker Points balance
             </span>
             <span className="font-display text-3xl leading-none">{totalPoints}</span>
           </div>

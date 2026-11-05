@@ -36,7 +36,7 @@ export default function SignInPage() {
     setTimeout(() => {
       signIn(email, email.split('@')[0])
       addStars(50, 'Welcome bonus — first sign-in')
-      addNotification('stars', 'Welcome back! 🎉', "You've earned 50 Skaftin Stars for signing in.")
+      addNotification('stars', 'Welcome back! 🎉', "You've earned 50 Oinker Points for signing in.")
       setLoading(false)
       router.replace('/')
     }, 800)
@@ -59,13 +59,13 @@ export default function SignInPage() {
             WELCOME<br />BACK
           </h1>
           <p className="text-base font-bold text-ink leading-relaxed">
-            Sign in to manage your Skaftin plans, track your Stars rewards, and build the perfect lunchbox for your little ones.
+            Sign in to manage your Skaftin plans, track your Oinker Points rewards, and build the perfect lunchbox for your little ones.
           </p>
           <div className="mt-8 flex items-center gap-3 bg-white/40 rounded-2xl px-4 py-3">
             <span className="text-2xl">⭐</span>
             <div>
-              <p className="font-black text-sm text-ink">Earn Skaftin Stars</p>
-              <p className="text-xs text-ink/70">50 bonus stars on your first sign-in</p>
+              <p className="font-black text-sm text-ink">Earn Oinker Points</p>
+              <p className="text-xs text-ink/70">50 bonus Oinker Points on your first sign-in</p>
             </div>
           </div>
         </div>

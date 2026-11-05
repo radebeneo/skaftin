@@ -38,7 +38,7 @@ export function SkaftinHero() {
               <Smile className="h-4 w-4" aria-hidden="true" /> Kid-approved picks
             </li>
             <li className="inline-flex items-center gap-1.5">
-              <Star className="h-4 w-4" aria-hidden="true" /> Earn Skaftin Stars
+              <Star className="h-4 w-4" aria-hidden="true" /> Earn Oinker Points
             </li>
           </ul>
         </div>

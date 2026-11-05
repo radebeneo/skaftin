@@ -60,7 +60,7 @@ function AccountTab({ user, onUpdate }: { user: NonNullable<ReturnType<typeof us
           )}
           <p className="text-sm text-muted-foreground truncate">{user.email}</p>
           <p className="text-xs font-bold text-amber-600 mt-1">
-            {TIER_EMOJI[tier]} {tier} member · {stars} Stars
+            {TIER_EMOJI[tier]} {tier} member · {stars} Oinker Points
           </p>
         </div>
       </div>
@@ -342,7 +342,7 @@ export default function ProfilePage() {
               <div className="mt-6 p-4 bg-ink rounded-2xl text-white">
                 <div className="flex items-center gap-2 mb-2">
                   <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  <p className="text-xs font-black uppercase tracking-wider text-white/60">Skaftin Stars</p>
+                  <p className="text-xs font-black uppercase tracking-wider text-white/60">Oinker Points</p>
                 </div>
                 <p className="font-black text-2xl text-white">{useRewardsStore().stars.toLocaleString()} ⭐</p>
                 <p className="text-xs text-white/50 mt-1">{useRewardsStore().tier} tier</p>
