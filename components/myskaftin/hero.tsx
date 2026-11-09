@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { Gift, Star, Clock } from 'lucide-react'
 
 export function MySkaftinHero() {
   return (
@@ -7,27 +6,16 @@ export function MySkaftinHero() {
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-4 px-4 pb-16 pt-10 sm:gap-8 sm:px-6 sm:py-14 md:grid-cols-2 md:py-16 lg:px-8 lg:py-20 xl:gap-16">
         <div className="relative z-10">
           <h1 className="font-gobold text-5xl uppercase leading-[0.9] sm:text-6xl lg:text-7xl xl:text-8xl">
-            Bye-bye
+            <span className="inline-block font-montserrat font-black text-eskort-ink">CAV</span>
             <br />
-            <span className="inline-block font-eskort-spaza text-[1.75em] text-eskort-red">boring</span>{' '}
-            lunchboxes
+            <span className="inline-block font-eskort-spaza text-[1.75em] normal-case text-eskort-red">
+              iSKHAFTIN!
+            </span>
           </h1>
           <p className="mt-4 max-w-xl text-sm font-semibold text-eskort-ink/85 sm:text-base lg:text-lg">
             Beat decision fatigue. Build your kid&apos;s weekly lunchbox kit from Eskort favourites in{' '}
             <span className="text-eskort-red">3 fun steps</span> — fresh themes every month, zero repeats.
           </p>
-
-          <div className="mt-6 flex flex-wrap gap-2 text-sm font-bold">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-3 py-1.5">
-              <Clock className="h-4 w-4 text-eskort-yellow" /> 3 quick steps
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-3 py-1.5">
-              <Gift className="h-4 w-4 text-eskort-yellow" /> Free first-order gift
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-3 py-1.5">
-              <Star className="h-4 w-4 text-eskort-yellow" /> Earn Yummy Points
-            </span>
-          </div>
 
           <a
             href="#builder"

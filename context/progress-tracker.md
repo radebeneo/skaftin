@@ -16,6 +16,10 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Skaftin hero heading (2026-11-09)**:
+  - [x] `components/myskaftin/hero.tsx`: "Bye-bye boring lunchboxes" replaced with "CAV iSKHAFTIN!". "CAV" uses Montserrat (`font-montserrat font-black`) in black (`text-eskort-ink`); "iSKHAFTIN!" sits on the next line in EskortSpazaClean (`font-eskort-spaza`) in Eskort red at `1.35em`, with `normal-case` so the lowercase "i" survives the heading's `uppercase`.
+  - [x] Updated `context/ui-context.md` typography table.
+  - [x] Removed the hero's three badge pills ("3 quick steps", "Free first-order gift", "Earn Yummy Points") and the now-unused `Clock` / `Gift` / `Star` lucide imports. The BUILD MY KIT CTA now sits directly under the intro paragraph.
 - [x] **Homepage button typography (2026-11-05)**:
   - [x] All homepage buttons and link CTAs now explicitly use the existing static `Montserrat CTA Bold` face at weight 700, including Products, Specials, section CTAs, store actions, Search, Subscribe, and product Add/quantity controls.
   - [x] Scoped the typography to `.eskort-homepage` and excluded `#hero-myskaftin-cta`; its CAV/ISKHAFTIN split-font label, sizing, and spacing remain unchanged. Other pages and generated UI primitives are untouched.
