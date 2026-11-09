@@ -44,7 +44,8 @@ New components must not use direct hex values in inline styles.
 | Skaftin builder display text | Gobold Bold → Impact | Scoped `.font-display` override |
 | Condensed hero text (SHOP / ONLINE NOW) | League Gothic → Antonio → Teko → Anton → Impact | `.hero-impact-text` |
 | Skaftin accent script | EskortSpazaClean → Caveat → Permanent Marker | `font-eskort-spaza` |
-| Skaftin hero heading "CAV iSKHAFTIN!" | "CAV" in Montserrat Black, ink (black); "iSKHAFTIN!" in EskortSpazaClean at 1.35em, Eskort red, original casing preserved | `font-montserrat text-eskort-ink` / `font-eskort-spaza normal-case text-eskort-red` |
+| Skaftin hero heading "CAV iSKHAFTIN!" | "CAV" in Montserrat Black, ink (black); "iSKHAFTIN!" in EskortSpazaClean at 1.75em, Eskort red, original casing preserved | `font-montserrat text-eskort-ink` / `font-eskort-spaza normal-case text-eskort-red` |
+| Skaftin hero tagline "A LUNCHBOX WORTH BRAGGIN ABOUT" | Gobold Bold, uppercase, 0.4em of the heading size, ink (black), on its own line under "iSKHAFTIN!" | `font-gobold text-[0.4em] text-eskort-ink` |
 | Homepage button labels (except the split hero CTA) | Montserrat Bold (dedicated `Montserrat CTA Bold` face → `fonts/Montserrat-Bold.ttf`), weight 700 | Scoped `.eskort-homepage :is(button, .button):not(#hero-myskaftin-cta)` |
 | Homepage hero CTA "CAV ISKHAFTIN" | "CAV" in Montserrat Bold (dedicated `Montserrat CTA Bold` face → `fonts/Montserrat-Bold.ttf`), "ISKHAFTIN" in EskortSpazaClean at 1.45em of the button size (`Spaza` family in `eskort-homepage-new/styles.css`) | `.cta-label-montserrat` / `.cta-label-spaza` |
 | Code / mono | System mono | Not used |

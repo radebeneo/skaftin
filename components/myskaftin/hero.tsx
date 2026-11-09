@@ -11,6 +11,9 @@ export function MySkaftinHero() {
             <span className="inline-block font-eskort-spaza text-[1.75em] normal-case text-eskort-red">
               iSKHAFTIN!
             </span>
+            <span className="mt-2 block font-gobold text-[.35em] leading-tight text-eskort-ink">
+              A lunchbox worth bragging about
+            </span>
           </h1>
           <p className="mt-4 max-w-xl text-sm font-semibold text-eskort-ink/85 sm:text-base lg:text-lg">
             Beat decision fatigue. Build your kid&apos;s weekly lunchbox kit from Eskort favourites in{' '}
