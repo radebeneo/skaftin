@@ -16,6 +16,18 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Homepage mobile grunge-edge warp fix (2026-11-09)**:
+  - [x] Cause: the torn-edge SVGs (`eskort-homepage-new/images1/deco/bg-grundge-*.svg`, about 1920×27 with `preserveAspectRatio="none"`) were drawn at `background-size: 100% 100%` on fixed-height strips (44px/28px). At 375px the art was squeezed about 5× horizontally, so the section edges showed tall, thin spikes and looked vertically stretched.
+  - [x] Fix: a consolidated override block at the end of `eskort-homepage-new/styles.css` sets `background-size: max(100%, 1280px) 100%` with `background-position: center` on every grunge strip (`.categories::before`, `.marquee-grunge`, `.rib-rack-grunge-before`, `.store-locator::before`, `.category-marquee-stack::after`, `.recipes::before`, the `.rough-*` edges and `.site-footer::before`). The same sizing was added to `.site-footer::before` in `components/site-footer.css`. The art keeps its desktop proportions and is cropped at the sides on narrow screens; at 1280px and wider it renders exactly as before.
+  - [x] Ruled out: hero media (`object-fit: cover`), image width/height attributes, fonts, flex stretching and the viewport meta. `.hero-impact-text` `scaleY(1.1)` in `app/globals.css` only applies to sign-in/sign-up.
+  - [x] Verification: headless Chrome screenshots at 375px and 1280px (natural ragged edges on mobile, no desktop change); `npx tsc --noEmit`, `npm run build` and `git diff --check` pass.
+
+- [x] **Sticker QR codes (2026-11-09)**:
+  - [x] Confirmed the live production URL is `https://skaftin.vercel.app` (GitHub repo homepage). The latest Vercel Production deployment (`2269e39`) succeeded and matches local `HEAD`. Both `/` and `/skaftin` return 200.
+  - [x] Added `marketing/qr/skaftin-builder-qr.{png,svg}` → `https://skaftin.vercel.app/skaftin` (primary, for the "Cav iSKhaftin" sticker) and `marketing/qr/skaftin-home-qr.{png,svg}` → `https://skaftin.vercel.app/`.
+  - [x] Black on white, error correction level H (~30%), 4-module quiet zone, 2048×2048 PNG plus scalable SVG for print. Each PNG was decoded with jsQR and matched its target URL. The generator tools ran from a temp folder, so no project dependencies were added.
+  - [x] The QR in the AI-generated sticker mockup is decorative and not scannable, so it must be replaced with `skaftin-builder-qr.svg` in the final artwork.
+
 - [x] **Skaftin hero heading (2026-11-09)**:
   - [x] `components/myskaftin/hero.tsx`: "Bye-bye boring lunchboxes" replaced with "CAV iSKHAFTIN!". "CAV" uses Montserrat (`font-montserrat font-black`) in black (`text-eskort-ink`); "iSKHAFTIN!" sits on the next line in EskortSpazaClean (`font-eskort-spaza`) in Eskort red at `1.75em` (adjusted from the initial `1.35em`), with `normal-case` so the lowercase "i" survives the heading's `uppercase`.
   - [x] Updated `context/ui-context.md` typography table.

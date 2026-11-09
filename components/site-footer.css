@@ -29,6 +29,8 @@
   left: -2px;
   height: var(--footer-grunge-depth);
   background: url("/images1/images1/deco/bg-grundge-black-before.svg") center / 100% 100% no-repeat;
+  /* Keep the torn edge's proportions on narrow screens (unchanged at >=1280px). */
+  background-size: max(100%, 1280px) 100%;
   content: "";
   pointer-events: none;
 }

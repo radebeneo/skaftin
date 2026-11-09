@@ -2992,3 +2992,32 @@ button {
     transition: none;
   }
 }
+
+/*
+  Torn-edge ("grunge") strips: keep their proportions on narrow screens.
+  The edge SVGs use preserveAspectRatio="none" and were sized 100% x fixed
+  height, so on mobile the art was squeezed ~5x horizontally and looked like
+  tall vertical spikes. Never render the art narrower than the 1280px desktop
+  layout; the centred strip is cropped at the sides instead of warped.
+  At >=1280px max(100%, 1280px) is 100%, so desktop is unchanged.
+*/
+.categories::before,
+.marquee-grunge,
+.rib-rack-grunge-before,
+.store-locator::before,
+.site-footer::before,
+.category-marquee-stack::after,
+.rough-black::before,
+.rough-black::after,
+.recipes::before,
+.rough-bottom::after,
+.rough-blue::after,
+.rough-red::after,
+.rough-gold::after,
+.rough-mint::after,
+.rough-green::after,
+.rough-cream::before,
+.rough-cream::after {
+  background-position: center;
+  background-size: max(100%, 1280px) 100%;
+}
