@@ -3025,3 +3025,92 @@ button {
   background-position: center;
   background-size: max(100%, 1280px) 100%;
 }
+
+/*
+  Mobile (<=640px): tighten every homepage section below the hero.
+  Tablet (641-800px) and desktop are unchanged. Spacing that holds the
+  carousel arrows, the favourites' overlapping product images and the
+  torn-edge overlaps (--grunge-overlap) is reduced, not removed.
+*/
+@media (max-width: 640px) {
+  :root {
+    /* Drives recipes, heritage and favourites padding (was 72px). */
+    --section-space: 52px;
+  }
+
+  /* Categories: arrows sit 52px below the track, so keep 64px under it. */
+  .categories {
+    padding: 52px 0 64px;
+  }
+
+  .category-shell {
+    margin-top: 20px;
+  }
+
+  .category-shell>.carousel-control {
+    bottom: -52px;
+  }
+
+  .section-intro {
+    margin-bottom: 28px;
+  }
+
+  .section-intro .intro-icon {
+    margin-bottom: 10px;
+  }
+
+  .section-intro .section-title {
+    margin-bottom: 14px;
+  }
+
+  .section-intro>p {
+    margin-bottom: 16px;
+  }
+
+  /* Product carousels: the next arrow (48px) lives in the bottom padding. */
+  .product-track {
+    padding-bottom: 60px;
+  }
+
+  /* Specials cards clip their images, so they need little top room. */
+  .specials .product-track {
+    padding-top: 20px;
+  }
+
+  .rib-rack {
+    min-height: 370px;
+  }
+
+  .quality,
+  .quality-inner {
+    min-height: 640px;
+  }
+
+  .quality-copy {
+    padding-top: 56px;
+  }
+
+  .heritage-grid {
+    gap: 16px;
+  }
+
+  .story-card {
+    min-height: 410px;
+  }
+
+  .story-pill {
+    margin-bottom: 20px;
+  }
+
+  .store-locator {
+    min-height: 0;
+  }
+
+  .store-inner {
+    padding-block: 56px 60px;
+  }
+
+  .anim-block {
+    margin-bottom: 32px;
+  }
+}

@@ -16,6 +16,14 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Homepage mobile section tightening (2026-11-10)**:
+  - [x] New `@media (max-width: 640px)` block at the end of `eskort-homepage-new/styles.css` shortens every homepage section below the hero. Tablet (641–800px) and desktop are unchanged.
+  - [x] `--section-space` is now 52px on mobile (was 72px). This drives the recipes, heritage and favourites padding.
+  - [x] Categories: padding is `52px 0 64px`, the shell margin is 20px and the arrows sit at `bottom: -52px`. Section intros have smaller icon, title and paragraph margins.
+  - [x] Product carousels keep 60px bottom padding for the next arrow; specials tracks have 20px top padding. Rib rack min-height is 370px, quality is 640px (copy padding-top 56px), story cards are 410px with a 16px heritage gap, and the store locator sizes to content (`padding-block: 56px 60px`).
+  - [x] Torn-edge overlaps (`--grunge-overlap`) and the shared `SiteFooter` are untouched.
+  - [x] Verification: at a true 375px the document went from 7,450px to 6,769px (681px shorter). Categories 466→424, specials 930→844, rib rack 430→370, quality 750→640, recipes 876→802, heritage 1088→940, favourites 969→875, store locator 470→403. At 1280px every section and the 5,538px total are identical to the baseline. Screenshots show no clipped images, overlapping arrows or broken torn edges. `npx tsc --noEmit --incremental false`, `npm run build` and `git diff --check` pass.
+
 - [x] **Homepage mobile hero tightening (2026-11-10)**:
   - [x] Removed the "Loved by 41K+ across SA" `.proof-pill` from the hero in `eskort-homepage-new/index.tsx`, plus its now-unused 390px font-size override in `styles.css`. The shared `.proof-pill, .sale-pill, .story-pill` base rule stays because other sections still use it.
   - [x] At ≤640px the hero no longer has a fixed `min-height: 720px` and the copy is no longer pinned to the bottom (`align-items: end`). The hero now sizes to its content, and the copy starts `calc(var(--grunge-overlap) + 20px)` from the top, just clear of the header's torn edge. The 132px bottom padding still keeps the buttons clear of the centred progress/pause controls.
