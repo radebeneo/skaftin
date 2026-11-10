@@ -16,6 +16,12 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Homepage mobile categories compaction + hero controls (2026-11-10)**:
+  - [x] New `@media (max-width: 640px)` block at the end of `eskort-homepage-new/styles.css`. Tablet (641–800px) and desktop are unchanged.
+  - [x] Categories: title is 30px/42px (was 37px/53px), category images are 78px wide (was 105px), labels are 15px (was 19px) with a 6px top margin, and the label arrows are 7×11px.
+  - [x] Hero controls moved from centred to the bottom-right (`right: 0`, `transform: none`, `bottom: 36px`), so they align with the 18px gutter. They are about 25% smaller: the progress SVG is 140×43px (was 188×58px) and the pause button is 32px (was 40px) with a smaller pause/play icon. The button is right-aligned under the bar (`justify-self: end`) and clears the categories torn edge.
+  - [x] Verification: at a true 375px, categories went from 424px to 361px and the document from 6,769px to 6,706px. The controls sit 15px below the hero buttons and 18px from the right edge. At 1280px every section and the 5,538px total are unchanged. A screenshot confirmed the layout. `npx tsc --noEmit --incremental false` and `npm run build` pass.
+
 - [x] **Homepage mobile section tightening (2026-11-10)**:
   - [x] New `@media (max-width: 640px)` block at the end of `eskort-homepage-new/styles.css` shortens every homepage section below the hero. Tablet (641–800px) and desktop are unchanged.
   - [x] `--section-space` is now 52px on mobile (was 72px). This drives the recipes, heritage and favourites padding.
@@ -26,7 +32,7 @@ Update this file after every meaningful implementation change.
 
 - [x] **Homepage mobile hero tightening (2026-11-10)**:
   - [x] Removed the "Loved by 41K+ across SA" `.proof-pill` from the hero in `eskort-homepage-new/index.tsx`, plus its now-unused 390px font-size override in `styles.css`. The shared `.proof-pill, .sale-pill, .story-pill` base rule stays because other sections still use it.
-  - [x] At ≤640px the hero no longer has a fixed `min-height: 720px` and the copy is no longer pinned to the bottom (`align-items: end`). The hero now sizes to its content, and the copy starts `calc(var(--grunge-overlap) + 20px)` from the top, just clear of the header's torn edge. The 132px bottom padding still keeps the buttons clear of the centred progress/pause controls.
+  - [x] At ≤640px the hero no longer has a fixed `min-height: 720px` and the copy is no longer pinned to the bottom (`align-items: end`). The hero now sizes to its content, and the copy starts `calc(var(--grunge-overlap) + 20px)` from the top, just clear of the header's torn edge. The 132px bottom padding still keeps the buttons clear of the progress/pause controls (moved to the bottom-right later the same day).
   - [x] Tablet (641–800px) and desktop hero sizing are unchanged.
   - [x] Verification: `npx tsc --noEmit --incremental false`, `npm run build` and `git diff --check` pass. Headless Chrome screenshots of the production build: at a true 375px width (rendered in a 375px iframe, because desktop Chrome enforces a minimum window width), the headline starts just below the header's torn edge, the hero is about 450px tall instead of at least 720px, the pill is gone, and the buttons end about 15px above the progress/pause controls. The desktop hero at 1280px is unchanged.
 

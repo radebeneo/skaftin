@@ -2921,7 +2921,7 @@ button {
     Mobile: size the hero to its content instead of a fixed 720px, and start
     the copy just below the header's torn edge (which overlaps the hero by
     --grunge-overlap) rather than pinning it to the bottom. The bottom padding
-    keeps the copy clear of the centred progress/pause controls.
+    keeps the copy clear of the progress/pause controls (bottom-right).
   */
   .hero,
   .hero-inner {
@@ -3112,5 +3112,69 @@ button {
 
   .anim-block {
     margin-bottom: 32px;
+  }
+}
+
+/*
+  Mobile (<=640px): compact categories carousel and smaller hero controls.
+  Tablet (641-800px) and desktop are unchanged.
+*/
+@media (max-width: 640px) {
+  /* Categories: smaller title, images and labels (was 37/53px, 105px, 19px). */
+  .categories .section-title span {
+    margin-bottom: 8px;
+    font-size: 30px;
+  }
+
+  .categories .section-title em {
+    font-size: 42px;
+  }
+
+  .category-image {
+    width: min(100%, 78px);
+  }
+
+  .category-card strong {
+    margin-top: 6px;
+    font-size: 15px;
+  }
+
+  .category-arrow {
+    width: 7px;
+    height: 11px;
+  }
+
+  /* Hero: progress bar and pause button sit at the right edge, ~25% smaller. */
+  /* Bottom offset keeps the pause button clear of the categories torn edge. */
+  .hero-controls {
+    right: 0;
+    bottom: 36px;
+    width: 140px;
+    transform: none;
+  }
+
+  #progress {
+    width: 140px;
+    height: 43px;
+  }
+
+  .hero-playback {
+    width: 32px;
+    height: 32px;
+    margin-top: 6px;
+    justify-self: end;
+  }
+
+  .hero-pause-icon {
+    width: 8px;
+    height: 10px;
+    border-right-width: 2px;
+    border-left-width: 2px;
+  }
+
+  .hero-playback[aria-pressed="true"] .hero-pause-icon {
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 9px;
   }
 }
