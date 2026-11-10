@@ -282,7 +282,6 @@ export function EskortHomepage() {
           <div className="hero-shade"></div>
           <div className="container hero-inner">
             <div className="hero-copy">
-              <p className="proof-pill">Loved by 41K+ across SA</p>
               <h1 id="hero-title"><span>From Our Table</span><em><b>To Yours</b><img className="title-squiggle"
                 src="images1/deco/deco-title-squiggle.svg" alt="" width="172" height="112" /></em></h1>
               <p className="hero-description">Whether it's a weekday breakfast, a family dinner or a weekend braai, discover

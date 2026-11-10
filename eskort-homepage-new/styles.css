@@ -2640,10 +2640,6 @@ button {
     width: 38px;
   }
 
-  .hero-copy .proof-pill {
-    font-size: 9px;
-  }
-
   .hero h1 span {
     font-size: 43px;
   }
@@ -2921,12 +2917,20 @@ button {
 
 @media (max-width: 640px) {
 
+  /*
+    Mobile: size the hero to its content instead of a fixed 720px, and start
+    the copy just below the header's torn edge (which overlaps the hero by
+    --grunge-overlap) rather than pinning it to the bottom. The bottom padding
+    keeps the copy clear of the centred progress/pause controls.
+  */
   .hero,
   .hero-inner {
-    min-height: 720px;
+    min-height: 0;
   }
 
   .hero-inner {
+    align-items: start;
+    padding-top: calc(var(--grunge-overlap) + 20px);
     padding-bottom: 132px;
   }
 

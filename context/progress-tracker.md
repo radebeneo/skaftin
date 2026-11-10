@@ -16,6 +16,12 @@ Update this file after every meaningful implementation change.
 
 ## Completed
 
+- [x] **Homepage mobile hero tightening (2026-11-10)**:
+  - [x] Removed the "Loved by 41K+ across SA" `.proof-pill` from the hero in `eskort-homepage-new/index.tsx`, plus its now-unused 390px font-size override in `styles.css`. The shared `.proof-pill, .sale-pill, .story-pill` base rule stays because other sections still use it.
+  - [x] At ≤640px the hero no longer has a fixed `min-height: 720px` and the copy is no longer pinned to the bottom (`align-items: end`). The hero now sizes to its content, and the copy starts `calc(var(--grunge-overlap) + 20px)` from the top, just clear of the header's torn edge. The 132px bottom padding still keeps the buttons clear of the centred progress/pause controls.
+  - [x] Tablet (641–800px) and desktop hero sizing are unchanged.
+  - [x] Verification: `npx tsc --noEmit --incremental false`, `npm run build` and `git diff --check` pass. Headless Chrome screenshots of the production build: at a true 375px width (rendered in a 375px iframe, because desktop Chrome enforces a minimum window width), the headline starts just below the header's torn edge, the hero is about 450px tall instead of at least 720px, the pill is gone, and the buttons end about 15px above the progress/pause controls. The desktop hero at 1280px is unchanged.
+
 - [x] **Homepage mobile grunge-edge warp fix (2026-11-09)**:
   - [x] Cause: the torn-edge SVGs (`eskort-homepage-new/images1/deco/bg-grundge-*.svg`, about 1920×27 with `preserveAspectRatio="none"`) were drawn at `background-size: 100% 100%` on fixed-height strips (44px/28px). At 375px the art was squeezed about 5× horizontally, so the section edges showed tall, thin spikes and looked vertically stretched.
   - [x] Fix: a consolidated override block at the end of `eskort-homepage-new/styles.css` sets `background-size: max(100%, 1280px) 100%` with `background-position: center` on every grunge strip (`.categories::before`, `.marquee-grunge`, `.rib-rack-grunge-before`, `.store-locator::before`, `.category-marquee-stack::after`, `.recipes::before`, the `.rough-*` edges and `.site-footer::before`). The same sizing was added to `.site-footer::before` in `components/site-footer.css`. The art keeps its desktop proportions and is cropped at the sides on narrow screens; at 1280px and wider it renders exactly as before.
